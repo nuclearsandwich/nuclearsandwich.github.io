@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>http://blog.nuclearsandwich.com/blog/2010/10/26/initial-commit/</loc>
+        <lastmod>2011-09-03T15:07:29-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2010/11/07/why-i-try-to-be-satisfied-with-partial-credit-and-you-should-too/
+        </loc>
+        <lastmod>2011-09-03T15:19:14-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2011/01/22/computer-science-education-in-silicon-valley/
+        </loc>
+        <lastmod>2011-09-03T15:31:26-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2011/04/15/the-wakemate-a-review-after-three-months/
+        </loc>
+        <lastmod>2011-09-03T16:44:18-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.nuclearsandwich.com/blog/2011/09/03/switching-to-octopress/</loc>
+        <lastmod>2011-09-03T15:07:23-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.nuclearsandwich.com/blog/archives/</loc>
+        <lastmod>2011-09-03T16:44:18-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.nuclearsandwich.com/</loc>
+        <lastmod>2011-09-03T16:44:18-07:00</lastmod>
+    </url>
+</urlset>
