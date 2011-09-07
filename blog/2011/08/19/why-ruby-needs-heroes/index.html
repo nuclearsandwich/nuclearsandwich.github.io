@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mad Ramblings of a Lunatic Hacker: Why Ruby Needs Heroes</title>
+  <meta name="author" content="Steven! Ragnarök">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Mad Ramblings of a Lunatic Hacker" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Mad Ramblings of a Lunatic Hacker</a></h1>
+  
+    <h2>An Exercise in Wit or Vanity</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="https://duckduckgo.com/" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.nuclearsandwich.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Why Ruby Needs Heroes</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-19 12:12:00 -0700" pubdate  updated >Aug 19<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em>A reflection on the Ruby community&#8217;s tendency to celebrate individual
+developers and what good comes of it.</em></p>
+
+<p>The Ruby community isn&#8217;t unique in its tendency for celebrating rockstar
+developers but after examining the communities history it would seem that we
+burn them out bright and fast.</p>
+
+<p>When I first became involved in the community I had heard of almost no one. My
+first hero is my friend Erik Ostrom to whom I owe a great deal for my first and
+second introductions to Ruby. Without you Erik I would be missing out on the
+most fun, passionate, and rewarding hacking I have ever done. I have you to
+thank for my introductions to rhe MVC pattern, idiomatic programming, and the
+process of developing software. I also owe you a big thanks for pointing me to
+_why&#8217;s (Poignant) Guide to Ruby.</p>
+
+<p>Which leads nicely into my second hero <em>why the lucky stiff. The Guide when I
+first read it was the most refreshing and maddeningly beautiful piece of
+technical literature I had ever encountered and remains so to this day. Never
+before had I seen a language presented side by side with English hold its
+expressiveness the way Ruby did. It took me three tries to finish the Guide but
+I have read over its pages many times reminding myself to &#8220;use what Ruby gives
+[me]&#8221; and it is still my goto for explaining nil, truthiness, and falsiness in
+Ruby. If I were to teach programming in an art department, The Guide would be my
+textbook. But </em>why gave me more than the guide. Through Camping I was able to
+study &#8220;magic&#8221; and be exposed to the raw untamed power of metaprogramming in
+Ruby. Even though I had missed the whole hullabaloo surrounding _why&#8217;s exit
+from the community by a matter of weeks his work has had a lasting and profound
+effect on me and I thank him.</p>
+
+<p>Like many developers my first full application in Ruby and real test of what I
+learned was using Ruby on Rails. Rails 2.3.5 to be precise. This marks me as a
+new kid on the block I know, but let&#8217;s face it, I am. I have been living with
+Ruby for little more than two years. But that&#8217;s the evolution of community
+without new blood it dries out. Anyway through this early stage I had a
+collection of mentors. The most prolific of which wasn&#8217;t even aware of it at the
+time.</p>
+
+<p>Ryan Bates, your Railscasts helped guide me not only on specific challenges I
+was facing building my first production app but also provided my first exposure
+to lots of quality Ruby code and process. One thing the Ruby community gets on a
+fundamental level is that process matters and you were my first big introduction
+to that. You also introduced me to rvm and by extension my next hero.</p>
+
+<p>Wayne Seguin, rvm is a colossal undertaking. Managing development environments
+has always been a pain and you shaved one of the biggest, hairiest yaks ever to
+stand in the middle of the room.
+MixedMetaphorException: &#8220;Yaks aren&#8217;t elephants.&#8221;</p>
+
+<p>You are also a fabulous example of a project maintainer I don&#8217;t have a specific
+IRC story of my own but that only speaks to the quality of your work. You&#8217;re
+also a wonderful example of a polyglot Rubyist and really show what can happen
+when Rubyists take their knowledge and experience and apply it to funny little
+languages like bash.</p>
+
+<p>Last April I had the pleasure of meeting Steve Klabnik at the very first
+CodeConf. One of the coolest things about you Steve is that you&#8217;re pretty much
+my age. It was so inspiring to see you, such an obviously accepted member of the
+Ruby community, so close to my own age. You indirectly informed me that the amount
+of effort required to really get involved and make a difference wasn&#8217;t in the
+depressingly distant future and this has motivated me substantially in my
+efforts to give back even as I receive.</p>
+
+<p>Thanks man, you rock</p>
+
+<p>Lately I have been reading a lot of stuff from Avdi Grimm. You&#8217;re style is so
+refined and decisive. Few people think about the meaning and reason behind their
+code and design decisions as you clearly do. Lately I have been turning to your
+writings when I find myself wondering about the best way to do something.</p>
+
+<p>So my journey through Ruby has brought me across the paths of these heroes and
+so many more. But what motivates me to think of these fine folks this way even
+when they may not want the attention. How many feel overly pressured by or
+undeserving of their status. When thinking on this, I am reminded of Firefly.
+(If you haven&#8217;t seen it, seriously do yourself a favor and watch it.)</p>
+
+<p><img src="/images/blog/jaynestown.jpg" alt="Jaynestown" /></p>
+
+<p>Specifically the Hero of Canton episode in which Jayne, the least noble of the
+protagonists, is remembered as a folk hero on a backwater mining colony for
+accidentally dropping crates of money over the mining camps. At the end Jayne
+can&#8217;t understand what they see in him when dropping the money at all was simply
+a dishonest mistake as the episode wraps up he&#8217;s told that the statue in his
+honor isn&#8217;t for him, it is for the miners. We build heroes out of you because we
+see qualities in you we hope to someday find in ourselves. So please, whether
+you&#8217;re a Jayne Cobb or Malcom Reynolds, if someone thinks of you as their hero,
+just be proud that you&#8217;ve done something extraordinary and they hope to follow
+suit.</p>
+
+<p>Happy _whyday,
+Steven!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Steven! Ragnarök</span></span>
+
+      
+
+
+
+
+<time datetime="2011-08-19 12:12:00 -0700" pubdate  updated >Aug 19<span>th</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ruby/'>Ruby</a>, <a class='category' href='/blog/categories/community/'>community</a>, <a class='category' href='/blog/categories/free-software/'>free software</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes/" data-via="_nuclearsammich" data-counturl="http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes/" >Tweet</a>
+  
+  
+  <g:plusone size="small"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/09/03/switching-to-octopress/">Switching to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs/">Why You Shouldn&#8217;t Use Factories in Unit-level Tests or Specs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/why-ruby-needs-heroes/">Why Ruby Needs Heroes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/03/coffeescript-an-outsider-opinion/">CoffeeScript: An Outsider</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku/">A Sane Configuration Setup for Rack Applications on Heroku</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/nuclearsandwich">@nuclearsandwich</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'nuclearsandwich',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("_nuclearsammich", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/_nuclearsammich" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @_nuclearsammich</a>
+  
+</section>
+
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:nuclearsandwich">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "nuclearsandwich"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Steven! Ragnarök -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title>Mad Ramblings of a Lunatic Hacker</title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2011-09-03T23:02:45-07:00</updated>
+  <updated>2011-09-07T07:40:14-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name>Steven! Ragnarök</name>
@@ -29,10 +29,518 @@ platform.&lt;/p&gt;
   </entry>
   
   <entry>
+    <title>Why You Shouldn't Use Factories in Unit-level Tests or Specs</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs/"/>
+    <updated>2011-08-31T05:11:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs</id>
+    <content type="html">&lt;p&gt;They're tightly fucking coupled! That's Why&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE:&lt;/strong&gt; Or as Steve Klabnik puts it more precisely and politely:&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;factories are integration tests by definition, because they do not exercise a
+single unit.&lt;/p&gt;&lt;/blockquote&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Why Ruby Needs Heroes</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes/"/>
+    <updated>2011-08-19T12:12:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes</id>
+    <content type="html">&lt;p&gt;&lt;em&gt;A reflection on the Ruby community's tendency to celebrate individual
+developers and what good comes of it.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The Ruby community isn't unique in its tendency for celebrating rockstar
+developers but after examining the communities history it would seem that we
+burn them out bright and fast.&lt;/p&gt;
+
+&lt;p&gt;When I first became involved in the community I had heard of almost no one. My
+first hero is my friend Erik Ostrom to whom I owe a great deal for my first and
+second introductions to Ruby. Without you Erik I would be missing out on the
+most fun, passionate, and rewarding hacking I have ever done. I have you to
+thank for my introductions to rhe MVC pattern, idiomatic programming, and the
+process of developing software. I also owe you a big thanks for pointing me to
+_why's (Poignant) Guide to Ruby.&lt;/p&gt;
+
+&lt;p&gt;Which leads nicely into my second hero &lt;em&gt;why the lucky stiff. The Guide when I
+first read it was the most refreshing and maddeningly beautiful piece of
+technical literature I had ever encountered and remains so to this day. Never
+before had I seen a language presented side by side with English hold its
+expressiveness the way Ruby did. It took me three tries to finish the Guide but
+I have read over its pages many times reminding myself to &quot;use what Ruby gives
+[me]&quot; and it is still my goto for explaining nil, truthiness, and falsiness in
+Ruby. If I were to teach programming in an art department, The Guide would be my
+textbook. But &lt;/em&gt;why gave me more than the guide. Through Camping I was able to
+study &quot;magic&quot; and be exposed to the raw untamed power of metaprogramming in
+Ruby. Even though I had missed the whole hullabaloo surrounding _why's exit
+from the community by a matter of weeks his work has had a lasting and profound
+effect on me and I thank him.&lt;/p&gt;
+
+&lt;p&gt;Like many developers my first full application in Ruby and real test of what I
+learned was using Ruby on Rails. Rails 2.3.5 to be precise. This marks me as a
+new kid on the block I know, but let's face it, I am. I have been living with
+Ruby for little more than two years. But that's the evolution of community
+without new blood it dries out. Anyway through this early stage I had a
+collection of mentors. The most prolific of which wasn't even aware of it at the
+time.&lt;/p&gt;
+
+&lt;p&gt;Ryan Bates, your Railscasts helped guide me not only on specific challenges I
+was facing building my first production app but also provided my first exposure
+to lots of quality Ruby code and process. One thing the Ruby community gets on a
+fundamental level is that process matters and you were my first big introduction
+to that. You also introduced me to rvm and by extension my next hero.&lt;/p&gt;
+
+&lt;p&gt;Wayne Seguin, rvm is a colossal undertaking. Managing development environments
+has always been a pain and you shaved one of the biggest, hairiest yaks ever to
+stand in the middle of the room.
+MixedMetaphorException: &quot;Yaks aren't elephants.&quot;&lt;/p&gt;
+
+&lt;p&gt;You are also a fabulous example of a project maintainer I don't have a specific
+IRC story of my own but that only speaks to the quality of your work. You're
+also a wonderful example of a polyglot Rubyist and really show what can happen
+when Rubyists take their knowledge and experience and apply it to funny little
+languages like bash.&lt;/p&gt;
+
+&lt;p&gt;Last April I had the pleasure of meeting Steve Klabnik at the very first
+CodeConf. One of the coolest things about you Steve is that you're pretty much
+my age. It was so inspiring to see you, such an obviously accepted member of the
+Ruby community, so close to my own age. You indirectly informed me that the amount
+of effort required to really get involved and make a difference wasn't in the
+depressingly distant future and this has motivated me substantially in my
+efforts to give back even as I receive.&lt;/p&gt;
+
+&lt;p&gt;Thanks man, you rock&lt;/p&gt;
+
+&lt;p&gt;Lately I have been reading a lot of stuff from Avdi Grimm. You're style is so
+refined and decisive. Few people think about the meaning and reason behind their
+code and design decisions as you clearly do. Lately I have been turning to your
+writings when I find myself wondering about the best way to do something.&lt;/p&gt;
+
+&lt;p&gt;So my journey through Ruby has brought me across the paths of these heroes and
+so many more. But what motivates me to think of these fine folks this way even
+when they may not want the attention. How many feel overly pressured by or
+undeserving of their status. When thinking on this, I am reminded of Firefly.
+(If you haven't seen it, seriously do yourself a favor and watch it.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nuclearsandwich.com/images/blog/jaynestown.jpg&quot; alt=&quot;Jaynestown&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Specifically the Hero of Canton episode in which Jayne, the least noble of the
+protagonists, is remembered as a folk hero on a backwater mining colony for
+accidentally dropping crates of money over the mining camps. At the end Jayne
+can't understand what they see in him when dropping the money at all was simply
+a dishonest mistake as the episode wraps up he's told that the statue in his
+honor isn't for him, it is for the miners. We build heroes out of you because we
+see qualities in you we hope to someday find in ourselves. So please, whether
+you're a Jayne Cobb or Malcom Reynolds, if someone thinks of you as their hero,
+just be proud that you've done something extraordinary and they hope to follow
+suit.&lt;/p&gt;
+
+&lt;p&gt;Happy _whyday,
+Steven!&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>CoffeeScript: An Outsider</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/07/03/coffeescript-an-outsider-opinion/"/>
+    <updated>2011-07-03T18:16:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/07/03/coffeescript-an-outsider-opinion</id>
+    <content type="html">&lt;p&gt;&lt;em&gt;Thoughts on CoffeeScript from a server-side developer just getting started with
+frontend and JavaScript development.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Firstly, if you’re unfamiliar with CoffeeScript, I recommend reading elsewhere
+for a proper overview and introduction. The CoffeeScript homepage and the
+Introductory Chapter of The Litte CoffeeScript Book are good resources for that.
+If you’re really impatient CoffeeScript is in the author’s own words
+&quot;JavaScript’s less ostentatious kid brother.&quot; I’ve also heard it called
+&quot;Javascript for Ruby and Python programmers&quot; and &quot;What Javascript should have
+been&quot; by several of my peers. It also seems that it could’ve been called
+CilantroScript&lt;a href=&quot;http://coffeescript.com&quot;&gt;1&lt;/a&gt; as it seems to have an instantly polarizing effect on people
+in online communities such as Reddit and the Ruby on Rails community.&lt;/p&gt;
+
+&lt;h2&gt;So why did I start working with CoffeeScript? A number of reasons.&lt;/h2&gt;
+
+&lt;p&gt;I am a backend developer and want to grow my frontend skills.
+1. I’m starting to experiment with Node.js on the server.
+2. Jeremy Ashkenas’s talk at CodeConf on literate programming blew my mind.
+3.I know Ruby, so I should enjoy a “Javascript for Rubyists”, right?
+4. It is going to be a Ruby on Rails default soon so I might as well check it
+out now.
+5. I like new and shiny things.&lt;/p&gt;
+
+&lt;p&gt;One of the quandries I faced when deciding to learn CoffeeScript was the fact
+that I don’t know JavaScript. I spent 6 months noodling with Ruby before picking
+up Rails and am still getting my feet wet with Python before taking Django for a
+spin. So why on Earth would someone with my MO pick up CoffeeScript without
+first becoming proficient with javascript? (Aside: I’m tired of the CamelCasing)
+The answer comes from the first sentence (topic sentence, for those still in Jr.
+High School) in the second paragraph of the coffeescript home page.&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;The golden rule of CoffeeScript is: “It’s just JavaScript”.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;As it turns out that isn’t entirely true since coffeescript is a class based
+object oriented language and javascript is prototype based. This was actually a
+mark against coffeescript for me since part of my desire to learn javascript was
+to dally in prototype based OOP. (Luckily there’s still Io for that.) But for
+the most part Coffee really is just javascript.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;EDIT: Jeremy Ashkenas has kindly clarified this point for me.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;CoffeeScript is prototype based to the precise same extent that JavaScript is.
+The &quot;class&quot; keyword is just sugar for JavaScript’s constructor function +
+prototype chain combination. To mangle Shakespeare:&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;What’s in a name? That which we call a class by any other name would smell
+as sweet. Call it a prototype if you like — it’s the same thing in code.&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Thanks Jeremy, apologies for misapprehending.&lt;/p&gt;
+
+&lt;h2&gt;So why the bother?&lt;/h2&gt;
+
+&lt;p&gt;A while back I invested some of my hard-earned and short-in-supply cash to pick
+up a ten-pack of PeepCode tokens. I have to say, I’ve derived an intense amount
+of value from PeepCode but more on that later. I started with PeepCode’s Meet
+CoffeeScript, had they produced a Meet JavaScript I would have started there,
+but they didn’t. It took around six hours to watch the three and a half hour
+video. Almost immediately after, I started PeepCode’s Meet Node.js screencast
+and attempted to do it in javascript for about eight minutes. The appeal of
+coffeescript was immediately clear.&lt;/p&gt;
+
+&lt;p&gt;In JavaScript, I have to worry about whether or not every line ends in a
+semicolon, that there are no extraneous commas, yet commas where necessary,
+and that I’ve remembered the var keyword on all my local variables. All that
+stuff is important in JavaScript it doesn’t actually effect my application in
+any way. In CoffeeScript, I can focus on the behavior of my code rather than the
+presentation of it. Instead of scrutinizing each line for a semicolon and each
+block for matching curly braces. I’m affirming that all my variables are scoped
+properly and that my code does what I want it to do. It doesn’t add much to
+javascript but rather, reduces the amount of worry and focus on what is at the
+end of the day arbitrary stuff.&lt;/p&gt;
+
+&lt;p&gt;Sure, I have Vim configured with the fantastic Synastic plugin and I get
+notified when I drop a semicolon or have an unmatched brace but what’s the
+point? Basic sanity checking is all it can really do. Why even waste the time
+to go back and insert those in the first place?&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I’m still continuing my education in JavaScript, CoffeeScript, jQuery, Node.js,
+and prototype-based OOP. I’m armed with the beta copy of the CoffeeScript book
+by Trevor Burnham from Pragmatic Programmers. I fully intend to use CoffeeScript
+for all of my development in Javascript environments, server- and client-side,
+work and play, for the foreseeable future.&lt;/p&gt;
+
+&lt;h2&gt;My CoffeeScript Resources&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://coffeescript.com&quot;&gt;The CoffeeScript Website and Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://peepcode.com/products/coffeescript&quot;&gt;Meet CoffeeScript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://pragprog.com/book/tbcoffee/coffeescript&quot;&gt;CoffeeScript: Accelerated JavaScript Development by Trevor Burnham&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://jashkenas.github.com/coffee-script/documentation/docs/command.html&quot;&gt;The Annotated CoffeeScript Source&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://arcturo.com/library/coffeescript/index.html&quot;&gt;The Little CoffeeScript Book&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://oreilly.com/catalog/9780596517748/&quot;&gt;Javascript: The Good Parts by Douglas Crockford&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://eloquentjavascript.net/&quot;&gt;Eloquent Javascript by Marjin Haverbeke&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://autotelicum.github.com/Smooth-CoffeeScript/&quot;&gt;Smooth CoffeeScript by autotelicum&lt;/a&gt; via
+&lt;a href=&quot;http://twitter.com/raynos2&quot;&gt;@Raynos2&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Cilantro (or Coriander) is an herb which to some people tastes pleasantly
+citrus-like and to others is rank and revolting or soapy. As a result many
+people either love it or hate it. Few are ambivalent about Cilantro. The same
+is true of CoffeeScript in my observation.&lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>A Sane Configuration Setup for Rack Applications on Heroku</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku/"/>
+    <updated>2011-06-25T09:05:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku</id>
+    <content type="html">&lt;p&gt;&lt;strong&gt;&lt;em&gt;Update:&lt;/em&gt;&lt;/strong&gt; The Github repo I linked at the end of this article was private
+and I forgot to make it public. It is now, sorry. ~Steven!&lt;/p&gt;
+
+&lt;p&gt;Recently, Nowmov has started using &lt;a href=&quot;http://heroku.com&quot;&gt;Heroku&lt;/a&gt; for application
+deployment. In the past I've always been hesitant toward &quot;hosted
+solutions&quot; but a combination of focusing my time and the flexibility and
+power of Heroku's Celadon Cedar stack has brought me into contact with
+one such solution.&lt;/p&gt;
+
+&lt;p&gt;One of the first peculiarities/gotchas/side-effects of many of these
+hosted solutions is that they don't provide shell or ftp access. Nor can
+you write to the file system from your application. This caused us some
+interesting problems during the migration.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Rails convention dictates that &lt;code&gt;config/settings.yml&lt;/code&gt;,
+&lt;code&gt;config/database.yml&lt;/code&gt; and friends not be stored in source control and
+that we should store template files instead so developers are aware of
+setup specific configuration details. However, our inability to push
+files not in source control to Heroku leaves us unable to use the
+standard convention for configuration details. The way Heroku bypasses
+this leads to the next hurdle.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The whole point of Heroku is that you don't deal with IT, just your
+code. This means that you don't really care where your PostgreSQL
+database is or what port you use to connect to your Redis instance. But
+you still need to connect to those things! So what does Heroku do? They
+give you environment variables. &lt;code&gt;heroku run 'echo $DATABASE_URL'&lt;/code&gt;
+returns a big long uri corresponding to your app's database. With this
+specific config variable, Heroku is kind enough to render a
+&lt;code&gt;database.yml&lt;/code&gt; from it using erb. But it only works ActiveRecord
+compatible database.ymls, which is not all of them, believe it or not.
+(I'm looking at you Sequel) Inspect your Heroku config variables by
+running &lt;code&gt;heroku config&lt;/code&gt; from an app directory. The amount of scary
+looking crap in there might surprise you!&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;You can even add your own config variables such as
+&lt;code&gt;MR_FANCY_PANTS=the_worlds_best_pants&lt;/code&gt; with
+&lt;code&gt;heroku config:add MR_FANCY_PANTS=sad_deep_inside ARTIST=&quot;Jonathan
+Coulton&quot;&lt;/code&gt; this command will expose both your variables to your code
+using Ruby's &lt;code&gt;ENV&lt;/code&gt; hash.&lt;/p&gt;
+
+&lt;p&gt;In your code you'd get to it like this:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;#!ruby&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;controller_action&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ARTIST&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Jonathan Coulton&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;vi&quot;&gt;@still_alive&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But then this also has to work locally! So you need to do somethig like
+this:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;#!ruby&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;controller_action&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ARTIST&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;SETTINGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:artist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Jonathan Coulton&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;vi&quot;&gt;@still_alive&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Alternatively, you could set up all these environment variables using a
+rake or thor task before launching your app but who wants to deal with
+that? My favorite solution to a problem is a coding solution.&lt;/p&gt;
+
+&lt;p&gt;And you have to do that &lt;em&gt;everywhere&lt;/em&gt; you want to use a situation
+specific configuration. I don't know about you but that seems hacky,
+error prone, and repetitive to me. Smelly code, in other words. In
+working on my recent projects I've been studying a large number of small
+Ruby applications. Mostly Sinatra but some in Rails and Padrino as well.
+In all those apps, I never found a ubiquitously deployed solution for
+the configuration situation in a Heroku-style environment so I left it
+to simmer a few days and dealt with &lt;code&gt;ENV[:KEY] || SETTINGS['key']&lt;/code&gt; all
+over my app. Then, over too much cold brew coffee I came up with a
+workable solution. While this is the very first time I've seen this
+solution in a web application. It actually comes from messing around in
+&lt;code&gt;irb&lt;/code&gt; earlier in the week trying to alter prompt strings for vanity's sake.&lt;/p&gt;
+
+&lt;p&gt;Everyone open &lt;code&gt;irb&lt;/code&gt; right now! Just go to a terminal and do it! Got it? Okay&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;gt; IRB.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You'll see how this inspired my solution later on. Or perhaps I'm not as
+brilliant as I think I am and it's obvious to you already (&lt;em&gt;likely&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;So let's say we're working on a lightweight Sinatra application and we
+know that it'll start simple and grow in complexity later on. Since
+we're smart we're going to namespace the whole thing under a module.
+Namely &lt;code&gt;Saneconf&lt;/code&gt; Our skeleton looks like this:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;Main Application File - app.rb &lt;/span&gt;&lt;/figcaption&gt;
+ &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;span class='line'&gt;20&lt;/span&gt;
+&lt;span class='line'&gt;21&lt;/span&gt;
+&lt;span class='line'&gt;22&lt;/span&gt;
+&lt;span class='line'&gt;23&lt;/span&gt;
+&lt;span class='line'&gt;24&lt;/span&gt;
+&lt;span class='line'&gt;25&lt;/span&gt;
+&lt;span class='line'&gt;26&lt;/span&gt;
+&lt;span class='line'&gt;27&lt;/span&gt;
+&lt;span class='line'&gt;28&lt;/span&gt;
+&lt;span class='line'&gt;29&lt;/span&gt;
+&lt;span class='line'&gt;30&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='rb'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;#!ruby&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rubygems&amp;#39;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Only needed for Ruby 1.8&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bundler&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;# After this line, I shouldn&amp;#39;t even have to *think* about dependencies.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;no&quot;&gt;Bundler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;require&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;# This is the initilization file for the Saneconf API. All set up, library&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;# loading and application level settings are done here.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Saneconf&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# If there&amp;#39;s a better/safer way to do this generically do let me know.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# I haven&amp;#39;t encountered a setup where this didn&amp;#39;t work.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# This one is important so we set it early and use a constant.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# Set Rack environment if not specified.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;no&quot;&gt;RACK_ENV&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;RACK_ENV&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;development&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# Create an accessor to a module attribute which defaults to a&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@conf_hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Hash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# Handles initialization and preprocessing of application settings be they&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;c1&quot;&gt;# from Heroku&amp;#39;s Environment or a local `settings.yml`.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;require_relative&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;config/setup.rb&amp;#39;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Sinatra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;lt;h1&amp;gt;So nice to be sane again, eh? &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ARTIST&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?&amp;lt;/h1&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That looks cool and all, but what the hell is &lt;code&gt;config/setup.rb&lt;/code&gt;? Answer: It's
+where the magic happens, let's go take a look:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;The Magic Happens Here - config/setup.rb &lt;/span&gt;&lt;/figcaption&gt;
+ &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;span class='line'&gt;20&lt;/span&gt;
+&lt;span class='line'&gt;21&lt;/span&gt;
+&lt;span class='line'&gt;22&lt;/span&gt;
+&lt;span class='line'&gt;23&lt;/span&gt;
+&lt;span class='line'&gt;24&lt;/span&gt;
+&lt;span class='line'&gt;25&lt;/span&gt;
+&lt;span class='line'&gt;26&lt;/span&gt;
+&lt;span class='line'&gt;27&lt;/span&gt;
+&lt;span class='line'&gt;28&lt;/span&gt;
+&lt;span class='line'&gt;29&lt;/span&gt;
+&lt;span class='line'&gt;30&lt;/span&gt;
+&lt;span class='line'&gt;31&lt;/span&gt;
+&lt;span class='line'&gt;32&lt;/span&gt;
+&lt;span class='line'&gt;33&lt;/span&gt;
+&lt;span class='line'&gt;34&lt;/span&gt;
+&lt;span class='line'&gt;35&lt;/span&gt;
+&lt;span class='line'&gt;36&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='rb'&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;#!ruby&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;config/settings.yml&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;merge!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;no&quot;&gt;YAML&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;config/settings.yml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RACK_ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;RESQUE_SCHEDULE&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;no&quot;&gt;YAML&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;config/resque_schedule.yml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;merge!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;URI&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;DATABASE_URL&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;redis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;URI&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;REDISTOGO_URL&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;# Parse Postgres connection settings.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;DATABASE&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:adapter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scheme&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;ql&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Add a &amp;#39;ql&amp;#39; cause ActiveRecord is stupid.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:host&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;# Parse Redis connection settings.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;REDIS&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:host&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;ss&quot;&gt;:db&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;c1&quot;&gt;# Parse Resque Schedule YAML.&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;RESQUE_SCHEDULE&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;RESQUE_SCHEDULE&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;YAML&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;RESQUE_SCHEDULE&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;no&quot;&gt;Saneconf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;freeze&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;All this does is check for the existence of a &lt;code&gt;settings.yml&lt;/code&gt; and load  it's
+values into our (currently) empty configuration hash using an  in-place
+&lt;code&gt;#merge!&lt;/code&gt;. The reason we do this is because we very  purposefully didn't supply
+a mutator &lt;code&gt;Saneconf.conf=&lt;/code&gt; for our config  hash. We don't &lt;em&gt;want&lt;/em&gt; it to be
+overwritten later on. For the moment  though we can change existing keys and add
+new ones. Next we handle all  non-scalar configuration by parsing some of the
+scalar ones into hashes.  Arrays or any other Ruby object could be placed in the
+&lt;code&gt;conf&lt;/code&gt; hash. It  just happens that Hashes are commonly used by libraries like
+ActiveRecord and the Ruby Redis interface for initialization. The reason  I
+expand those here and not in place at point-of-use is mostly personal
+preference. All I ever want to see in the app is &lt;code&gt;conf['VARIABLE']&lt;/code&gt; and  I
+shouldn't have to think about it and whatever I'm trying to accomplish  at that
+point in our app. Lastly, we call &lt;code&gt;#freeze&lt;/code&gt; on the conf hash.  This is a method
+every Ruby object has which makes it immutable,  throwing an exception if an
+attempt is made to change it. This way, any  of your fellow developers will know
+that whatever they're doing belongs  in your application initialization code and
+not in the middle of your  important code.   Hopefully this proves helpful, the
+example code is available on
+&lt;a href=&quot;https://github.com/nuclearsandwich/saneconf&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Good hunting, Steven!&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
     <title>Engine Yard Whisky Dinner, CodeConf 2011</title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/04/27/engine-yard-whisky-dinner-code-conf-2011/"/>
-    <updated>2011-04-27T11:19:00-07:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/04/27/engine-yard-whisky-dinner-code-conf-2011</id>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/05/02/engine-yard-whisky-dinner-code-conf-2011/"/>
+    <updated>2011-05-02T10:10:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/05/02/engine-yard-whisky-dinner-code-conf-2011</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Update 5/3/11: Scroll to the bottom to see a near comprehensive list of what
 we drank. If I missed anything, do let me know.&lt;/strong&gt;&lt;/p&gt;
 

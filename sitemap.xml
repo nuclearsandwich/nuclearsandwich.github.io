@@ -34,20 +34,42 @@
     </url>
     <url>
         <loc>
-            http://blog.nuclearsandwich.com/blog/2011/04/27/engine-yard-whisky-dinner-code-conf-2011/
+            http://blog.nuclearsandwich.com/blog/2011/05/02/engine-yard-whisky-dinner-code-conf-2011/
         </loc>
-        <lastmod>2011-09-03T22:59:03-07:00</lastmod>
+        <lastmod>2011-09-07T06:53:43-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku/
+        </loc>
+        <lastmod>2011-09-07T07:29:58-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2011/07/03/coffeescript-an-outsider-opinion/
+        </loc>
+        <lastmod>2011-09-05T15:39:29-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes/</loc>
+        <lastmod>2011-09-07T07:40:00-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs/
+        </loc>
+        <lastmod>2011-09-05T16:29:17-07:00</lastmod>
     </url>
     <url>
         <loc>http://blog.nuclearsandwich.com/blog/2011/09/03/switching-to-octopress/</loc>
-        <lastmod>2011-09-03T15:07:23-07:00</lastmod>
+        <lastmod>2011-09-05T16:29:22-07:00</lastmod>
     </url>
     <url>
         <loc>http://blog.nuclearsandwich.com/blog/archives/</loc>
-        <lastmod>2011-09-03T22:59:03-07:00</lastmod>
+        <lastmod>2011-09-07T07:40:00-07:00</lastmod>
     </url>
     <url>
         <loc>http://blog.nuclearsandwich.com/</loc>
-        <lastmod>2011-09-03T22:59:03-07:00</lastmod>
+        <lastmod>2011-09-07T07:40:00-07:00</lastmod>
     </url>
 </urlset>
