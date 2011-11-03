@@ -4,13 +4,432 @@
   <title>Mad Ramblings of a Lunatic Hacker</title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2011-09-07T07:40:14-07:00</updated>
+  <updated>2011-11-03T09:24:15-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name>Steven! Ragnarök</name>
     
   </author>
 
+  
+  <entry>
+    <title>There Are 10 Types of Tests. You Need Both of Them</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/"/>
+    <updated>2011-10-28T02:22:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them</id>
+    <content type="html">&lt;p&gt;Over the course of the last year, and especially in the last two to three months
+I have been internalizing and witnessing for myself the extreme benefits of
+accompanying your code with a test suite which matches your code in quality.
+By this I mean that it is difficult (and damn frustrating) to write good tests
+for poor code. At my current skill level as a programmer there's code in my
+primary code base that is so bad (yep, I wrote that code too) that I am unable
+to write good tests for it. Up until four or five weeks ago, coinciding with my
+second readings of &lt;a href=&quot;http://pragprog.com/book/achbd/the-rspec-book&quot;&gt;The RSpec Book&lt;/a&gt;, and &lt;a href=&quot;http://pragprog.com/book/hwcuc/the-cucumber-book&quot;&gt;The Cucumber Book&lt;/a&gt;, sitting in
+as a guest panelist on &lt;a href=&quot;http://rubyrogues.com/book-club-exceptional-ruby/&quot;&gt;Ruby Rogues&lt;/a&gt;, and watching a bunch of
+&lt;a href=&quot;https://www.destroyallsoftware.com/screencasts&quot;&gt;Destroy All Software&lt;/a&gt;, I realized that in order to gain the benefits of TDD
+being touted by some of the most respected members of the Ruby community, I
+needed better tests. Specifically better isolated tests.&lt;/p&gt;
+
+&lt;h2&gt;Isolated Tests&lt;/h2&gt;
+
+&lt;p&gt;I recently had to completely justify my desire to add and grow isolated tests
+for production code. The argument against doing so was simply that if the &lt;em&gt;whole
+point&lt;/em&gt; of isolated tests is to know when something breaks in the future, an
+integrated test suite will pick up those failures just as well. Therefore
+isolated tests are a waste of time and engineering effort.&lt;/p&gt;
+
+&lt;p&gt;This argument &lt;em&gt;is&lt;/em&gt; correct, provided the only thing you use your isolated tests
+for is protection from regressions. However, doing so leaves out what is to my
+mind the &lt;strong&gt;greatest&lt;/strong&gt; and most profound advantage of isolated testing, which is
+immediate, focused feedback. I definitely think I'm inventing terms here so
+please indulge me while I clarify them.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Immediate: &lt;em&gt;The result (success or failure) can be observed right away.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Focused: &lt;em&gt;The cause of any failure is known to be within the system under
+test.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Anyone who has worked in software for a substantial amount of time knows that
+we are each our own worst enemy and the temptation to add unnecessary complexity
+is a constant bother. How many of us have added arguments to methods only to
+use the default value every time. I call these bullshit arguments, because they
+piss me off when I have to put up with them. The joy in a test with truly
+immediate feedback is the laser focus that they give you when working on a
+system. You're literally doing one thing at a time and checking that you get the
+expected result even when it isn't success. When you get the failure you expect,
+you simply move on, and when you get an unexpected failure it causes you to
+identify the disparity between your mental model of the system and the computer
+model and correct it. Since these tests are isolated and generally run in less
+than a second, there is essentially no penalty for running the tests with
+monstrous frequency. When you do have to stop, it is to make a correction,
+even if it is just a mental correction. The time you save fixing it early is
+more than enough to justify the low cost of running the test.&lt;/p&gt;
+
+&lt;p&gt;One of the downsides of this type of testing is that you are treating anything
+which isn't the system under test as an external service and therefore
+stubbing the interactions with it. This works great for fast, clean-room tests
+but it means that the burden of ensuring that the assumptions you make in one
+test are validated in the respective tests for your other systems is entirely on
+the programmer and since programmers are human, this will eventually lead to
+mistakes.&lt;/p&gt;
+
+&lt;p&gt;My personal favorite aspect of isolated tests is how informative they can be
+about your system. It's pretty common knowledge that if your tests are a pain in
+the ass to write, it's a good indication that your code is too-tightly coupled
+and refactoring to follow the &lt;a href=&quot;http://avdi.org/devblog/2011/07/05/demeter-its-not-just-a-good-idea-its-the-law/&quot;&gt;Law of Demeter&lt;/a&gt; and &lt;a href=&quot;http://blog.rubybestpractices.com/posts/gregory/055-issue-23-solid-design.html&quot;&gt;SOLID&lt;/a&gt; design
+principles is a good idea.&lt;/p&gt;
+
+&lt;h2&gt;Integrated Tests&lt;/h2&gt;
+
+&lt;p&gt;One of the scariest things that happened to me in recent memory was discovering
+that people were surprised when after arguing in favor of getting higher quality
+unit tests I was still unsatisfied because our integrated tests also needed
+attention and improvement. I found this a little disturbing (okay, I found this
+really disturbing) because I can't imagine how long it would take to manually
+verify that I didn't overlook anything in the major refactoring or feature
+addition I just performed. I certainly don't budget the time to manually test
+every resource and parameter combination by hand. I might do so initially
+because a major disadvantage to integrated tests is in the difficulty of doing
+exploratory testing at this level. As a result, when writing integrated tests, I
+tend to rely on manual experimentation to determine how my system behaves in
+undefined situations, make a decision on the appropriateness of that behavior
+and then solidify that set of interactions into a group of tests. One of the
+nice things about integrated tests is that once written, they tend not to change
+unless your expected end-user behavior changes. This is afforded by the
+&quot;bigger picture&quot; nature of integrated tests where you are less concerned with
+the exact behavior of any one unit and instead are validating the result of
+system-wide operation and interaction. Thus, integrated tests are largely immune
+to internal refactoring.&lt;/p&gt;
+
+&lt;p&gt;As one can imagine, the strengths of isolated tests are the weaknesses of
+integrated tests. When something is wrong, particularly in a complex interaction
+that touches many parts of the system, it can be unclear exactly where the
+problem in the codebase is when an integrated test fails. If you get an actual
+exception, you'll have a stacktrace to guide you, but those tend to be unhelpful
+errors like an unexpected nil and rarely is it obvious at what level the nil was
+assigned and how long it had been propagated upward until the failure. So it
+can be said that integrated tests are not focused since there is no indication
+of precisely where in the system the failure has occurred. Additionally,
+integrated tests mandate that you test your full software stack. Any persistence
+layers, external services, background tasks, and other specific tools you're
+using should be tested during this phase. As you can imagine testing all of
+these things takes time and computing power. It is not feasible to expect even
+a subset of an integrated test suite to run in the same magnitude of time as
+isolated tests, what this means is the tests are no longer immediate. Thus,
+they are not suitable for running at every pass of your TDD cycle. Only when you
+believe the feature to be complete.&lt;/p&gt;
+
+&lt;h2&gt;Conclusions&lt;/h2&gt;
+
+&lt;p&gt;So if isolated tests don't identify incongruities between subsystems and
+integrated tests are too slow to run during an immediate feedback TDD cycle,
+which do you use? As you may have surmised from the title, the answer is...
+both.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://pragprog.com/book/hwcuc/the-cucumber-book&quot;&gt;The Cucumber Book&lt;/a&gt; suggests that &quot;It's sometimes said that unit tests ensure
+you 'build the thing right', while acceptance tests ensure you 'build the
+right thing'.&quot; I also like Avdi Grim's simile of mocks being like hydrogen
+peroxide in that they both fizz up around problems.&lt;/p&gt;
+
+&lt;p&gt;With our twin goals of systematic coverage and focus during development in mind,
+let's recap how each set of tests is used.&lt;/p&gt;
+
+&lt;p&gt;When you know what you you're building but not how, reach for the integrated
+tests. Define the desired outcome at the high level and then run that test again
+when you think you've got it down. Start thinking about the different aspects of
+that problem and decomposing them. Then devise a system of smaller tests
+mirroring the smaller objects and functions you'll use to accomplish that goal.
+Isolated tests are there once you're ready to do exactly that. There to aid
+you in that mission and guide you toward good design decisions. &quot;I'll do what
+the tests tell me&quot; is not an uncommon phrase from me.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Isolated regression tests are a side effect of good TDD, they're more important
+during the process than after.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Integrated tests are the ones you bring home and show your mother. The ones you
+can be proud of at the end of the day.&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Less-Than-Three Ruby's Method Lookup</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/09/14/less-than-three-rubys-method-lookup/"/>
+    <updated>2011-09-14T16:02:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/09/14/less-than-three-rubys-method-lookup</id>
+    <content type="html">
+</content>
+  </entry>
+  
+  <entry>
+    <title>Who I Am and Where I Am Going</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/09/09/who-i-am-and-where-i-am-going/"/>
+    <updated>2011-09-09T19:35:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/09/09/who-i-am-and-where-i-am-going</id>
+    <content type="html">&lt;p&gt;I wasn't really happy with my first first post on this shiny new blog, so I
+thought I would make a second first post and yammer on a bit about why I publish
+nonsense like this on the internets anyway.&lt;/p&gt;
+
+&lt;p&gt;So &lt;em&gt;who am I now?&lt;/em&gt; Basically I am not anybody. I'm a student of Computer Science
+and Mathematics at San José State University. I have been fiddling with
+computers my whole life but would say that the decision to not suck, or at
+software design only happened about a year and a half ago. My entire formal
+education save for one class which I only had last semester has been Java save
+for a course each in C and C++, both of which were taught by a professor who had
+to mentally translate everything into Java and then translate it back to answer
+the question. As a result, I'm really behind in a lot of stuff I shouldn't be
+behind in.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>A Look at Ruby Case Expressions</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/09/08/a-look-at-ruby-case-expressions/"/>
+    <updated>2011-09-08T08:33:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/09/08/a-look-at-ruby-case-expressions</id>
+    <content type="html">&lt;p&gt;Ruby, like many languages has a case-when construct for more refined conditional
+execution than if-then-else can provide. Technically all case constructs could
+be written as if-then-else-if-then...else but you wouldn't enjoy it.&lt;/p&gt;
+
+&lt;h2&gt;Ruby's case-when is an expression&lt;/h2&gt;
+
+&lt;p&gt;However, there are a number of things that make Ruby's case-when special. The
+first comes from Ruby's functional roots. It's powerful but deceptively simple.
+Ruby's case-when construct is an &lt;em&gt;expression&lt;/em&gt;. Which means, among other things,
+it returns a value.&lt;/p&gt;
+
+&lt;p&gt;In a traditional imperative style a case statement might look like:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;conditional_variable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:some_default_value&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;our_condition&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:first&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;conditional_variable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:one_thing&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:then&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;conditional_variable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:another&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The that isn't ideal for a number of reasons. &lt;code&gt;conditional_variable&lt;/code&gt; is set
+visibly three times which as any freshman can tell you is frowned upon.
+Academics have stuffier reasons for it but the most important is that it
+decreases readability because we aren't sure what the value will be after
+execution. Setting it so many times is also a code duplication, albeit a small
+one. We can take advantage of Ruby's case-when &lt;em&gt;expression&lt;/em&gt; with this code:&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;n&quot;&gt;conditional_variable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;our_condition&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;                       &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:first&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;                         &lt;span class=&quot;ss&quot;&gt;:one_thing&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;                       &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:then&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;                         &lt;span class=&quot;ss&quot;&gt;:another&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;                       &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;                         &lt;span class=&quot;ss&quot;&gt;:some_default_value&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;                       &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Doesn't that look nicer? &lt;code&gt;conditional_variable&lt;/code&gt; is only set once and the
+intent is clear, we want the value to depend on &lt;code&gt;our_condition&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2&gt;case-when uses triple equals for comparison&lt;/h2&gt;
+
+&lt;p&gt;This got me good this morning and spawned this article. If you're not familiar
+with &lt;code&gt;===&lt;/code&gt; in Ruby then the best explanation comes from &lt;em&gt;_why's Poignant Guide
+to Ruby&lt;/em&gt; which really is worth reading. I've referred back to it multiple times
+to help myself and those around me fully understand basic Ruby concepts like
+&lt;code&gt;nil&lt;/code&gt;, truthiness and falsiness, and, &lt;strong&gt;fanfare please&lt;/strong&gt;, double equals versus
+triple equals.&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;The double equals gives the appearance of a short link of ropes, right
+along the sides of a red carpet where only &lt;code&gt;true&lt;/code&gt; can be admitted.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;approaching_guy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;That necklace is classic&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;&lt;p&gt;...
+[This case-when statement]&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1894&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;Born.&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1895&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1913&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;Childhood in Lousville, Winston Co., Mississippi.&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;No information about this year.&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;&lt;p&gt;is identical to&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1894&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;Born.&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;elsif&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1895&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1913&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;Childhood in Lousville, Winston Co., Mississippi.&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;No information about this year.&amp;quot;&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;&lt;p&gt;The &lt;strong&gt;triple equals&lt;/strong&gt; is a length of velvet rope, checking values much like
+the &lt;strong&gt;double equals&lt;/strong&gt;. It's just: the triple equals is a longer rope and it
+sags a bit in the middle. It's not as strict, it's a bit more flexible.
+Take the Ranges above. &lt;code&gt;(1895..1913)&lt;/code&gt; isn't at all equal to &lt;code&gt;1905&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;No, the Range &lt;code&gt;(1895..1913)&lt;/code&gt; is only truly equal to any other Range
+&lt;code&gt;(1895..1913)&lt;/code&gt;. In the case of a Range, the triple equals cuts you a break
+and lets the Integer &lt;code&gt;1905&lt;/code&gt; in, because even though it's not equal to the
+Range, it's included in the set of Integers represented by the Range. Which
+is good enough in some cases, such as the timeline I put together earlier.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;h2&gt;My Mistake&lt;/h2&gt;
+
+&lt;p&gt;This is what I did which caused me to write this as penance.&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt; &lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;local_tweet_object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;n&quot;&gt;tweet_hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# the screw-up&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;no&quot;&gt;MultiJson&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Hash&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;fail&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ArgumentError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;Cannot process &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; only String or Hash&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  &lt;span class=&quot;no&quot;&gt;LocalTweet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tweet_hash&lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This code was raising the following error.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ArgumentError: I don't want Hash give me only String or Hash&lt;/code&gt;
+... &lt;em&gt;huh?&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;At first glance it looked fine, but then we remember that case-when uses &lt;code&gt;===&lt;/code&gt;.
+Again, we think &quot;this shouldn't be an issue, if it's good enough for &lt;code&gt;==&lt;/code&gt; it
+should be fine for &lt;code&gt;===&lt;/code&gt;.&quot; But &lt;code&gt;===&lt;/code&gt; behaves specially for certain types in Ruby
+such as Classes, Arrays, and as we saw before, Ranges.&lt;/p&gt;
+
+&lt;p&gt;For simple scalar values &lt;code&gt;===&lt;/code&gt; acts like you expect.&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;12 === 12 #=&gt; true
+&lt;/div&gt;&lt;div class='line'&gt;12 === 13 #=&gt; false
+&lt;/div&gt;&lt;div class='line'&gt;:rats === :rats #=&gt; true
+&lt;/div&gt;&lt;div class='line'&gt;&quot;pens&quot; === &quot;pens&quot; #=&gt; true
+&lt;/div&gt;&lt;div class='line'&gt;&quot;space&quot; === &quot;fact&quot; #=&gt; false&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And we know how &lt;code&gt;===&lt;/code&gt; treats ranges&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;(8..64) === 32 #=&gt; true&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But note that&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;(8..64) === (8..64) #=&gt; false&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Suddenly!&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;Integer === 12 #=&gt; true!&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;waitaminute.. what?&lt;/p&gt;
+
+&lt;p&gt;So Ruby can tell that &lt;code&gt;12&lt;/code&gt; is a type of Integer and thus &lt;code&gt;===&lt;/code&gt; can be described
+partially as an includes and typeof operator. But there are some further
+gotchas.&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;[ 1, 2, 3 ] === 1#=&gt; true
+&lt;/div&gt;&lt;div class='line'&gt;[ 1, 2, 3 ] === [ 1, 2, 3 ]                         #=&gt; true
+&lt;/div&gt;&lt;div class='line'&gt;[ 1, 2, 3 ] === [ 1, 2 ]                            #=&gt; false
+&lt;/div&gt;&lt;div class='line'&gt;{ :foo =&gt; :bar } === { :foo =&gt; :bar }               #=&gt; true
+&lt;/div&gt;&lt;div class='line'&gt;{ :foo =&gt; :bar } === :foo                           #=&gt; false
+&lt;/div&gt;&lt;div class='line'&gt;{ :foo =&gt; :bar, :baz =&gt; :qux } === { :foo =&gt; :bar } #=&gt; false&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;===&lt;/code&gt;'s behavior isn't completely intuitive even within Ruby's standard Classes.
+Which brings us (finally) back around to my original error.
+&lt;code&gt;Hash === Hash #=&amp;gt; false&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;case input.class&lt;/p&gt;
+
+&lt;h1&gt;to&lt;/h1&gt;
+
+&lt;p&gt;case input&lt;/p&gt;
+
+&lt;h1&gt;I posted on identi.ca a friendly notice about this easy mistake and was&lt;/h1&gt;
+
+&lt;h1&gt;asked to provide clarification. So here, just over 24 hours late, it is.&lt;/h1&gt;
+
+&lt;h1&gt;The full source code is provided &lt;a href=&quot;https://gist.github.com/1112335&quot;&gt;here&lt;/a&gt;&lt;/h1&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Switching to Octopress</title>
@@ -141,7 +560,7 @@ Steven!&lt;/p&gt;
   </entry>
   
   <entry>
-    <title>CoffeeScript: An Outsider</title>
+    <title>CoffeeScript: An Outsider Opinion</title>
     <link href="http://blog.nuclearsandwich.com/blog/2011/07/03/coffeescript-an-outsider-opinion/"/>
     <updated>2011-07-03T18:16:00-07:00</updated>
     <id>http://blog.nuclearsandwich.com/blog/2011/07/03/coffeescript-an-outsider-opinion</id>

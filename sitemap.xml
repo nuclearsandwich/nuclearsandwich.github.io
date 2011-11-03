@@ -48,7 +48,7 @@
         <loc>
             http://blog.nuclearsandwich.com/blog/2011/07/03/coffeescript-an-outsider-opinion/
         </loc>
-        <lastmod>2011-09-05T15:39:29-07:00</lastmod>
+        <lastmod>2011-11-02T17:04:33-07:00</lastmod>
     </url>
     <url>
         <loc>http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes/</loc>
@@ -65,11 +65,33 @@
         <lastmod>2011-09-05T16:29:22-07:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2011/09/08/a-look-at-ruby-case-expressions/
+        </loc>
+        <lastmod>2011-09-08T10:45:09-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.nuclearsandwich.com/blog/2011/09/09/who-i-am-and-where-i-am-going/</loc>
+        <lastmod>2011-09-11T21:11:06-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2011/09/14/less-than-three-rubys-method-lookup/
+        </loc>
+        <lastmod>2011-09-14T16:02:03-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/
+        </loc>
+        <lastmod>2011-11-03T09:23:59-07:00</lastmod>
+    </url>
+    <url>
         <loc>http://blog.nuclearsandwich.com/blog/archives/</loc>
-        <lastmod>2011-09-07T07:40:00-07:00</lastmod>
+        <lastmod>2011-11-03T09:23:59-07:00</lastmod>
     </url>
     <url>
         <loc>http://blog.nuclearsandwich.com/</loc>
-        <lastmod>2011-09-07T07:40:00-07:00</lastmod>
+        <lastmod>2011-11-03T09:23:59-07:00</lastmod>
     </url>
 </urlset>

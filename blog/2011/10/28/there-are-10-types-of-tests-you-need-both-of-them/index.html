@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mad Ramblings of a Lunatic Hacker: There Are 10 Types of Tests. You Need Both of Them</title>
+  <meta name="author" content="Steven! Ragnarök">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Mad Ramblings of a Lunatic Hacker" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Mad Ramblings of a Lunatic Hacker</a></h1>
+  
+    <h2>An Exercise in Wit or Vanity</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="https://duckduckgo.com/" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:blog.nuclearsandwich.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">There Are 10 Types of Tests. You Need Both of Them</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-10-28 02:22:00 -0700" pubdate  updated >Oct 28<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Over the course of the last year, and especially in the last two to three months
+I have been internalizing and witnessing for myself the extreme benefits of
+accompanying your code with a test suite which matches your code in quality.
+By this I mean that it is difficult (and damn frustrating) to write good tests
+for poor code. At my current skill level as a programmer there&#8217;s code in my
+primary code base that is so bad (yep, I wrote that code too) that I am unable
+to write good tests for it. Up until four or five weeks ago, coinciding with my
+second readings of <a href="http://pragprog.com/book/achbd/the-rspec-book">The RSpec Book</a>, and <a href="http://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a>, sitting in
+as a guest panelist on <a href="http://rubyrogues.com/book-club-exceptional-ruby/">Ruby Rogues</a>, and watching a bunch of
+<a href="https://www.destroyallsoftware.com/screencasts">Destroy All Software</a>, I realized that in order to gain the benefits of TDD
+being touted by some of the most respected members of the Ruby community, I
+needed better tests. Specifically better isolated tests.</p>
+
+<h2>Isolated Tests</h2>
+
+<p>I recently had to completely justify my desire to add and grow isolated tests
+for production code. The argument against doing so was simply that if the <em>whole
+point</em> of isolated tests is to know when something breaks in the future, an
+integrated test suite will pick up those failures just as well. Therefore
+isolated tests are a waste of time and engineering effort.</p>
+
+<p>This argument <em>is</em> correct, provided the only thing you use your isolated tests
+for is protection from regressions. However, doing so leaves out what is to my
+mind the <strong>greatest</strong> and most profound advantage of isolated testing, which is
+immediate, focused feedback. I definitely think I&#8217;m inventing terms here so
+please indulge me while I clarify them.</p>
+
+<ul>
+<li>Immediate: <em>The result (success or failure) can be observed right away.</em></li>
+<li>Focused: <em>The cause of any failure is known to be within the system under
+test.</em></li>
+</ul>
+
+
+<p>Anyone who has worked in software for a substantial amount of time knows that
+we are each our own worst enemy and the temptation to add unnecessary complexity
+is a constant bother. How many of us have added arguments to methods only to
+use the default value every time. I call these bullshit arguments, because they
+piss me off when I have to put up with them. The joy in a test with truly
+immediate feedback is the laser focus that they give you when working on a
+system. You&#8217;re literally doing one thing at a time and checking that you get the
+expected result even when it isn&#8217;t success. When you get the failure you expect,
+you simply move on, and when you get an unexpected failure it causes you to
+identify the disparity between your mental model of the system and the computer
+model and correct it. Since these tests are isolated and generally run in less
+than a second, there is essentially no penalty for running the tests with
+monstrous frequency. When you do have to stop, it is to make a correction,
+even if it is just a mental correction. The time you save fixing it early is
+more than enough to justify the low cost of running the test.</p>
+
+<p>One of the downsides of this type of testing is that you are treating anything
+which isn&#8217;t the system under test as an external service and therefore
+stubbing the interactions with it. This works great for fast, clean-room tests
+but it means that the burden of ensuring that the assumptions you make in one
+test are validated in the respective tests for your other systems is entirely on
+the programmer and since programmers are human, this will eventually lead to
+mistakes.</p>
+
+<p>My personal favorite aspect of isolated tests is how informative they can be
+about your system. It&#8217;s pretty common knowledge that if your tests are a pain in
+the ass to write, it&#8217;s a good indication that your code is too-tightly coupled
+and refactoring to follow the <a href="http://avdi.org/devblog/2011/07/05/demeter-its-not-just-a-good-idea-its-the-law/">Law of Demeter</a> and <a href="http://blog.rubybestpractices.com/posts/gregory/055-issue-23-solid-design.html">SOLID</a> design
+principles is a good idea.</p>
+
+<h2>Integrated Tests</h2>
+
+<p>One of the scariest things that happened to me in recent memory was discovering
+that people were surprised when after arguing in favor of getting higher quality
+unit tests I was still unsatisfied because our integrated tests also needed
+attention and improvement. I found this a little disturbing (okay, I found this
+really disturbing) because I can&#8217;t imagine how long it would take to manually
+verify that I didn&#8217;t overlook anything in the major refactoring or feature
+addition I just performed. I certainly don&#8217;t budget the time to manually test
+every resource and parameter combination by hand. I might do so initially
+because a major disadvantage to integrated tests is in the difficulty of doing
+exploratory testing at this level. As a result, when writing integrated tests, I
+tend to rely on manual experimentation to determine how my system behaves in
+undefined situations, make a decision on the appropriateness of that behavior
+and then solidify that set of interactions into a group of tests. One of the
+nice things about integrated tests is that once written, they tend not to change
+unless your expected end-user behavior changes. This is afforded by the
+&#8220;bigger picture&#8221; nature of integrated tests where you are less concerned with
+the exact behavior of any one unit and instead are validating the result of
+system-wide operation and interaction. Thus, integrated tests are largely immune
+to internal refactoring.</p>
+
+<p>As one can imagine, the strengths of isolated tests are the weaknesses of
+integrated tests. When something is wrong, particularly in a complex interaction
+that touches many parts of the system, it can be unclear exactly where the
+problem in the codebase is when an integrated test fails. If you get an actual
+exception, you&#8217;ll have a stacktrace to guide you, but those tend to be unhelpful
+errors like an unexpected nil and rarely is it obvious at what level the nil was
+assigned and how long it had been propagated upward until the failure. So it
+can be said that integrated tests are not focused since there is no indication
+of precisely where in the system the failure has occurred. Additionally,
+integrated tests mandate that you test your full software stack. Any persistence
+layers, external services, background tasks, and other specific tools you&#8217;re
+using should be tested during this phase. As you can imagine testing all of
+these things takes time and computing power. It is not feasible to expect even
+a subset of an integrated test suite to run in the same magnitude of time as
+isolated tests, what this means is the tests are no longer immediate. Thus,
+they are not suitable for running at every pass of your TDD cycle. Only when you
+believe the feature to be complete.</p>
+
+<h2>Conclusions</h2>
+
+<p>So if isolated tests don&#8217;t identify incongruities between subsystems and
+integrated tests are too slow to run during an immediate feedback TDD cycle,
+which do you use? As you may have surmised from the title, the answer is&#8230;
+both.</p>
+
+<p><a href="http://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a> suggests that &#8220;It&#8217;s sometimes said that unit tests ensure
+you &#8216;build the thing right&#8217;, while acceptance tests ensure you &#8216;build the
+right thing&#8217;.&#8221; I also like Avdi Grim&#8217;s simile of mocks being like hydrogen
+peroxide in that they both fizz up around problems.</p>
+
+<p>With our twin goals of systematic coverage and focus during development in mind,
+let&#8217;s recap how each set of tests is used.</p>
+
+<p>When you know what you you&#8217;re building but not how, reach for the integrated
+tests. Define the desired outcome at the high level and then run that test again
+when you think you&#8217;ve got it down. Start thinking about the different aspects of
+that problem and decomposing them. Then devise a system of smaller tests
+mirroring the smaller objects and functions you&#8217;ll use to accomplish that goal.
+Isolated tests are there once you&#8217;re ready to do exactly that. There to aid
+you in that mission and guide you toward good design decisions. &#8220;I&#8217;ll do what
+the tests tell me&#8221; is not an uncommon phrase from me.</p>
+
+<p><em>Isolated regression tests are a side effect of good TDD, they&#8217;re more important
+during the process than after.</em></p>
+
+<p><em>Integrated tests are the ones you bring home and show your mother. The ones you
+can be proud of at the end of the day.</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Steven! Ragnarök</span></span>
+
+      
+
+
+
+
+<time datetime="2011-10-28 02:22:00 -0700" pubdate  updated >Oct 28<span>th</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ruby/'>Ruby</a>, <a class='category' href='/blog/categories/tdd/'>TDD</a>, <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/" data-via="_nuclearsammich" data-counturl="http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/" >Tweet</a>
+  
+  
+  <g:plusone size="small"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/">There Are 10 Types of Tests. You Need Both of Them</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/14/less-than-three-rubys-method-lookup/">Less-Than-Three Ruby&#8217;s Method Lookup</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/09/who-i-am-and-where-i-am-going/">Who I Am and Where I Am Going</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/08/a-look-at-ruby-case-expressions/">A Look at Ruby Case Expressions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/03/switching-to-octopress/">Switching to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs/">Why You Shouldn&#8217;t Use Factories in Unit-level Tests or Specs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/why-ruby-needs-heroes/">Why Ruby Needs Heroes</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/nuclearsandwich">@nuclearsandwich</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'nuclearsandwich',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("_nuclearsammich", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/_nuclearsammich" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @_nuclearsammich</a>
+  
+</section>
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <p><a href="http://pinboard.in/u:nuclearsandwich">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "nuclearsandwich"; //id target for pinboard list
+  var pinboard_count = 5; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Steven! Ragnarök -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>
