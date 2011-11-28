@@ -4,13 +4,77 @@
   <title>Mad Ramblings of a Lunatic Hacker</title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2011-11-03T09:24:15-07:00</updated>
+  <updated>2011-11-28T15:02:13-08:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name>Steven! Ragnarök</name>
     
   </author>
 
+  
+  <entry>
+    <title>Who I Am and Where I Am Going</title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/11/28/who-i-am-and-where-i-am-going/"/>
+    <updated>2011-11-28T13:35:00-08:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/11/28/who-i-am-and-where-i-am-going</id>
+    <content type="html">&lt;h2&gt;So &lt;em&gt;who am I now?&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;Basically I am not anybody. I'm a student of Computer Science
+and Mathematics at San José State University. I have been fiddling with
+computers my whole life but would say that the decision to embrace quality
+software design only happened about a year and a half ago. My entire formal
+education save for one functional programming class which I only had last semester
+has been Java but for a token course each in C, C++, and Assembly taught by a
+professor who had to mentally translate everything into Java and then translate
+it back to answer questions. As a result, I'm really behind in a lot of stuff I
+shouldn't be behind in.&lt;/p&gt;
+
+&lt;p&gt;In the past two years I've found myself making money doing things in Ruby.
+The best thing about Ruby is that it's fun to do things right, compared to Java
+where you are actively punished for trying to do so. I have made it my business
+to be a good Rubyist and live up to &lt;a href=&quot;http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes&quot;&gt;those who inspired me&lt;/a&gt; to learn the
+language and participate in the community. As part of this process I've read
+voraciously on Ruby and software craftmanship, lurked in IRC, and made a
+nuisance of myself at conferences and Ruby meetups. The process has made me a
+lot of new friends, at times both inflated and deflated my ego, and overall
+given me a much grander perspective on what the important things are in life and
+in software development.&lt;/p&gt;
+
+&lt;p&gt;Because it's rather difficult to code in 90 minute spats with shoddy internet,
+the great majority (read: all but school related) of my projects are in-progress
+and incomplete. I &lt;em&gt;despise&lt;/em&gt; this about myself. One of the main things I still
+suck at is cranking out a project in a weekend. And since most of my projects
+are started to apply a specific bit of knowledge or insight, or leverage a
+specific language or language feature I wish to do more with, I tend to start
+a new one more often than continue work on the old ones. While I don't think it
+too much of a problem, it'd definitely feel better to have one or two completed
+works in my portfolio that &lt;em&gt;aren't&lt;/em&gt; a top-down recursive descent parser, of
+which I have three with a fourth (Clojure, this time) in progress.&lt;/p&gt;
+
+&lt;h2&gt;Just &lt;em&gt;where is he going with this..?&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;Well now, I'm working as a Ruby developer, I've finally made it to a Railsbridge
+workshop and absolutely love teaching there. More to the credit of Steve's open
+commit policy than to my own artistry I am a contributor to &lt;a href=&quot;http://hackety-hack.com&quot;&gt;Hackety-Hack.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I've just decided to apply to January's Ruby Mendicant University session though
+the upcoming weeks are going to be maddeningly busy for me and I may have to
+hold off until the next one comes around. I had the pleasure of taking Peter
+Cooper's Ruby Reloaded course which I highly recommend for those who learned
+just enough Ruby to be potent with Rails but still aren't sure what's going on
+in some cases.&lt;/p&gt;
+
+&lt;p&gt;I've picked up Clojure and and revisited Haskell and am loving both. I've got a
+few ideas in mind for beginning Clojure projects and am preparing for a return
+to Archlinux as my primary OS as I simply can't tolerate OS X any longer.&lt;/p&gt;
+
+&lt;p&gt;I want to start being the type of programmer that inspired me to get as far as
+I've had the privilege of getting thus far and I'll do it one application,
+library, and blog article at a time. Starting...&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;now.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>There Are 10 Types of Tests. You Need Both of Them</title>
@@ -150,36 +214,6 @@ during the process than after.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Integrated tests are the ones you bring home and show your mother. The ones you
 can be proud of at the end of the day.&lt;/em&gt;&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>Less-Than-Three Ruby's Method Lookup</title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/09/14/less-than-three-rubys-method-lookup/"/>
-    <updated>2011-09-14T16:02:00-07:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/09/14/less-than-three-rubys-method-lookup</id>
-    <content type="html">
-</content>
-  </entry>
-  
-  <entry>
-    <title>Who I Am and Where I Am Going</title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/09/09/who-i-am-and-where-i-am-going/"/>
-    <updated>2011-09-09T19:35:00-07:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/09/09/who-i-am-and-where-i-am-going</id>
-    <content type="html">&lt;p&gt;I wasn't really happy with my first first post on this shiny new blog, so I
-thought I would make a second first post and yammer on a bit about why I publish
-nonsense like this on the internets anyway.&lt;/p&gt;
-
-&lt;p&gt;So &lt;em&gt;who am I now?&lt;/em&gt; Basically I am not anybody. I'm a student of Computer Science
-and Mathematics at San José State University. I have been fiddling with
-computers my whole life but would say that the decision to not suck, or at
-software design only happened about a year and a half ago. My entire formal
-education save for one class which I only had last semester has been Java save
-for a course each in C and C++, both of which were taught by a professor who had
-to mentally translate everything into Java and then translate it back to answer
-the question. As a result, I'm really behind in a lot of stuff I shouldn't be
-behind in.&lt;/p&gt;
 </content>
   </entry>
   
@@ -417,17 +451,21 @@ gotchas.&lt;/p&gt;
 Which brings us (finally) back around to my original error.
 &lt;code&gt;Hash === Hash #=&amp;gt; false&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;case input.class&lt;/p&gt;
+&lt;p&gt;The fix is simple, just change&lt;/p&gt;
 
-&lt;h1&gt;to&lt;/h1&gt;
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;case input.class&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
-&lt;p&gt;case input&lt;/p&gt;
 
-&lt;h1&gt;I posted on identi.ca a friendly notice about this easy mistake and was&lt;/h1&gt;
+&lt;p&gt;to&lt;/p&gt;
 
-&lt;h1&gt;asked to provide clarification. So here, just over 24 hours late, it is.&lt;/h1&gt;
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;case input&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
 
-&lt;h1&gt;The full source code is provided &lt;a href=&quot;https://gist.github.com/1112335&quot;&gt;here&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;I posted on identi.ca a friendly notice about this easy mistake and was asked to
+provide clarification. So here, just over 24 hours late, it is. The full source
+code is provided &lt;a href=&quot;https://gist.github.com/1112335&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
   
@@ -541,7 +579,8 @@ when they may not want the attention. How many feel overly pressured by or
 undeserving of their status. When thinking on this, I am reminded of Firefly.
 (If you haven't seen it, seriously do yourself a favor and watch it.)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.nuclearsandwich.com/images/blog/jaynestown.jpg&quot; alt=&quot;Jaynestown&quot; /&gt;&lt;/p&gt;
+&lt;!--![Jaynestown](/images/blog/jaynestown.jpg) --&gt;
+
 
 &lt;p&gt;Specifically the Hero of Canton episode in which Jayne, the least noble of the
 protagonists, is remembered as a folk hero on a backwater mining colony for
