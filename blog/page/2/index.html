@@ -88,7 +88,7 @@
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/">There Are 10 Types of Tests. You Need Both of Them</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/11/28/who-i-am-and-where-i-am-going/">Who I Am and Where I Am Going</a></h1>
     
     
       <p class="meta">
@@ -96,7 +96,7 @@
 
 
 
-<time datetime="2011-10-28 02:22:00 -0700" pubdate  updated >Oct 28<span>th</span>, 2011</time>
+<time datetime="2011-11-28 13:35:00 -0800" pubdate  updated >Nov 28<span>th</span>, 2011</time>
 
 
 </p>
@@ -104,139 +104,62 @@
   </header>
 
 
-  <div class="entry-content"><p>Over the course of the last year, and especially in the last two to three months
-I have been internalizing and witnessing for myself the extreme benefits of
-accompanying your code with a test suite which matches your code in quality.
-By this I mean that it is difficult (and damn frustrating) to write good tests
-for poor code. At my current skill level as a programmer there&#8217;s code in my
-primary code base that is so bad (yep, I wrote that code too) that I am unable
-to write good tests for it. Up until four or five weeks ago, coinciding with my
-second readings of <a href="http://pragprog.com/book/achbd/the-rspec-book">The RSpec Book</a>, and <a href="http://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a>, sitting in
-as a guest panelist on <a href="http://rubyrogues.com/book-club-exceptional-ruby/">Ruby Rogues</a>, and watching a bunch of
-<a href="https://www.destroyallsoftware.com/screencasts">Destroy All Software</a>, I realized that in order to gain the benefits of TDD
-being touted by some of the most respected members of the Ruby community, I
-needed better tests. Specifically better isolated tests.</p>
+  <div class="entry-content"><h2>So <em>who am I now?</em></h2>
 
-<h2>Isolated Tests</h2>
+<p>Basically I am not anybody. I&#8217;m a student of Computer Science
+and Mathematics at San José State University. I have been fiddling with
+computers my whole life but would say that the decision to embrace quality
+software design only happened about a year and a half ago. My entire formal
+education save for one functional programming class which I only had last semester
+has been Java but for a token course each in C, C++, and Assembly taught by a
+professor who had to mentally translate everything into Java and then translate
+it back to answer questions. As a result, I&#8217;m really behind in a lot of stuff I
+shouldn&#8217;t be behind in.</p>
 
-<p>I recently had to completely justify my desire to add and grow isolated tests
-for production code. The argument against doing so was simply that if the <em>whole
-point</em> of isolated tests is to know when something breaks in the future, an
-integrated test suite will pick up those failures just as well. Therefore
-isolated tests are a waste of time and engineering effort.</p>
+<p>In the past two years I&#8217;ve found myself making money doing things in Ruby.
+The best thing about Ruby is that it&#8217;s fun to do things right, compared to Java
+where you are actively punished for trying to do so. I have made it my business
+to be a good Rubyist and live up to <a href="/blog/2011/08/19/why-ruby-needs-heroes">those who inspired me</a> to learn the
+language and participate in the community. As part of this process I&#8217;ve read
+voraciously on Ruby and software craftmanship, lurked in IRC, and made a
+nuisance of myself at conferences and Ruby meetups. The process has made me a
+lot of new friends, at times both inflated and deflated my ego, and overall
+given me a much grander perspective on what the important things are in life and
+in software development.</p>
 
-<p>This argument <em>is</em> correct, provided the only thing you use your isolated tests
-for is protection from regressions. However, doing so leaves out what is to my
-mind the <strong>greatest</strong> and most profound advantage of isolated testing, which is
-immediate, focused feedback. I definitely think I&#8217;m inventing terms here so
-please indulge me while I clarify them.</p>
+<p>Because it&#8217;s rather difficult to code in 90 minute spats with shoddy internet,
+the great majority (read: all but school related) of my projects are in-progress
+and incomplete. I <em>despise</em> this about myself. One of the main things I still
+suck at is cranking out a project in a weekend. And since most of my projects
+are started to apply a specific bit of knowledge or insight, or leverage a
+specific language or language feature I wish to do more with, I tend to start
+a new one more often than continue work on the old ones. While I don&#8217;t think it
+too much of a problem, it&#8217;d definitely feel better to have one or two completed
+works in my portfolio that <em>aren&#8217;t</em> a top-down recursive descent parser, of
+which I have three with a fourth (Clojure, this time) in progress.</p>
 
-<ul>
-<li>Immediate: <em>The result (success or failure) can be observed right away.</em></li>
-<li>Focused: <em>The cause of any failure is known to be within the system under
-test.</em></li>
-</ul>
+<h2>Just <em>where is he going with this..?</em></h2>
 
+<p>Well now, I&#8217;m working as a Ruby developer, I&#8217;ve finally made it to a Railsbridge
+workshop and absolutely love teaching there. More to the credit of Steve&#8217;s open
+commit policy than to my own artistry I am a contributor to <a href="http://hackety-hack.com">Hackety-Hack.com</a></p>
 
-<p>Anyone who has worked in software for a substantial amount of time knows that
-we are each our own worst enemy and the temptation to add unnecessary complexity
-is a constant bother. How many of us have added arguments to methods only to
-use the default value every time. I call these bullshit arguments, because they
-piss me off when I have to put up with them. The joy in a test with truly
-immediate feedback is the laser focus that they give you when working on a
-system. You&#8217;re literally doing one thing at a time and checking that you get the
-expected result even when it isn&#8217;t success. When you get the failure you expect,
-you simply move on, and when you get an unexpected failure it causes you to
-identify the disparity between your mental model of the system and the computer
-model and correct it. Since these tests are isolated and generally run in less
-than a second, there is essentially no penalty for running the tests with
-monstrous frequency. When you do have to stop, it is to make a correction,
-even if it is just a mental correction. The time you save fixing it early is
-more than enough to justify the low cost of running the test.</p>
+<p>I&#8217;ve just decided to apply to January&#8217;s Ruby Mendicant University session though
+the upcoming weeks are going to be maddeningly busy for me and I may have to
+hold off until the next one comes around. I had the pleasure of taking Peter
+Cooper&#8217;s Ruby Reloaded course which I highly recommend for those who learned
+just enough Ruby to be potent with Rails but still aren&#8217;t sure what&#8217;s going on
+in some cases.</p>
 
-<p>One of the downsides of this type of testing is that you are treating anything
-which isn&#8217;t the system under test as an external service and therefore
-stubbing the interactions with it. This works great for fast, clean-room tests
-but it means that the burden of ensuring that the assumptions you make in one
-test are validated in the respective tests for your other systems is entirely on
-the programmer and since programmers are human, this will eventually lead to
-mistakes.</p>
+<p>I&#8217;ve picked up Clojure and and revisited Haskell and am loving both. I&#8217;ve got a
+few ideas in mind for beginning Clojure projects and am preparing for a return
+to Archlinux as my primary OS as I simply can&#8217;t tolerate OS X any longer.</p>
 
-<p>My personal favorite aspect of isolated tests is how informative they can be
-about your system. It&#8217;s pretty common knowledge that if your tests are a pain in
-the ass to write, it&#8217;s a good indication that your code is too-tightly coupled
-and refactoring to follow the <a href="http://avdi.org/devblog/2011/07/05/demeter-its-not-just-a-good-idea-its-the-law/">Law of Demeter</a> and <a href="http://blog.rubybestpractices.com/posts/gregory/055-issue-23-solid-design.html">SOLID</a> design
-principles is a good idea.</p>
+<p>I want to start being the type of programmer that inspired me to get as far as
+I&#8217;ve had the privilege of getting thus far and I&#8217;ll do it one application,
+library, and blog article at a time. Starting&#8230;</p>
 
-<h2>Integrated Tests</h2>
-
-<p>One of the scariest things that happened to me in recent memory was discovering
-that people were surprised when after arguing in favor of getting higher quality
-unit tests I was still unsatisfied because our integrated tests also needed
-attention and improvement. I found this a little disturbing (okay, I found this
-really disturbing) because I can&#8217;t imagine how long it would take to manually
-verify that I didn&#8217;t overlook anything in the major refactoring or feature
-addition I just performed. I certainly don&#8217;t budget the time to manually test
-every resource and parameter combination by hand. I might do so initially
-because a major disadvantage to integrated tests is in the difficulty of doing
-exploratory testing at this level. As a result, when writing integrated tests, I
-tend to rely on manual experimentation to determine how my system behaves in
-undefined situations, make a decision on the appropriateness of that behavior
-and then solidify that set of interactions into a group of tests. One of the
-nice things about integrated tests is that once written, they tend not to change
-unless your expected end-user behavior changes. This is afforded by the
-&#8220;bigger picture&#8221; nature of integrated tests where you are less concerned with
-the exact behavior of any one unit and instead are validating the result of
-system-wide operation and interaction. Thus, integrated tests are largely immune
-to internal refactoring.</p>
-
-<p>As one can imagine, the strengths of isolated tests are the weaknesses of
-integrated tests. When something is wrong, particularly in a complex interaction
-that touches many parts of the system, it can be unclear exactly where the
-problem in the codebase is when an integrated test fails. If you get an actual
-exception, you&#8217;ll have a stacktrace to guide you, but those tend to be unhelpful
-errors like an unexpected nil and rarely is it obvious at what level the nil was
-assigned and how long it had been propagated upward until the failure. So it
-can be said that integrated tests are not focused since there is no indication
-of precisely where in the system the failure has occurred. Additionally,
-integrated tests mandate that you test your full software stack. Any persistence
-layers, external services, background tasks, and other specific tools you&#8217;re
-using should be tested during this phase. As you can imagine testing all of
-these things takes time and computing power. It is not feasible to expect even
-a subset of an integrated test suite to run in the same magnitude of time as
-isolated tests, what this means is the tests are no longer immediate. Thus,
-they are not suitable for running at every pass of your TDD cycle. Only when you
-believe the feature to be complete.</p>
-
-<h2>Conclusions</h2>
-
-<p>So if isolated tests don&#8217;t identify incongruities between subsystems and
-integrated tests are too slow to run during an immediate feedback TDD cycle,
-which do you use? As you may have surmised from the title, the answer is&#8230;
-both.</p>
-
-<p><a href="http://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a> suggests that &#8220;It&#8217;s sometimes said that unit tests ensure
-you &#8216;build the thing right&#8217;, while acceptance tests ensure you &#8216;build the
-right thing&#8217;.&#8221; I also like Avdi Grim&#8217;s simile of mocks being like hydrogen
-peroxide in that they both fizz up around problems.</p>
-
-<p>With our twin goals of systematic coverage and focus during development in mind,
-let&#8217;s recap how each set of tests is used.</p>
-
-<p>When you know what you you&#8217;re building but not how, reach for the integrated
-tests. Define the desired outcome at the high level and then run that test again
-when you think you&#8217;ve got it down. Start thinking about the different aspects of
-that problem and decomposing them. Then devise a system of smaller tests
-mirroring the smaller objects and functions you&#8217;ll use to accomplish that goal.
-Isolated tests are there once you&#8217;re ready to do exactly that. There to aid
-you in that mission and guide you toward good design decisions. &#8220;I&#8217;ll do what
-the tests tell me&#8221; is not an uncommon phrase from me.</p>
-
-<p><em>Isolated regression tests are a side effect of good TDD, they&#8217;re more important
-during the process than after.</em></p>
-
-<p><em>Integrated tests are the ones you bring home and show your mother. The ones you
-can be proud of at the end of the day.</em></p>
+<p><strong><em>now.</em></strong></p>
 </div>
   
   
@@ -264,6 +187,10 @@ can be proud of at the end of the day.</em></p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/11/29/sightread-your-code/">Sightread Your Code</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/11/28/who-i-am-and-where-i-am-going/">Who I Am and Where I Am Going</a>
       </li>
     
@@ -285,10 +212,6 @@ can be proud of at the end of the day.</em></p>
     
       <li class="post">
         <a href="/blog/2011/08/19/why-ruby-needs-heroes/">Why Ruby Needs Heroes</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/07/03/coffeescript-an-outsider-opinion/">CoffeeScript: An Outsider Opinion</a>
       </li>
     
   </ul>

@@ -88,7 +88,7 @@
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/05/02/engine-yard-whisky-dinner-code-conf-2011/">Engine Yard Whisky Dinner, CodeConf 2011</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku/">A Sane Configuration Setup for Rack Applications on Heroku</a></h1>
     
     
       <p class="meta">
@@ -96,7 +96,7 @@
 
 
 
-<time datetime="2011-05-02 10:10:00 -0700" pubdate  updated >May 2<span>nd</span>, 2011</time>
+<time datetime="2011-06-25 09:05:00 -0700" pubdate  updated >Jun 25<span>th</span>, 2011</time>
 
 
 </p>
@@ -104,253 +104,277 @@
   </header>
 
 
-  <div class="entry-content"><p><strong>Update 5/3/11: Scroll to the bottom to see a near comprehensive list of what
-we drank. If I missed anything, do let me know.</strong></p>
+  <div class="entry-content"><p><strong><em>Update:</em></strong> The Github repo I linked at the end of this article was private
+and I forgot to make it public. It is now, sorry. ~Steven!</p>
 
-<p>Firstly, I&#8217;d like to thank Engine Yard for knowing that geeks tend to be
-inter-disciplinary and enjoy geeky discussion of things other than code! They
-also made an excellent choice in inviting Craig because he&#8217;s clearly one of the
-biggest geeks on the planet&#8230; in the field of Scotch Whisky. Since the Whisky
-dinner was at Engine Yard&#8217;s office a group from the Convore chat for the
-conference decided to meet at and walk from the hotel. I had to run back to the
-Nowmov office to grab the rest of my stuff since I was intending to take the
-train home directly from dinner. So myself, Steve Klabnik, Tom Preston-Werner
-and his wife, and a bunch of other folks from the conference all walked down
-over together. About three blocks from the hotel, I found $20. I&#8217;m not lying,
-nor am I lying when I say that that was without a doubt the worst part of my
-evening. The rest was just that awesome. Upon arrival we were told to snag
-t-shirts, which were created specially for the evening and parodied GitHub&#8217;s
-&#8220;Fork You&#8221; shirts, which you can customize with your GitHub handle by placing
-your name on the back in the blank after http://github.com/________, in case you
-haven&#8217;t seen them yet.</p>
+<p>Recently, Nowmov has started using <a href="http://heroku.com">Heroku</a> for application
+deployment. In the past I&#8217;ve always been hesitant toward &#8220;hosted
+solutions&#8221; but a combination of focusing my time and the flexibility and
+power of Heroku&#8217;s Celadon Cedar stack has brought me into contact with
+one such solution.</p>
 
-<p>After snagging a shirt, we were directed toward the &#8220;soft drinks&#8221; which
-consisted of Guinness, Stella Artois, and Lagunitas IPA. It was hard not to
-notice the sea of clear plastic cups all around us, each filled with a small
-measure of brown liquid. I had a beer or two over good conversation while Craig
-and Randall were finishing up. I have to admin, I was a little anxious to get
-started as I noticed that on the last table was a bottle marked Lagavulin, which
-is a distillery which comes highly recommended by @vanden and @mcnalu on
-Identi.ca, but which I haven&#8217;t been able to try yet. Add to that, the fact that
-it is getting on toward 8:25 and the last train home for the night departs at
-9:15 and is a ten minute walk away. Things finally start up and Randall
-introduces Craig, who is very tall and has been wandering around enigmatically
-the whole time. After a brief introduction by Randall, Craig tells us a little
-about his history and current job:</p>
-
-<blockquote><p>The only difference between myself and an alcoholic is I get paid.</p></blockquote>
-
-<p>He launches into the official definition of Scotch Malt Whisky which is any
-spirit which meets the following criteria:</p>
+<p>One of the first peculiarities/gotchas/side-effects of many of these
+hosted solutions is that they don&#8217;t provide shell or ftp access. Nor can
+you write to the file system from your application. This caused us some
+interesting problems during the migration.</p>
 
 <ol>
-<li>It is made using malted barley from Scotland exclusively.</li>
-<li>It is distilled in Scotland.</li>
-<li>It is aged in oak barrels for a minimum of three years.</li>
+<li><p>Rails convention dictates that <code>config/settings.yml</code>,
+<code>config/database.yml</code> and friends not be stored in source control and
+that we should store template files instead so developers are aware of
+setup specific configuration details. However, our inability to push
+files not in source control to Heroku leaves us unable to use the
+standard convention for configuration details. The way Heroku bypasses
+this leads to the next hurdle.</p></li>
+<li><p>The whole point of Heroku is that you don&#8217;t deal with IT, just your
+code. This means that you don&#8217;t really care where your PostgreSQL
+database is or what port you use to connect to your Redis instance. But
+you still need to connect to those things! So what does Heroku do? They
+give you environment variables. <code>heroku run 'echo $DATABASE_URL'</code>
+returns a big long uri corresponding to your app&#8217;s database. With this
+specific config variable, Heroku is kind enough to render a
+<code>database.yml</code> from it using erb. But it only works ActiveRecord
+compatible database.ymls, which is not all of them, believe it or not.
+(I&#8217;m looking at you Sequel) Inspect your Heroku config variables by
+running <code>heroku config</code> from an app directory. The amount of scary
+looking crap in there might surprise you!</p></li>
 </ol>
 
 
-<p>That&#8217;s it, that&#8217;s all that you need! Once everyone is on the same page, he
-introduces us to the first whisky of the night.</p>
+<p>You can even add your own config variables such as
+<code>MR_FANCY_PANTS=the_worlds_best_pants</code> with
+<code>heroku config:add MR_FANCY_PANTS=sad_deep_inside ARTIST="Jonathan
+Coulton"</code> this command will expose both your variables to your code
+using Ruby&#8217;s <code>ENV</code> hash.</p>
 
-<h2>Johnnie Walker Black Label</h2>
+<p>In your code you&#8217;d get to it like this:</p>
 
-<p>The Johnnie Walker, he explains, is significant because it sells. And provides
-jobs for a vast number of people relative to the other distilleries. Economic
-reasoning aside. We also discuss the very quick finish of the Johnnie Walker
-which attempts to make up for some of the sweetness, whilst simultaneously
-letting you get another glass without delay.</p>
-
-<h2>Glenfiddich 12 Year</h2>
-
-<p>Throughout the night, Craig&#8217;s explanations of the different whiskies was both
-narrative and informative. Even if you didn&#8217;t care a hoot about the history of
-Scotch whisky, he carried you forward with the story of it. I certainly saw more
-faces in rapt attention than lost in smartphones. The Glenfiddich itself was as
-smooth as I remember it being when I sampled some at Christmas, it lacked the
-complexity of some of the ones we had later that night but I&#8217;ll definitely
-consider it as a potential light whisky, or breakfast whisky, as Craig called
-it.</p>
-
-<h2>Aberlour 12 Year</h2>
-
-<p>The Aberlour was the first of these that really got my attention, it was complex
-yet smooth and had a much stronger oaky aroma than the others. Not much was said
-about the Aberlour distillery itself though the transition topic between the
-Aberlour and the Macallan discussed the difference between Scotches from the
-Highlands, Speyside, and Islay. The gist of which was that they have
-historically produced whiskies with certain characteristics but that the region
-is no surefire indication of the actual product.</p>
-
-<h2>The Macallan 12 Year</h2>
-
-<p>I found the Macallan to be a little underwhelming, considering it&#8217;s such a high
-profile Scotch. It certainly wasn&#8217;t bad, mind you, but it&#8217;s priced much higher
-than Glenfiddich and has a very similar flavor profile. Though, I may have to
-revisit it as I drank it rather hurriedly in order to get to the first of the
-peated Islay whiskies.</p>
-
-<h2>Caol Ila 12 Year</h2>
-
-<p>Wow, just, wow. This was the stand-out Scotch of the evening for me.
-Tremendously oak aroma which was also present, though subtler, in the taste.
-The Caol Ila did not taste as peated as the Lagavulin or many of the whiskies
-later enjoyed in the smoking room but it really made up for it with the great
-oak flavor. I&#8217;m just raving at this point so I&#8217;ll say no more about it.</p>
-
-<h2>Lagavulin 16 Year</h2>
-
-<p>Before the Lavagulin we were treated to a brief and somewhat premature
-announcement regarding the Fandabbydozy and the difficulty getting it into the
-country, but more on that later. The Lagavulin has been recommended to me by
-@vanden for some time. Basically since I asked the internet for Scotch
-recommendations. Sadly I was never able to locate any. But Craig provided I
-actually recall feeling a little underwhelmed by it, but I expect that&#8217;s because
-I was so keen on the Caol Ila. This is another one I want to try again a little
-earlier in the evening.</p>
-
-<h2>Non-Smoking Room</h2>
-
-<p>After the Lagavulin we were released into the wild to to visit the three rooms
-which had been mysteriously marked Smoking Room, Non-Smoking Room, and Exam Room
-since our arrival. Those who were familiar with certain properties of Scotch
-like myself probably guessed at the difference between the two rooms and were
-correct. The Non-Smoking room held the unpeated whiskies. In here I tried things
-like the Macallan Cask Strength and the Clynelish 14 year, which was my favorite
-of the non-smoking room. There was a third bottle in here but I can&#8217;t recall
-what it was as there was no room for it on the back of my shirt.</p>
-
-<h2>Smoking Room</h2>
-
-<p>This is the room for me I knew it&#8217;d be awesome, what I didn&#8217;t know was just how
-awesome it would be. My notes rapidly begin to decline in quality in this room.
-So I know the scotches were excellent. In here was an Ardbeg 12 Year, the
-Laphroaig Murray McDavid, and again, a third which I cannot recall because I ran
-out of room on the shirt.</p>
-
-<h2>Exam Room</h2>
-
-<p>When he introduced the other two rooms, Randall also introduced the exam room.
-In this room there were a number of cups containing an unnamed spirit. Our goal
-was to try some and identify in as much detail as we could, using the techniques
-we learned from Craig, the spirit in the cups. Everyone would pitch their card
-with their guess written on it into the pile and the winner would get a bottle
-of something wonderful to bring home. I was one of the last people in the room
-and submitted my scrawled flavor notes just as they were getting ready to pick
-the winner. What I wrote follows:</p>
-
-<ul>
-<li>Cardamom, floral, juniper</li>
-<li>Almost like a genever</li>
-<li>no peat</li>
-<li>47% - 55% a.b.v.</li>
-</ul>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="c1">#!ruby</span>
+</div><div class='line'><span class="k">def</span> <span class="nf">controller_action</span>
+</div><div class='line'>  <span class="k">if</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;Jonathan Coulton&quot;</span>
+</div><div class='line'>    <span class="vi">@still_alive</span> <span class="o">=</span> <span class="kp">true</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
 
-<p>The instructions were to put as much detail as you could, so I rather
-hubristically attempted to add some technical details in the hopes that it would
-set me above the competition. It also proves I was pretty well into it that
-evening. As it turns out, the exam room contained a gin rather than a whisky,
-which had been aged in oak barrels. It was really good and I&#8217;ve been informed
-that it&#8217;s available at Bi-Rite in San Francisco and intend to make my way down
-there to get a bottle for myself as in addition to my newly acquired scotch
-habit I&#8217;m also a gin drinker. So I wasn&#8217;t all that far from the mark and I have
-to confirm with Randall but I&#8217;m pretty sure the alcohol content conforms to my
-guess as well. However I didn&#8217;t take first place since a gentleman from Engine
-Yard had received a bottle of the very same gin for his birthday and had sampled
-it the previous night. There are two possible reasons for the events which
-followed. Either everyone else was way more drunk than I was, or I have an
-incredibly silver-tongued alter ego when drunk. I managed to convince Randall
-that A: The guy from Engine Yard kinda sorta cheated by having had some the
-previous night, and B: There should really be a runner-up prize anyway. By the
-strangest of coincidences I just so happened to be the runner-up. Fancy that!</p>
+<p>But then this also has to work locally! So you need to do somethig like
+this:</p>
 
-<p>At the end of the night, they found an untouched bottle of the Murray McDavid to
-award me with and I have been saving it for the launch of my side project which
-I will talk about in a later post when it&#8217;s closer to being done. Right now the
-powers that be (school) have conspired to take all of my free time and replace
-it with homework. If there&#8217;s any justice I should have it up and running by the
-end of May, but Tanj!</p>
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="c1">#!ruby</span>
+</div><div class='line'><span class="k">def</span> <span class="nf">controller_action</span>
+</div><div class='line'>  <span class="k">if</span> <span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span> <span class="o">||</span> <span class="no">SETTINGS</span><span class="o">[</span><span class="ss">:artist</span><span class="o">]</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Jonathan Coulton&quot;</span>
+</div><div class='line'>    <span class="vi">@still_alive</span> <span class="o">=</span> <span class="kp">true</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
-<h2>Fandabbydozy</h2>
 
-<p>What can I say about it&#8230; well, the Fandabbydozy was brought from Scotland
-under unusual circumstances but we drank all the evidence of it away so it
-should be fine to discuss. It was excellent. Certainly the first time I&#8217;d had a
-single cask whisky. I didn&#8217;t pick up as many of the flavors described on the
-bottle but I certainly did enjoy my first, and second, and third drams of this
-bottle. (Randall was very generous with it though I tried to protest and let
-other people enjoy it.)</p>
+<p>Alternatively, you could set up all these environment variables using a
+rake or thor task before launching your app but who wants to deal with
+that? My favorite solution to a problem is a coding solution.</p>
 
-<p><em>Photo credit goes to Jacob Helwig.The originals are [here][1]</em></p>
+<p>And you have to do that <em>everywhere</em> you want to use a situation
+specific configuration. I don&#8217;t know about you but that seems hacky,
+error prone, and repetitive to me. Smelly code, in other words. In
+working on my recent projects I&#8217;ve been studying a large number of small
+Ruby applications. Mostly Sinatra but some in Rails and Padrino as well.
+In all those apps, I never found a ubiquitously deployed solution for
+the configuration situation in a Heroku-style environment so I left it
+to simmer a few days and dealt with <code>ENV[:KEY] || SETTINGS['key']</code> all
+over my app. Then, over too much cold brew coffee I came up with a
+workable solution. While this is the very first time I&#8217;ve seen this
+solution in a web application. It actually comes from messing around in
+<code>irb</code> earlier in the week trying to alter prompt strings for vanity&#8217;s sake.</p>
 
-<h2>In the End</h2>
+<p>Everyone open <code>irb</code> right now! Just go to a terminal and do it! Got it? Okay</p>
 
-<p>All in all, it was a great night, I took home a bottle of Laphroaig for my
-fanatical devotion to flavor and by the time I left I was sober enough that I
-got back to Union Square without getting lost. Thanks again to everyone at
-GitHub and Engine Yard, the CodeConf speakers, fellow volunteers and attendees,
-and in particular to Tom and Theresa Preston-Werner, Jacob Helwig, Steve
-Klabnick, and Chris Bertels, all of whom were a source of excellent conversation
-throughout the weekend. It turns out Chris and I work in the same office suite,
-with different folks and in opposite corners so I&#8217;ll likely be pestering him
-about Fancy for some time. And lastly, a HUUUGE thanks to Craig for his
-fantastic presentation and excellent conversation. I look forward to having a
-few drinks with you next time you&#8217;re in San Francisco. If anyone would like more
-detail on the scotches or topics I wrote up here, I urge them to ping
-@whiskycraig on Twitter.</p>
+<p><code>&gt; IRB.conf</code></p>
 
-<h1>Complete List of Drinks</h1>
+<p>You&#8217;ll see how this inspired my solution later on. Or perhaps I&#8217;m not as
+brilliant as I think I am and it&#8217;s obvious to you already (<em>likely</em>).</p>
 
-<ul>
-<li>&#8220;Soft&#8221; Drinks
+<p>So let&#8217;s say we&#8217;re working on a lightweight Sinatra application and we
+know that it&#8217;ll start simple and grow in complexity later on. Since
+we&#8217;re smart we&#8217;re going to namespace the whole thing under a module.
+Namely <code>Saneconf</code> Our skeleton looks like this:</p>
 
-<ul>
-<li>Lagunitas IPA</li>
-<li>Stella Artois</li>
-<li>Guinness</li>
-</ul>
-</li>
-<li>Main Stage
+<div><figure role=code><figcaption><span>Main Application File - app.rb </span></figcaption>
+ <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+<span class='line'>29</span>
+<span class='line'>30</span>
+</pre></td><td class='code' width='100%'><pre><code class='rb'><div class='line'><span class="c1">#!ruby</span>
+</div><div class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span> <span class="c1"># Only needed for Ruby 1.8</span>
+</div><div class='line'><span class="nb">require</span> <span class="s1">&#39;bundler&#39;</span>
+</div><div class='line'><span class="c1"># After this line, I shouldn&#39;t even have to *think* about dependencies.</span>
+</div><div class='line'><span class="no">Bundler</span><span class="o">.</span><span class="n">require</span>
+</div><div class='line'>
+</div><div class='line'><span class="c1"># This is the initilization file for the Saneconf API. All set up, library</span>
+</div><div class='line'><span class="c1"># loading and application level settings are done here.</span>
+</div><div class='line'><span class="k">module</span> <span class="nn">Saneconf</span>
+</div><div class='line'>  <span class="c1"># If there&#39;s a better/safer way to do this generically do let me know.</span>
+</div><div class='line'>  <span class="c1"># I haven&#39;t encountered a setup where this didn&#39;t work.</span>
+</div><div class='line'>  <span class="k">def</span> <span class="nc">Saneconf</span><span class="o">.</span><span class="nf">root</span><span class="p">;</span> <span class="no">Dir</span><span class="o">.</span><span class="n">pwd</span><span class="p">;</span> <span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1"># This one is important so we set it early and use a constant.</span>
+</div><div class='line'>  <span class="c1"># Set Rack environment if not specified.</span>
+</div><div class='line'>  <span class="no">RACK_ENV</span> <span class="o">=</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;RACK_ENV&#39;</span><span class="o">]</span> <span class="o">||</span> <span class="s2">&quot;development&quot;</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1"># Create an accessor to a module attribute which defaults to a</span>
+</div><div class='line'>  <span class="k">def</span> <span class="nc">Saneconf</span><span class="o">.</span><span class="nf">conf</span><span class="p">;</span> <span class="vi">@conf_hash</span> <span class="o">||=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">;</span> <span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="c1"># Handles initialization and preprocessing of application settings be they</span>
+</div><div class='line'>  <span class="c1"># from Heroku&#39;s Environment or a local `settings.yml`.</span>
+</div><div class='line'>  <span class="n">require_relative</span> <span class="s1">&#39;config/setup.rb&#39;</span>
+</div><div class='line'>
+</div><div class='line'>  <span class="k">class</span> <span class="nc">App</span> <span class="o">&lt;</span> <span class="no">Sinatra</span><span class="o">::</span><span class="no">Base</span>
+</div><div class='line'>    <span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</div><div class='line'>      <span class="s2">&quot;&lt;h1&gt;So nice to be sane again, eh? </span><span class="si">#{</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span><span class="si">}</span><span class="s2">?&lt;/h1&gt;&quot;</span>
+</div><div class='line'>    <span class="k">end</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
-<ul>
-<li>Johnnie Walker</li>
-<li>Glenfiddich 12 Year</li>
-<li>Aberlour 12 Year</li>
-<li>The Macallan 12 Year</li>
-<li>Caol Ila 12 Year</li>
-<li>Lavavulin 16 Year</li>
-</ul>
-</li>
-<li>Non-Smoking Room
 
-<ul>
-<li>Macallan Cask Strength</li>
-<li>Glengyle</li>
-<li>Clynelish 14 Year</li>
-</ul>
-</li>
-<li>Smoking Room
+<p>That looks cool and all, but what the hell is <code>config/setup.rb</code>? Answer: It&#8217;s
+where the magic happens, let&#8217;s go take a look:</p>
 
-<ul>
-<li>Ardbeg 12 Year</li>
-<li>Murray McDavid</li>
-</ul>
-</li>
-<li>Exam Room
+<div><figure role=code><figcaption><span>The Magic Happens Here - config/setup.rb </span></figcaption>
+ <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+<span class='line'>29</span>
+<span class='line'>30</span>
+<span class='line'>31</span>
+<span class='line'>32</span>
+<span class='line'>33</span>
+<span class='line'>34</span>
+<span class='line'>35</span>
+<span class='line'>36</span>
+</pre></td><td class='code' width='100%'><pre><code class='rb'><div class='line'><span class="c1">#!ruby</span>
+</div><div class='line'><span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span> <span class="s2">&quot;config/settings.yml&quot;</span>
+</div><div class='line'>  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">merge!</span><span class="p">(</span>
+</div><div class='line'>    <span class="no">YAML</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s2">&quot;config/settings.yml&quot;</span><span class="p">)</span><span class="o">[</span><span class="no">Saneconf</span><span class="o">::</span><span class="no">RACK_ENV</span><span class="o">]</span><span class="p">)</span>
+</div><div class='line'>    <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span> <span class="o">=</span>
+</div><div class='line'>      <span class="no">YAML</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s2">&quot;config/resque_schedule.yml&quot;</span><span class="p">)</span>
+</div><div class='line'><span class="k">else</span>
+</div><div class='line'>  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">merge!</span><span class="p">(</span><span class="no">ENV</span><span class="p">)</span>
+</div><div class='line'><span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'><span class="n">db</span> <span class="o">=</span> <span class="no">URI</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;DATABASE_URL&#39;</span><span class="o">]</span>
+</div><div class='line'><span class="n">redis</span> <span class="o">=</span> <span class="no">URI</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;REDISTOGO_URL&#39;</span><span class="o">]</span>
+</div><div class='line'><span class="c1"># Parse Postgres connection settings.</span>
+</div><div class='line'><span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;DATABASE&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span>
+</div><div class='line'>  <span class="ss">:adapter</span> <span class="o">=&gt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">db</span><span class="o">.</span><span class="n">scheme</span><span class="si">}</span><span class="s2">ql&quot;</span><span class="p">,</span> <span class="c1"># Add a &#39;ql&#39; cause ActiveRecord is stupid.</span>
+</div><div class='line'>  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+</div><div class='line'>  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+</div><div class='line'>  <span class="ss">:database</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">path</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span>
+</div><div class='line'>  <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+</div><div class='line'>  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">password</span>
+</div><div class='line'><span class="p">}</span>
+</div><div class='line'>
+</div><div class='line'><span class="c1"># Parse Redis connection settings.</span>
+</div><div class='line'><span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;REDIS&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span>
+</div><div class='line'>  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+</div><div class='line'>  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+</div><div class='line'>  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+</div><div class='line'>  <span class="ss">:db</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">path</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span>
+</div><div class='line'><span class="p">}</span>
+</div><div class='line'>
+</div><div class='line'><span class="c1"># Parse Resque Schedule YAML.</span>
+</div><div class='line'><span class="k">if</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">].</span><span class="n">class</span> <span class="o">==</span> <span class="nb">String</span>
+</div><div class='line'>  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">.</span><span class="n">load</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span>
+</div><div class='line'><span class="k">end</span>
+</div><div class='line'>
+</div><div class='line'><span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">freeze</span>
+</div></code></pre></td></tr></table></div></figure></div>
 
-<ul>
-<li>Ransom Old Tom Gin</li>
-</ul>
-</li>
-<li>Special Appearance
 
-<ul>
-<li>Fandabbydozy Single Cask</li>
-</ul>
-</li>
-</ul>
+<p>All this does is check for the existence of a <code>settings.yml</code> and load  it&#8217;s
+values into our (currently) empty configuration hash using an  in-place
+<code>#merge!</code>. The reason we do this is because we very  purposefully didn&#8217;t supply
+a mutator <code>Saneconf.conf=</code> for our config  hash. We don&#8217;t <em>want</em> it to be
+overwritten later on. For the moment  though we can change existing keys and add
+new ones. Next we handle all  non-scalar configuration by parsing some of the
+scalar ones into hashes.  Arrays or any other Ruby object could be placed in the
+<code>conf</code> hash. It  just happens that Hashes are commonly used by libraries like
+ActiveRecord and the Ruby Redis interface for initialization. The reason  I
+expand those here and not in place at point-of-use is mostly personal
+preference. All I ever want to see in the app is <code>conf['VARIABLE']</code> and  I
+shouldn&#8217;t have to think about it and whatever I&#8217;m trying to accomplish  at that
+point in our app. Lastly, we call <code>#freeze</code> on the conf hash.  This is a method
+every Ruby object has which makes it immutable,  throwing an exception if an
+attempt is made to change it. This way, any  of your fellow developers will know
+that whatever they&#8217;re doing belongs  in your application initialization code and
+not in the middle of your  important code.   Hopefully this proves helpful, the
+example code is available on
+<a href="https://github.com/nuclearsandwich/saneconf">GitHub</a>.</p>
 
+<p>Good hunting, Steven!</p>
 </div>
   
   
@@ -378,6 +402,10 @@ detail on the scotches or topics I wrote up here, I urge them to ping
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/11/29/sightread-your-code/">Sightread Your Code</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/11/28/who-i-am-and-where-i-am-going/">Who I Am and Where I Am Going</a>
       </li>
     
@@ -399,10 +427,6 @@ detail on the scotches or topics I wrote up here, I urge them to ping
     
       <li class="post">
         <a href="/blog/2011/08/19/why-ruby-needs-heroes/">Why Ruby Needs Heroes</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/07/03/coffeescript-an-outsider-opinion/">CoffeeScript: An Outsider Opinion</a>
       </li>
     
   </ul>

@@ -88,7 +88,7 @@
     
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/09/03/switching-to-octopress/">Switching to Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/09/08/a-look-at-ruby-case-expressions/">A Look at Ruby Case Expressions</a></h1>
     
     
       <p class="meta">
@@ -96,7 +96,7 @@
 
 
 
-<time datetime="2011-09-03 14:31:00 -0700" pubdate  updated >Sep 3<span>rd</span>, 2011</time>
+<time datetime="2011-09-08 08:33:00 -0700" pubdate  updated >Sep 8<span>th</span>, 2011</time>
 
 
 </p>
@@ -104,14 +104,250 @@
   </header>
 
 
-  <div class="entry-content"><p>First post!</p>
+  <div class="entry-content"><p>Ruby, like many languages has a case-when construct for more refined conditional
+execution than if-then-else can provide. Technically all case constructs could
+be written as if-then-else-if-then&#8230;else but you wouldn&#8217;t enjoy it.</p>
 
-<p>Well, not quite. It is the first post with the new blogging engine <a href="http://octopress.org">Octopress</a>
-I was having a lot of trouble with Posterous&#8217;s post by email and their
-antiquated markdown version. So here I am, on this shiny new, happily Vim-able
-platform.</p>
+<h2>Ruby&#8217;s case-when is an expression</h2>
 
-<p>The joy begins.</p>
+<p>However, there are a number of things that make Ruby&#8217;s case-when special. The
+first comes from Ruby&#8217;s functional roots. It&#8217;s powerful but deceptively simple.
+Ruby&#8217;s case-when construct is an <em>expression</em>. Which means, among other things,
+it returns a value.</p>
+
+<p>In a traditional imperative style a case statement might look like:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:some_default_value</span>
+</div><div class='line'><span class="k">case</span> <span class="n">our_condition</span>
+</div><div class='line'><span class="k">when</span> <span class="ss">:first</span>
+</div><div class='line'>  <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:one_thing</span>
+</div><div class='line'><span class="k">when</span> <span class="ss">:then</span>
+</div><div class='line'>  <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:another</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>The that isn&#8217;t ideal for a number of reasons. <code>conditional_variable</code> is set
+visibly three times which as any freshman can tell you is frowned upon.
+Academics have stuffier reasons for it but the most important is that it
+decreases readability because we aren&#8217;t sure what the value will be after
+execution. Setting it so many times is also a code duplication, albeit a small
+one. We can take advantage of Ruby&#8217;s case-when <em>expression</em> with this code:</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="n">conditional_variable</span> <span class="o">=</span> <span class="k">case</span> <span class="n">our_condition</span>
+</div><div class='line'>                       <span class="k">when</span> <span class="ss">:first</span>
+</div><div class='line'>                         <span class="ss">:one_thing</span>
+</div><div class='line'>                       <span class="k">when</span> <span class="ss">:then</span>
+</div><div class='line'>                         <span class="ss">:another</span>
+</div><div class='line'>                       <span class="k">else</span>
+</div><div class='line'>                         <span class="ss">:some_default_value</span>
+</div><div class='line'>                       <span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Doesn&#8217;t that look nicer? <code>conditional_variable</code> is only set once and the
+intent is clear, we want the value to depend on <code>our_condition</code>.</p>
+
+<h2>case-when uses triple equals for comparison</h2>
+
+<p>This got me good this morning and spawned this article. If you&#8217;re not familiar
+with <code>===</code> in Ruby then the best explanation comes from <em>_why&#8217;s Poignant Guide
+to Ruby</em> which really is worth reading. I&#8217;ve referred back to it multiple times
+to help myself and those around me fully understand basic Ruby concepts like
+<code>nil</code>, truthiness and falsiness, and, <strong>fanfare please</strong>, double equals versus
+triple equals.</p>
+
+<blockquote><p>The double equals gives the appearance of a short link of ropes, right
+along the sides of a red carpet where only <code>true</code> can be admitted.</p></blockquote>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">if</span> <span class="n">approaching_guy</span> <span class="o">==</span> <span class="kp">true</span>
+</div><div class='line'>  <span class="nb">puts</span> <span class="s2">&quot;That necklace is classic&quot;</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<blockquote><p>&#8230;
+[This case-when statement]</p></blockquote>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">case</span> <span class="n">year</span>
+</div><div class='line'><span class="k">when</span> <span class="mi">1894</span>
+</div><div class='line'>  <span class="s2">&quot;Born.&quot;</span>
+</div><div class='line'><span class="k">when</span> <span class="p">(</span><span class="mi">1895</span><span class="o">.</span><span class="n">.</span><span class="mi">1913</span><span class="p">)</span>
+</div><div class='line'>  <span class="s2">&quot;Childhood in Lousville, Winston Co., Mississippi.&quot;</span>
+</div><div class='line'><span class="k">else</span>
+</div><div class='line'>  <span class="s2">&quot;No information about this year.&quot;</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<blockquote><p>is identical to</p></blockquote>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">if</span> <span class="mi">1894</span> <span class="o">===</span> <span class="n">year</span>
+</div><div class='line'>  <span class="s2">&quot;Born.&quot;</span>
+</div><div class='line'><span class="k">elsif</span> <span class="p">(</span><span class="mi">1895</span><span class="o">.</span><span class="n">.</span><span class="mi">1913</span><span class="p">)</span> <span class="o">===</span> <span class="n">year</span>
+</div><div class='line'>  <span class="s2">&quot;Childhood in Lousville, Winston Co., Mississippi.&quot;</span>
+</div><div class='line'><span class="k">else</span>
+</div><div class='line'>  <span class="s2">&quot;No information about this year.&quot;</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<blockquote><p>The <strong>triple equals</strong> is a length of velvet rope, checking values much like
+the <strong>double equals</strong>. It&#8217;s just: the triple equals is a longer rope and it
+sags a bit in the middle. It&#8217;s not as strict, it&#8217;s a bit more flexible.
+Take the Ranges above. <code>(1895..1913)</code> isn&#8217;t at all equal to <code>1905</code>.</p>
+
+<p>No, the Range <code>(1895..1913)</code> is only truly equal to any other Range
+<code>(1895..1913)</code>. In the case of a Range, the triple equals cuts you a break
+and lets the Integer <code>1905</code> in, because even though it&#8217;s not equal to the
+Range, it&#8217;s included in the set of Integers represented by the Range. Which
+is good enough in some cases, such as the timeline I put together earlier.</p></blockquote>
+
+<h2>My Mistake</h2>
+
+<p>This is what I did which caused me to write this as penance.</p>
+
+<div><figure role=code> <div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+</pre></td><td class='code' width='100%'><pre><code class='ruby'><div class='line'><span class="k">def</span> <span class="nf">local_tweet_object</span> <span class="n">input</span>
+</div><div class='line'>  <span class="n">tweet_hash</span> <span class="o">=</span> <span class="k">case</span> <span class="n">input</span><span class="o">.</span><span class="n">class</span> <span class="c1"># the screw-up</span>
+</div><div class='line'>  <span class="k">when</span> <span class="nb">String</span>
+</div><div class='line'>    <span class="no">MultiJson</span><span class="o">.</span><span class="n">decode</span> <span class="n">input</span>
+</div><div class='line'>  <span class="k">when</span> <span class="no">Hash</span>
+</div><div class='line'>    <span class="n">input</span>
+</div><div class='line'>  <span class="k">else</span>
+</div><div class='line'>    <span class="nb">fail</span> <span class="no">ArgumentError</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</div><div class='line'>      <span class="s2">&quot;Cannot process </span><span class="si">#{</span><span class="n">input</span><span class="o">.</span><span class="n">class</span><span class="si">}</span><span class="s2"> only String or Hash&quot;</span><span class="p">)</span>
+</div><div class='line'>  <span class="k">end</span>
+</div><div class='line'>  <span class="no">LocalTweet</span><span class="o">.</span><span class="n">new</span> <span class="n">tweet_hash</span>
+</div><div class='line'><span class="k">end</span>
+</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>This code was raising the following error.</p>
+
+<p><code>ArgumentError: I don't want Hash give me only String or Hash</code>
+&#8230; <em>huh?</em></p>
+
+<p>At first glance it looked fine, but then we remember that case-when uses <code>===</code>.
+Again, we think &#8220;this shouldn&#8217;t be an issue, if it&#8217;s good enough for <code>==</code> it
+should be fine for <code>===</code>.&#8221; But <code>===</code> behaves specially for certain types in Ruby
+such as Classes, Arrays, and as we saw before, Ranges.</p>
+
+<p>For simple scalar values <code>===</code> acts like you expect.</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>12 === 12 #=> true
+</div><div class='line'>12 === 13 #=> false
+</div><div class='line'>:rats === :rats #=> true
+</div><div class='line'>"pens" === "pens" #=> true
+</div><div class='line'>"space" === "fact" #=> false</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>And we know how <code>===</code> treats ranges</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>(8..64) === 32 #=> true</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>But note that</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>(8..64) === (8..64) #=> false</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Suddenly!</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>Integer === 12 #=> true!</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>waitaminute.. what?</p>
+
+<p>So Ruby can tell that <code>12</code> is a type of Integer and thus <code>===</code> can be described
+partially as an includes and typeof operator. But there are some further
+gotchas.</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>[ 1, 2, 3 ] === 1#=> true
+</div><div class='line'>[ 1, 2, 3 ] === [ 1, 2, 3 ]                         #=> true
+</div><div class='line'>[ 1, 2, 3 ] === [ 1, 2 ]                            #=> false
+</div><div class='line'>{ :foo => :bar } === { :foo => :bar }               #=> true
+</div><div class='line'>{ :foo => :bar } === :foo                           #=> false
+</div><div class='line'>{ :foo => :bar, :baz => :qux } === { :foo => :bar } #=> false</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><code>===</code>&#8217;s behavior isn&#8217;t completely intuitive even within Ruby&#8217;s standard Classes.
+Which brings us (finally) back around to my original error.
+<code>Hash === Hash #=&gt; false</code></p>
+
+<p>The fix is simple, just change</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>case input.class</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>to</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>case input</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>I posted on identi.ca a friendly notice about this easy mistake and was asked to
+provide clarification. So here, just over 24 hours late, it is. The full source
+code is provided <a href="https://gist.github.com/1112335">here</a></p>
 </div>
   
   
@@ -139,6 +375,10 @@ platform.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/11/29/sightread-your-code/">Sightread Your Code</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/11/28/who-i-am-and-where-i-am-going/">Who I Am and Where I Am Going</a>
       </li>
     
@@ -160,10 +400,6 @@ platform.</p>
     
       <li class="post">
         <a href="/blog/2011/08/19/why-ruby-needs-heroes/">Why Ruby Needs Heroes</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/07/03/coffeescript-an-outsider-opinion/">CoffeeScript: An Outsider Opinion</a>
       </li>
     
   </ul>
