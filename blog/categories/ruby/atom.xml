@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | Mad Ramblings of a Lunatic Hacker]]></title>
+  <link href="http://blog.nuclearsandwich.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://blog.nuclearsandwich.com/"/>
+  <updated>2012-02-01T11:56:52-08:00</updated>
+  <id>http://blog.nuclearsandwich.com/</id>
+  <author>
+    <name><![CDATA[Steven! Ragnarök]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Sane Configuration Setup for Rack Applications on Heroku]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku/"/>
+    <updated>2011-06-25T09:05:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku</id>
+    <content type="html"><![CDATA[<p><strong><em>Update:</em></strong> The Github repo I linked at the end of this article was private
+and I forgot to make it public. It is now, sorry. ~Steven!</p>
+
+<p>Recently, Nowmov has started using <a href="http://heroku.com">Heroku</a> for application
+deployment. In the past I've always been hesitant toward "hosted
+solutions" but a combination of focusing my time and the flexibility and
+power of Heroku's Celadon Cedar stack has brought me into contact with
+one such solution.</p>
+
+<p>One of the first peculiarities/gotchas/side-effects of many of these
+hosted solutions is that they don't provide shell or ftp access. Nor can
+you write to the file system from your application. This caused us some
+interesting problems during the migration.</p>
+
+<ol>
+<li><p>Rails convention dictates that <code>config/settings.yml</code>,
+<code>config/database.yml</code> and friends not be stored in source control and
+that we should store template files instead so developers are aware of
+setup specific configuration details. However, our inability to push
+files not in source control to Heroku leaves us unable to use the
+standard convention for configuration details. The way Heroku bypasses
+this leads to the next hurdle.</p></li>
+<li><p>The whole point of Heroku is that you don't deal with IT, just your
+code. This means that you don't really care where your PostgreSQL
+database is or what port you use to connect to your Redis instance. But
+you still need to connect to those things! So what does Heroku do? They
+give you environment variables. <code>heroku run 'echo $DATABASE_URL'</code>
+returns a big long uri corresponding to your app's database. With this
+specific config variable, Heroku is kind enough to render a
+<code>database.yml</code> from it using erb. But it only works ActiveRecord
+compatible database.ymls, which is not all of them, believe it or not.
+(I'm looking at you Sequel) Inspect your Heroku config variables by
+running <code>heroku config</code> from an app directory. The amount of scary
+looking crap in there might surprise you!</p></li>
+</ol>
+
+
+<p>You can even add your own config variables such as
+<code>MR_FANCY_PANTS=the_worlds_best_pants</code> with
+<code>heroku config:add MR_FANCY_PANTS=sad_deep_inside ARTIST="Jonathan
+Coulton"</code> this command will expose both your variables to your code
+using Ruby's <code>ENV</code> hash.</p>
+
+<p>In your code you'd get to it like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;!ruby&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">controller_action</span>
+</span><span class='line'>  <span class="k">if</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;Jonathan Coulton&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;@still_alive = true</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>But then this also has to work locally! So you need to do somethig like
+this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;!ruby&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">controller_action</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span> <span class="o">||</span> <span class="no">SETTINGS</span><span class="o">[</span><span class="ss">:artist</span><span class="o">]</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Jonathan Coulton&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;@still_alive = true</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Alternatively, you could set up all these environment variables using a
+rake or thor task before launching your app but who wants to deal with
+that? My favorite solution to a problem is a coding solution.</p>
+
+<p>And you have to do that <em>everywhere</em> you want to use a situation
+specific configuration. I don't know about you but that seems hacky,
+error prone, and repetitive to me. Smelly code, in other words. In
+working on my recent projects I've been studying a large number of small
+Ruby applications. Mostly Sinatra but some in Rails and Padrino as well.
+In all those apps, I never found a ubiquitously deployed solution for
+the configuration situation in a Heroku-style environment so I left it
+to simmer a few days and dealt with <code>ENV[:KEY] || SETTINGS['key']</code> all
+over my app. Then, over too much cold brew coffee I came up with a
+workable solution. While this is the very first time I've seen this
+solution in a web application. It actually comes from messing around in
+<code>irb</code> earlier in the week trying to alter prompt strings for vanity's sake.</p>
+
+<p>Everyone open <code>irb</code> right now! Just go to a terminal and do it! Got it? Okay</p>
+
+<p><code>&gt; IRB.conf</code></p>
+
+<p>You'll see how this inspired my solution later on. Or perhaps I'm not as
+brilliant as I think I am and it's obvious to you already (<em>likely</em>).</p>
+
+<p>So let's say we're working on a lightweight Sinatra application and we
+know that it'll start simple and grow in complexity later on. Since
+we're smart we're going to namespace the whole thing under a module.
+Namely <code>Saneconf</code> Our skeleton looks like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Main Application File - app.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;!ruby&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span> <span class="c1"># Only needed for Ruby 1.8</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;bundler&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;After this line, I shouldn&#39;t even have to &lt;em&gt;think&lt;/em</span><span class="o">&gt;</span> <span class="n">about</span> <span class="n">dependencies</span><span class="o">.</span><span class="n">&lt;</span><span class="sr">/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;Bundler.require&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="no">This</span> <span class="n">is</span> <span class="n">the</span> <span class="n">initilization</span> <span class="n">file</span> <span class="k">for</span> <span class="n">the</span> <span class="no">Saneconf</span> <span class="no">API</span><span class="o">.</span> <span class="no">All</span> <span class="n">set</span> <span class="n">up</span><span class="p">,</span> <span class="n">library</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;loading and application level settings are done here.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">module</span> <span class="nn">Saneconf</span>
+</span><span class='line'>  <span class="c1"># If there&#39;s a better/safer way to do this generically do let me know.</span>
+</span><span class='line'>  <span class="c1"># I haven&#39;t encountered a setup where this didn&#39;t work.</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">Saneconf</span><span class="o">.</span><span class="nf">root</span><span class="p">;</span> <span class="no">Dir</span><span class="o">.</span><span class="n">pwd</span><span class="p">;</span> <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  # This one is important so we set it early and use a constant.</span>
+</span><span class='line'><span class="sr">  # Set Rack environment if not specified.</span>
+</span><span class='line'><span class="sr">  RACK_ENV = ENV[&#39;RACK_ENV&#39;] || &quot;development&quot;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="c1"># Create an accessor to a module attribute which defaults to a</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">Saneconf</span><span class="o">.</span><span class="nf">conf</span><span class="p">;</span> <span class="vi">@conf_hash</span> <span class="o">||=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">;</span> <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  # Handles initialization and preprocessing of application settings be they</span>
+</span><span class='line'><span class="sr">  # from Heroku&#39;s Environment or a local &lt;code&gt;settings.yml&lt;/</span><span class="n">code</span><span class="o">&gt;.</span>
+</span><span class='line'>  <span class="n">require_relative</span> <span class="s1">&#39;config/setup.rb&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  class App &amp;lt; Sinatra::Base&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="s2">&quot;&amp;lt;h1&amp;gt;So nice to be sane again, eh? </span><span class="si">#{</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span><span class="si">}</span><span class="s2">?&amp;lt;/h1&amp;gt;&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>That looks cool and all, but what the hell is <code>config/setup.rb</code>? Answer: It's
+where the magic happens, let's go take a look:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>The Magic Happens Here - config/setup.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;!ruby&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span> <span class="s2">&quot;config/settings.yml&quot;</span>
+</span><span class='line'>  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">merge!</span><span class="p">(</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;YAML.load_file(&quot;config/se</span><span class="n">ttings</span><span class="o">.</span><span class="n">yml</span><span class="s2">&quot;)[Saneconf::RACK_ENV])</span>
+</span><span class='line'><span class="s2">Saneconf.conf[&#39;RESQUE_SCHEDULE&#39;] =</span>
+</span><span class='line'><span class="s2">  YAML.load_file(&quot;</span><span class="n">config</span><span class="o">/</span><span class="n">resque_schedule</span><span class="o">.</span><span class="n">yml</span><span class="s2">&quot;)</span>
+</span><span class='line'><span class="s2">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s2">&lt;p&gt;else</span>
+</span><span class='line'><span class="s2">  Saneconf.conf.merge!(ENV)</span>
+</span><span class='line'><span class="s2">end&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s2">&lt;p&gt;db = URI Saneconf.conf[&#39;DATABASE_URL&#39;]</span>
+</span><span class='line'><span class="s2">redis = URI Saneconf.conf[&#39;REDISTOGO_URL&#39;]&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s2">&lt;h1&gt;Parse Postgres connection settings.&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s2">&lt;p&gt;Saneconf.conf[&#39;DATABASE&#39;] = {</span>
+</span><span class='line'><span class="s2">  :adapter =&gt; &quot;</span><span class="c1">#{db.scheme}ql&quot;, # Add a &#39;ql&#39; cause ActiveRecord is stupid.</span>
+</span><span class='line'>  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:database</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">path</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">password</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;Parse Redis connection settings.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;REDIS&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:db</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">path</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;Parse Resque Schedule YAML.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">].</span><span class="n">class</span> <span class="o">==</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">.</span><span class="n">load</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;Saneconf.conf.freeze</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>All this does is check for the existence of a <code>settings.yml</code> and load  it's
+values into our (currently) empty configuration hash using an  in-place
+<code>#merge!</code>. The reason we do this is because we very  purposefully didn't supply
+a mutator <code>Saneconf.conf=</code> for our config  hash. We don't <em>want</em> it to be
+overwritten later on. For the moment  though we can change existing keys and add
+new ones. Next we handle all  non-scalar configuration by parsing some of the
+scalar ones into hashes.  Arrays or any other Ruby object could be placed in the
+<code>conf</code> hash. It  just happens that Hashes are commonly used by libraries like
+ActiveRecord and the Ruby Redis interface for initialization. The reason  I
+expand those here and not in place at point-of-use is mostly personal
+preference. All I ever want to see in the app is <code>conf['VARIABLE']</code> and  I
+shouldn't have to think about it and whatever I'm trying to accomplish  at that
+point in our app. Lastly, we call <code>#freeze</code> on the conf hash.  This is a method
+every Ruby object has which makes it immutable,  throwing an exception if an
+attempt is made to change it. This way, any  of your fellow developers will know
+that whatever they're doing belongs  in your application initialization code and
+not in the middle of your  important code.   Hopefully this proves helpful, the
+example code is available on
+<a href="https://github.com/nuclearsandwich/saneconf">GitHub</a>.</p>
+
+<p>Good hunting, Steven!</p>
+]]></content>
+  </entry>
+  
+</feed>
