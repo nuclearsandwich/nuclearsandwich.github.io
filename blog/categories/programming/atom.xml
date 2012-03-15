@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: programming | Mad Ramblings of a Lunatic Hacker]]></title>
+  <title><![CDATA[Category: Programming | Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-02-01T11:56:52-08:00</updated>
+  <updated>2012-03-14T18:04:36-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -14,431 +14,266 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Sightread Your Code]]></title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/11/29/sightread-your-code/"/>
-    <updated>2011-11-29T09:50:00-08:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/11/29/sightread-your-code</id>
-    <content type="html"><![CDATA[<p><em>Sightreading is an essential skill for any musician. Turns out it's pretty
-important for good software developers as well.</em></p>
+    <title type="html"><![CDATA[A Look at Ruby Case Expressions]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/09/08/a-look-at-ruby-case-expressions/"/>
+    <updated>2011-09-08T08:33:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/09/08/a-look-at-ruby-case-expressions</id>
+    <content type="html"><![CDATA[<p>Ruby, like many languages has a case-when construct for more refined conditional
+execution than if-then-else can provide. Technically all case constructs could
+be written as if-then-else-if-then...else but you wouldn't enjoy it.</p>
 
-<h2>What is Sightreading?</h2>
+<h2>Ruby's case-when is an expression</h2>
 
-<p>I've been listening to a ton of <a href="http://rubyrogues.com">Ruby Rogues</a>, so let's begin with a
-definition.</p>
+<p>However, there are a number of things that make Ruby's case-when special. The
+first comes from Ruby's functional roots. It's powerful but deceptively simple.
+Ruby's case-when construct is an <em>expression</em>. Which means, among other things,
+it returns a value.</p>
 
-<p>From Wikipedia,</p>
+<p>In a traditional imperative style a case statement might look like:</p>
 
-<blockquote><p> <strong>Sightreading</strong> <em>is the reading and performing of a piece of written music,
-specifically when the performer has not seen it before.</em></p></blockquote>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:some_default_value</span>
+</span><span class='line'><span class="k">case</span> <span class="n">our_condition</span>
+</span><span class='line'><span class="k">when</span> <span class="ss">:first</span>
+</span><span class='line'>  <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:one_thing</span>
+</span><span class='line'><span class="k">when</span> <span class="ss">:then</span>
+</span><span class='line'>  <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:another</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Musicians are always evaluated on their ability to read and interpret musical
-scores on command, a musician's time isn't cheap and rehearsing a specific piece
-of music is a privilege reserved often reserved for school ensembles and AAA
-film score recordings. I exaggerate a little, but honestly, professional
-musicians are not afforded a lot of rehearsal time. They are instead expected to
-walk up to a piece, play their bit expressively while fitting in with the rest
-of the ensemble perfectly, sometimes without ever hearing them.</p>
+<p>The that isn't ideal for a number of reasons. <code>conditional_variable</code> is set
+visibly three times which as any freshman can tell you is frowned upon.
+Academics have stuffier reasons for it but the most important is that it
+decreases readability because we aren't sure what the value will be after
+execution. Setting it so many times is also a code duplication, albeit a small
+one. We can take advantage of Ruby's case-when <em>expression</em> with this code:</p>
 
-<p>If you're wondering how on Earth this could possibly relate to software, look no
-further than your first day on your current project. Most software developers
-don't have the privilege of starting from scratch when they begin a new job or
-contract.  Instead we are thrown into an existing one and expected to decrease
-the bug count. Some people might say that's an unfair expectation, but it is, in
-fact, no different from expecting a professional musician to walk into the
-studio, read your score, play their piece once or twice, then collect their
-check and leave.</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">conditional_variable</span> <span class="o">=</span> <span class="k">case</span> <span class="n">our_condition</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;                   when :first</span>
+</span><span class='line'><span class="sr">                     :one_thing</span>
+</span><span class='line'><span class="sr">                   when :then</span>
+</span><span class='line'><span class="sr">                     :another</span>
+</span><span class='line'><span class="sr">                   else</span>
+</span><span class='line'><span class="sr">                     :some_default_value</span>
+</span><span class='line'><span class="sr">                   end</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Western music has a complex but accepted system of notation that all musicians
-and composers are expected to be familiar with. On top of this base language
-there are sets of idioms particular to certain genres. By writing works in this
-language and leveraging (often subconsciously) these idioms composers create
-music that musicians can read and follow and interpret even <em>as</em> they play.</p>
+<p>Doesn't that look nicer? <code>conditional_variable</code> is only set once and the
+intent is clear, we want the value to depend on <code>our_condition</code>.</p>
 
-<p>In the case of software development, the language and idioms are still present,
-but they are the languages and idioms of computer programs rather than those of
-western music.</p>
+<h2>case-when uses triple equals for comparison</h2>
 
-<h2>Sightreading Code</h2>
+<p>This got me good this morning and spawned this article. If you're not familiar
+with <code>===</code> in Ruby then the best explanation comes from <em>_why's Poignant Guide
+to Ruby</em> which really is worth reading. I've referred back to it multiple times
+to help myself and those around me fully understand basic Ruby concepts like
+<code>nil</code>, truthiness and falsiness, and, <strong>fanfare please</strong>, double equals versus
+triple equals.</p>
 
-<p>So what's the point of sightreading code? Here's three scenarios from every
-stage of one's career.</p>
+<blockquote><p>The double equals gives the appearance of a short link of ropes, right
+along the sides of a red carpet where only <code>true</code> can be admitted.
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">approaching_guy</span> <span class="o">==</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;That necklace is classic&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+...
+[This case-when statement]</p></blockquote>
 
-<ol>
-<li>You're fresh out of University and in a technical interview. You've been
-  asked to find and fix the two known bugs in a text formatting program.</li>
-<li>You've just started your first day at a new job and you've been tasked with
-  extending an existing project with new features.</li>
-<li>You're a super celebrity master contractor and people pay you way too much
-  money. You walk up to code you've never seen before and need to make magic
-  happen in order to justify your absurd cost.</li>
-</ol>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">year</span>
+</span><span class='line'><span class="k">when</span> <span class="mi">1894</span>
+</span><span class='line'>  <span class="s2">&quot;Born.&quot;</span>
+</span><span class='line'><span class="k">when</span> <span class="p">(</span><span class="mi">1895</span><span class="o">.</span><span class="n">.</span><span class="mi">1913</span><span class="p">)</span>
+</span><span class='line'>  <span class="s2">&quot;Childhood in Lousville, Winston Co., Mississippi.&quot;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="s2">&quot;No information about this year.&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
+<blockquote><p>is identical to
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="mi">1894</span> <span class="o">===</span> <span class="n">year</span>
+</span><span class='line'>  <span class="s2">&quot;Born.&quot;</span>
+</span><span class='line'><span class="k">elsif</span> <span class="p">(</span><span class="mi">1895</span><span class="o">.</span><span class="n">.</span><span class="mi">1913</span><span class="p">)</span> <span class="o">===</span> <span class="n">year</span>
+</span><span class='line'>  <span class="s2">&quot;Childhood in Lousville, Winston Co., Mississippi.&quot;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="s2">&quot;No information about this year.&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+The <strong>triple equals</strong> is a length of velvet rope, checking values much like
+the <strong>double equals</strong>. It's just: the triple equals is a longer rope and it
+sags a bit in the middle. It's not as strict, it's a bit more flexible.
+Take the Ranges above. <code>(1895..1913)</code> isn't at all equal to <code>1905</code>.</p>
 
-<p>In each case your value hinges on picking up a brand new codebase and running
-with it. Since you can't control the quality of code you didn't write you can't
-make any excuses regarding what's already written. At this point you have two
-options. Skim the code, or read it all.</p>
+<p>No, the Range <code>(1895..1913)</code> is only truly equal to any other Range
+<code>(1895..1913)</code>. In the case of a Range, the triple equals cuts you a break
+and lets the Integer <code>1905</code> in, because even though it's not equal to the
+Range, it's included in the set of Integers represented by the Range. Which
+is good enough in some cases, such as the timeline I put together earlier.</p></blockquote>
 
-<p>I will tell you right now, <strong>skimming doesn't work.</strong> You can't read every other
-line or seek for specific variable names and actually follow what is going on.
-When you do so, you screw it up.</p>
+<h2>My Mistake</h2>
 
-<p><em>Disclaimer: Slight boorishness follows</em></p>
+<p>This is what I did which caused me to write this as penance.
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">local_tweet_object</span> <span class="n">input</span>
+</span><span class='line'>  <span class="n">tweet_hash</span> <span class="o">=</span> <span class="k">case</span> <span class="n">input</span><span class="o">.</span><span class="n">class</span> <span class="c1"># the screw-up</span>
+</span><span class='line'>  <span class="k">when</span> <span class="nb">String</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;MultiJson.decode input</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  when Hash&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">input</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">else</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;fail ArgumentError.new(</span>
+</span><span class='line'><span class="sr">  &quot;Cannot process </span><span class="si">#{</span><span class="n">input</span><span class="o">.</span><span class="n">class</span><span class="si">}</span><span class="sr"> only String or Hash&quot;)</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
+</span><span class='line'><span class="sr">  LocalTweet.new tweet_hash</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<blockquote><p>If you ask me a question about my code, I'm going to assume you've read every
-relevant line.</p></blockquote>
+<p>This code was raising the following error.</p>
 
-<p>Relevant lines are tough to pin down, but at the very least the entire method in
-question is a good start. When you haven't done so, it's plain disrespectful and
-arrogant on your part, especially when your question is answered (or nullified)
-by something directly in that body of code. By skimming and then bringing up
-something you saw during the skim, you waste your time and mine.</p>
+<p><code>ArgumentError: I don't want Hash give me only String or Hash</code>
+... <em>huh?</em></p>
 
-<p>Everyone who has taught me up until a year ago will roll their eyes at me for
-this because I was the best at skimming (meaning I was the worst reader/pupil) I
-actively avoid jumping to conclusions about what I read and take a concerted
-effort to answer as much as I can on my own before escalating a problem.
-Furthermore, when I do I often have a much better handle on what question I am
-asking than I would otherwise have had.</p>
+<p>At first glance it looked fine, but then we remember that case-when uses <code>===</code>.
+Again, we think "this shouldn't be an issue, if it's good enough for <code>==</code> it
+should be fine for <code>===</code>." But <code>===</code> behaves specially for certain types in Ruby
+such as Classes, Arrays, and as we saw before, Ranges.</p>
 
-<p>In all seriousness, when you do this I start to think about spending less time
-with you. I warn everyone I'm comfortable warning not to skim <strong><em>ever</em></strong>.
-Including you, dear reader.</p>
+<p>For simple scalar values <code>===</code> acts like you expect.
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>12 === 12 #=> true
+</span><span class='line'>12 === 13 #=> false
+</span><span class='line'>:rats === :rats #=> true
+</span><span class='line'>"pens" === "pens" #=> true
+</span><span class='line'>"space" === "fact" #=> false</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Since skimming code doesn't work, our only remaining option is to actually read
-the code completely. This probably sounds like a lot of work, that's because it
-is, but so is reading and performing an entire ten minute piece in half an hour
-and musicians still manage to get it done.</p>
+<p>And we know how <code>===</code> treats ranges
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(8..64) === 32 #=> true</span></code></pre></td></tr></table></div></figure></notextile></div>
+But note that
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(8..64) === (8..64) #=> false</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>In order to determine how we can become more effective code sightreaders, we
-again look to our musician friends who have been doing this for some time.
-Musicians who want to improve their sightreading do the following things.</p>
+<p>Suddenly!
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Integer === 12 #=> true!</span></code></pre></td></tr></table></div></figure></notextile></div>
+waitaminute.. what?</p>
 
-<h3>Musicians Know and Practice Scales</h3>
+<p>So Ruby can tell that <code>12</code> is a type of Integer and thus <code>===</code> can be described
+partially as an includes and typeof operator. But there are some further
+gotchas.
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[ 1, 2, 3 ] === 1#=> true
+</span><span class='line'>[ 1, 2, 3 ] === [ 1, 2, 3 ]                         #=> true
+</span><span class='line'>[ 1, 2, 3 ] === [ 1, 2 ]                            #=> false
+</span><span class='line'>{ :foo => :bar } === { :foo => :bar }               #=> true
+</span><span class='line'>{ :foo => :bar } === :foo                           #=> false
+</span><span class='line'>{ :foo => :bar, :baz => :qux } === { :foo => :bar } #=> false</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Musicians who practice their scales are the ones with the best technical chops,
-their fingers are the most agile, their articulation superb and they're
-comfortable with any given set of notes.</p>
+<p><code>===</code>'s behavior isn't completely intuitive even within Ruby's standard Classes.
+Which brings us (finally) back around to my original error.
+<code>Hash === Hash #=&gt; false</code></p>
 
-<p>For programmers who wish to improve sightreading, there's simple no replacement
-for knowing the language you're in. If you've never looked at C before, you'll
-spend 20 minutes figuring out what <code>int main() {</code> is, or spend that time
-figuring out the precise semantics of a line ending conditional in Ruby.</p>
+<p>The fix is simple, just change
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>case input.class</span></code></pre></td></tr></table></div></figure></notextile></div>
+to
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>case input</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p><em>If you don't know the language, you'll spend time figuring out what the
-language is doing instead of what the program is doing. Know your language.</em></p>
-
-<h3>Musicians Study Music Theory</h3>
-
-<p>Every musician who works with written music needs at least a basic understanding
-of music theory. Without it, reading music, let alone interpretting it, is
-impossible. Over time many musicians gain an intuitive understanding of theory.
-They realize all major scales are the same but starting from a different note,
-then slowly absorb more as they go. But some of the best musicians actively
-learn theory as theory and can leverage that to do amazing things as Jazz
-improvisers, composers, and virtuosos.</p>
-
-<p>As computer scientists, we need to know the design patterns used in our field.
-Decorators, strategies, delegation, they all need to be second nature if we
-intend to approach a new body of code and immediately see what's going on.
-Additionally, these patterns establish a common vocabulary you can use to
-discuss code with other programmers regardless of their language and experience.
-If you both know the patterns, they can add precision and expressiveness to your
-non-executable communication.</p>
-
-<p><em>Knowing patterns allows you to see and apply them instantly when you enter a
-new codebase or team. Use them as a common vocabulary.</em></p>
-
-<h3>Musicians Sightread During Practice</h3>
-
-<p>Lastly, and hopefully most obviously, musicians practice the act of sightreading
-during their own self-directed practice. My high school band director, once said
-to our ensemble that if you do something for the first time during the show,
-you're practicing in front of a live audience, not performing.</p>
-
-<p>Likewise, don't assume that if you know your languange and some patterns you'll
-be an extraordinary sightreader. You need to apply that knowledge frequently if
-you want to temper it into skill. Trust me, you do <em>not</em> want to do it on the
-job your first few times. If you do, you'll likely feel rushed and sink back
-into skimming. So find an open source library you use, pop into it's source code
-and get reading.</p>
-
-<p><em>Don't do your practicing in front of a live audience. Read open source code in
-order to get better at sightreading.</em></p>
-
-<h2>Wrapping Up</h2>
-
-<p>Thus far I've made the assumption that you will have no control over the
-codebases that you sightread. While this is often the case when starting out,
-we often spend a significant amount of time with one codebase and start to grow
-into and learn it. While this certainly helps, one of the main differences
-between musical scores and software projects is that individual scores seldom
-change between performances whereas software is in constant flux. If you wrote
-it a week ago you'll be sightreading it again next week. If you wrote it a month
-ago, how many hands have been at it since you last looked at it? Sightreading is
-a constant and ongoing process in software.</p>
-
-<p>As a writer of software, you can and should take steps to make your software
-more sightreadable but I've throw a big wall of text at everyone so I think
-I'll tackle that subject at a later date.</p>
+<p>I posted on identi.ca a friendly notice about this easy mistake and was asked to
+provide clarification. So here, just over 24 hours late, it is. The full source
+code is provided <a href="https://gist.github.com/1112335">here</a></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[There Are 10 Types of Tests. You Need Both of Them]]></title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/"/>
-    <updated>2011-10-28T02:22:00-07:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them</id>
-    <content type="html"><![CDATA[<p>Over the course of the last year, and especially in the last two to three months
-I have been internalizing and witnessing for myself the extreme benefits of
-accompanying your code with a test suite which matches your code in quality.
-By this I mean that it is difficult (and damn frustrating) to write good tests
-for poor code. At my current skill level as a programmer there's code in my
-primary code base that is so bad (yep, I wrote that code too) that I am unable
-to write good tests for it. Up until four or five weeks ago, coinciding with my
-second readings of <a href="http://pragprog.com/book/achbd/the-rspec-book">The RSpec Book</a>, and <a href="http://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a>, sitting in
-as a guest panelist on <a href="http://rubyrogues.com/book-club-exceptional-ruby/">Ruby Rogues</a>, and watching a bunch of
-<a href="https://www.destroyallsoftware.com/screencasts">Destroy All Software</a>, I realized that in order to gain the benefits of TDD
-being touted by some of the most respected members of the Ruby community, I
-needed better tests. Specifically better isolated tests.</p>
+    <title type="html"><![CDATA[Why You Shouldn't Use Factories in Unit-level Tests or Specs]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs/"/>
+    <updated>2011-08-31T05:11:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs</id>
+    <content type="html"><![CDATA[<p>They're tightly fucking coupled! That's Why</p>
 
-<h2>Isolated Tests</h2>
+<p><strong>UPDATE:</strong> Or as Steve Klabnik puts it more precisely and politely:</p>
 
-<p>I recently had to completely justify my desire to add and grow isolated tests
-for production code. The argument against doing so was simply that if the <em>whole
-point</em> of isolated tests is to know when something breaks in the future, an
-integrated test suite will pick up those failures just as well. Therefore
-isolated tests are a waste of time and engineering effort.</p>
-
-<p>This argument <em>is</em> correct, provided the only thing you use your isolated tests
-for is protection from regressions. However, doing so leaves out what is to my
-mind the <strong>greatest</strong> and most profound advantage of isolated testing, which is
-immediate, focused feedback. I definitely think I'm inventing terms here so
-please indulge me while I clarify them.</p>
-
-<ul>
-<li>Immediate: <em>The result (success or failure) can be observed right away.</em></li>
-<li>Focused: <em>The cause of any failure is known to be within the system under
-test.</em></li>
-</ul>
-
-
-<p>Anyone who has worked in software for a substantial amount of time knows that
-we are each our own worst enemy and the temptation to add unnecessary complexity
-is a constant bother. How many of us have added arguments to methods only to
-use the default value every time. I call these bullshit arguments, because they
-piss me off when I have to put up with them. The joy in a test with truly
-immediate feedback is the laser focus that they give you when working on a
-system. You're literally doing one thing at a time and checking that you get the
-expected result even when it isn't success. When you get the failure you expect,
-you simply move on, and when you get an unexpected failure it causes you to
-identify the disparity between your mental model of the system and the computer
-model and correct it. Since these tests are isolated and generally run in less
-than a second, there is essentially no penalty for running the tests with
-monstrous frequency. When you do have to stop, it is to make a correction,
-even if it is just a mental correction. The time you save fixing it early is
-more than enough to justify the low cost of running the test.</p>
-
-<p>One of the downsides of this type of testing is that you are treating anything
-which isn't the system under test as an external service and therefore
-stubbing the interactions with it. This works great for fast, clean-room tests
-but it means that the burden of ensuring that the assumptions you make in one
-test are validated in the respective tests for your other systems is entirely on
-the programmer and since programmers are human, this will eventually lead to
-mistakes.</p>
-
-<p>My personal favorite aspect of isolated tests is how informative they can be
-about your system. It's pretty common knowledge that if your tests are a pain in
-the ass to write, it's a good indication that your code is too-tightly coupled
-and refactoring to follow the <a href="http://avdi.org/devblog/2011/07/05/demeter-its-not-just-a-good-idea-its-the-law/">Law of Demeter</a> and <a href="http://blog.rubybestpractices.com/posts/gregory/055-issue-23-solid-design.html">SOLID</a> design
-principles is a good idea.</p>
-
-<h2>Integrated Tests</h2>
-
-<p>One of the scariest things that happened to me in recent memory was discovering
-that people were surprised when after arguing in favor of getting higher quality
-unit tests I was still unsatisfied because our integrated tests also needed
-attention and improvement. I found this a little disturbing (okay, I found this
-really disturbing) because I can't imagine how long it would take to manually
-verify that I didn't overlook anything in the major refactoring or feature
-addition I just performed. I certainly don't budget the time to manually test
-every resource and parameter combination by hand. I might do so initially
-because a major disadvantage to integrated tests is in the difficulty of doing
-exploratory testing at this level. As a result, when writing integrated tests, I
-tend to rely on manual experimentation to determine how my system behaves in
-undefined situations, make a decision on the appropriateness of that behavior
-and then solidify that set of interactions into a group of tests. One of the
-nice things about integrated tests is that once written, they tend not to change
-unless your expected end-user behavior changes. This is afforded by the
-"bigger picture" nature of integrated tests where you are less concerned with
-the exact behavior of any one unit and instead are validating the result of
-system-wide operation and interaction. Thus, integrated tests are largely immune
-to internal refactoring.</p>
-
-<p>As one can imagine, the strengths of isolated tests are the weaknesses of
-integrated tests. When something is wrong, particularly in a complex interaction
-that touches many parts of the system, it can be unclear exactly where the
-problem in the codebase is when an integrated test fails. If you get an actual
-exception, you'll have a stacktrace to guide you, but those tend to be unhelpful
-errors like an unexpected nil and rarely is it obvious at what level the nil was
-assigned and how long it had been propagated upward until the failure. So it
-can be said that integrated tests are not focused since there is no indication
-of precisely where in the system the failure has occurred. Additionally,
-integrated tests mandate that you test your full software stack. Any persistence
-layers, external services, background tasks, and other specific tools you're
-using should be tested during this phase. As you can imagine testing all of
-these things takes time and computing power. It is not feasible to expect even
-a subset of an integrated test suite to run in the same magnitude of time as
-isolated tests, what this means is the tests are no longer immediate. Thus,
-they are not suitable for running at every pass of your TDD cycle. Only when you
-believe the feature to be complete.</p>
-
-<h2>Conclusions</h2>
-
-<p>So if isolated tests don't identify incongruities between subsystems and
-integrated tests are too slow to run during an immediate feedback TDD cycle,
-which do you use? As you may have surmised from the title, the answer is...
-both.</p>
-
-<p><a href="http://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a> suggests that "It's sometimes said that unit tests ensure
-you 'build the thing right', while acceptance tests ensure you 'build the
-right thing'." I also like Avdi Grim's simile of mocks being like hydrogen
-peroxide in that they both fizz up around problems.</p>
-
-<p>With our twin goals of systematic coverage and focus during development in mind,
-let's recap how each set of tests is used.</p>
-
-<p>When you know what you you're building but not how, reach for the integrated
-tests. Define the desired outcome at the high level and then run that test again
-when you think you've got it down. Start thinking about the different aspects of
-that problem and decomposing them. Then devise a system of smaller tests
-mirroring the smaller objects and functions you'll use to accomplish that goal.
-Isolated tests are there once you're ready to do exactly that. There to aid
-you in that mission and guide you toward good design decisions. "I'll do what
-the tests tell me" is not an uncommon phrase from me.</p>
-
-<p><em>Isolated regression tests are a side effect of good TDD, they're more important
-during the process than after.</em></p>
-
-<p><em>Integrated tests are the ones you bring home and show your mother. The ones you
-can be proud of at the end of the day.</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CoffeeScript: An Outsider Opinion]]></title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/07/03/coffeescript-an-outsider-opinion/"/>
-    <updated>2011-07-03T18:16:00-07:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/07/03/coffeescript-an-outsider-opinion</id>
-    <content type="html"><![CDATA[<p><em>Thoughts on CoffeeScript from a server-side developer just getting started with
-frontend and JavaScript development.</em></p>
-
-<p>Firstly, if you’re unfamiliar with CoffeeScript, I recommend reading elsewhere
-for a proper overview and introduction. The CoffeeScript homepage and the
-Introductory Chapter of The Litte CoffeeScript Book are good resources for that.
-If you’re really impatient CoffeeScript is in the author’s own words
-"JavaScript’s less ostentatious kid brother." I’ve also heard it called
-"Javascript for Ruby and Python programmers" and "What Javascript should have
-been" by several of my peers. It also seems that it could’ve been called
-CilantroScript<a href="http://coffeescript.com">1</a> as it seems to have an instantly polarizing effect on people
-in online communities such as Reddit and the Ruby on Rails community.</p>
-
-<h2>So why did I start working with CoffeeScript? A number of reasons.</h2>
-
-<p>I am a backend developer and want to grow my frontend skills.
-1. I’m starting to experiment with Node.js on the server.
-2. Jeremy Ashkenas’s talk at CodeConf on literate programming blew my mind.
-3.I know Ruby, so I should enjoy a “Javascript for Rubyists”, right?
-4. It is going to be a Ruby on Rails default soon so I might as well check it
-out now.
-5. I like new and shiny things.</p>
-
-<p>One of the quandries I faced when deciding to learn CoffeeScript was the fact
-that I don’t know JavaScript. I spent 6 months noodling with Ruby before picking
-up Rails and am still getting my feet wet with Python before taking Django for a
-spin. So why on Earth would someone with my MO pick up CoffeeScript without
-first becoming proficient with javascript? (Aside: I’m tired of the CamelCasing)
-The answer comes from the first sentence (topic sentence, for those still in Jr.
-High School) in the second paragraph of the coffeescript home page.</p>
-
-<blockquote><p>The golden rule of CoffeeScript is: “It’s just JavaScript”.</p></blockquote>
-
-<p>As it turns out that isn’t entirely true since coffeescript is a class based
-object oriented language and javascript is prototype based. This was actually a
-mark against coffeescript for me since part of my desire to learn javascript was
-to dally in prototype based OOP. (Luckily there’s still Io for that.) But for
-the most part Coffee really is just javascript.</p>
-
-<p><strong>EDIT: Jeremy Ashkenas has kindly clarified this point for me.</strong></p>
-
-<blockquote><p>CoffeeScript is prototype based to the precise same extent that JavaScript is.
-The "class" keyword is just sugar for JavaScript’s constructor function +
-prototype chain combination. To mangle Shakespeare:</p>
-
-<blockquote><p>What’s in a name? That which we call a class by any other name would smell
-as sweet. Call it a prototype if you like — it’s the same thing in code.</p></blockquote></blockquote>
-
-<p>Thanks Jeremy, apologies for misapprehending.</p>
-
-<h2>So why the bother?</h2>
-
-<p>A while back I invested some of my hard-earned and short-in-supply cash to pick
-up a ten-pack of PeepCode tokens. I have to say, I’ve derived an intense amount
-of value from PeepCode but more on that later. I started with PeepCode’s Meet
-CoffeeScript, had they produced a Meet JavaScript I would have started there,
-but they didn’t. It took around six hours to watch the three and a half hour
-video. Almost immediately after, I started PeepCode’s Meet Node.js screencast
-and attempted to do it in javascript for about eight minutes. The appeal of
-coffeescript was immediately clear.</p>
-
-<p>In JavaScript, I have to worry about whether or not every line ends in a
-semicolon, that there are no extraneous commas, yet commas where necessary,
-and that I’ve remembered the var keyword on all my local variables. All that
-stuff is important in JavaScript it doesn’t actually effect my application in
-any way. In CoffeeScript, I can focus on the behavior of my code rather than the
-presentation of it. Instead of scrutinizing each line for a semicolon and each
-block for matching curly braces. I’m affirming that all my variables are scoped
-properly and that my code does what I want it to do. It doesn’t add much to
-javascript but rather, reduces the amount of worry and focus on what is at the
-end of the day arbitrary stuff.</p>
-
-<p>Sure, I have Vim configured with the fantastic Synastic plugin and I get
-notified when I drop a semicolon or have an unmatched brace but what’s the
-point? Basic sanity checking is all it can really do. Why even waste the time
-to go back and insert those in the first place?</p>
-
-<h2>Conclusion</h2>
-
-<p>I’m still continuing my education in JavaScript, CoffeeScript, jQuery, Node.js,
-and prototype-based OOP. I’m armed with the beta copy of the CoffeeScript book
-by Trevor Burnham from Pragmatic Programmers. I fully intend to use CoffeeScript
-for all of my development in Javascript environments, server- and client-side,
-work and play, for the foreseeable future.</p>
-
-<h2>My CoffeeScript Resources</h2>
-
-<ol>
-<li><a href="http://coffeescript.com">The CoffeeScript Website and Documentation</a></li>
-<li><a href="http://peepcode.com/products/coffeescript">Meet CoffeeScript</a></li>
-<li><a href="http://pragprog.com/book/tbcoffee/coffeescript">CoffeeScript: Accelerated JavaScript Development by Trevor Burnham</a></li>
-<li><a href="http://jashkenas.github.com/coffee-script/documentation/docs/command.html">The Annotated CoffeeScript Source</a></li>
-<li><a href="http://arcturo.com/library/coffeescript/index.html">The Little CoffeeScript Book</a></li>
-<li><a href="http://oreilly.com/catalog/9780596517748/">Javascript: The Good Parts by Douglas Crockford</a></li>
-<li><a href="http://eloquentjavascript.net/">Eloquent Javascript by Marjin Haverbeke</a></li>
-<li><a href="http://autotelicum.github.com/Smooth-CoffeeScript/">Smooth CoffeeScript by autotelicum</a> via
-<a href="http://twitter.com/raynos2">@Raynos2</a></li>
-</ol>
-
-
-<hr />
-
-<ol>
-<li>Cilantro (or Coriander) is an herb which to some people tastes pleasantly
-citrus-like and to others is rank and revolting or soapy. As a result many
-people either love it or hate it. Few are ambivalent about Cilantro. The same
-is true of CoffeeScript in my observation.</li>
-</ol>
-
+<blockquote><p>factories are integration tests by definition, because they do not exercise a
+single unit.</p></blockquote>
 ]]></content>
   </entry>
   
