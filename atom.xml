@@ -4,7 +4,7 @@
   <title><![CDATA[Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-03-14T18:04:36-07:00</updated>
+  <updated>2012-03-22T01:02:29-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Santa Clara Swarm Coding]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2012/03/20/santa-clara-swarm-coding/"/>
+    <updated>2012-03-20T21:53:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2012/03/20/santa-clara-swarm-coding</id>
+    <content type="html"><![CDATA[<p><a href="http://clojurewest.org">Clojure/west</a> was last weekend. Needless to say it was a blast! I learned a
+ton and as ever, am totally charged up and excited to hack on a bunch of crazy
+ideas. One of the highlights of the weekend was participating in the Swarm
+Coding event led by <a href="https://github.com/technomancy">@technomancy</a>. If you were in the rogue Vim group I was
+hosting, I did eventually get the source up on GitHub <a href="https://github.com/nuclearsandwich/vimswarm">here</a>.</p>
+
+<p>For others, is anyone interested in attending a South Bay Area Swarm Coding
+night once every couple of weeks or so? Since I&#8217;m the one putting it forward, I
+suggest we go somewhere in Santa Clara (I have a number of ideas as to where)
+but I&#8217;m also open to other areas so long as they don&#8217;t crawl too far North. It&#8217;s
+not that I don&#8217;t love San Francisco but it&#8217;s hard to get up there with school.</p>
+
+<p>If anyone is interested, I&#8217;m attempting to schedule the first one for some night
+the week of April 1st through 7th. If you&#8217;re not sure what Swarm Coding is,
+check out Phil&#8217;s <a href="https://github.com/technomancy/clojurewest2012-slides/blob/master/Hagelberg-SwarmCoding.pdf?raw=true">slides (pdf)</a> from Clojure/west. In short, everyone logs into a
+shared tmux session running either Vim or Emacs and all collaborate on a
+project.</p>
+
+<p>Don&#8217;t be disuaded if you&#8217;ve never programmed in Clojure before, it&#8217;s actually a
+really fun way to learn no matter what your initial skill level is. If there&#8217;s a
+quorum of newcomers, we can also do a session on tooling before diving into the
+code.</p>
+
+<p>Does this sound like the best idea? I haven&#8217;t bothered to set up a mailing list
+or anything so if you&#8217;re interested hit me up on <a href="https://identi.ca/nuclearsandwich">Identi.ca</a>, <a href="https://twitter.com/nuclearsandwich">Twitter</a>, or
+good old <a href="mailto://steven@nuclearsandwich.com">email</a> and let me know which day of the week works best for you.
+Then I&#8217;ll cast the information back out to everyone.</p>
+
+<p>Come on out and have fun making Clojure stuff!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Good Eats and Drinks for Clojure/west]]></title>
