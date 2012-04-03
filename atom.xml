@@ -4,7 +4,7 @@
   <title><![CDATA[Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-03-31T18:35:30-07:00</updated>
+  <updated>2012-04-02T19:57:05-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -12,6 +12,84 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[On Learning: Making and Checking Assumptions]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2012/04/02/on-learning-making-and-checking-assumptions/"/>
+    <updated>2012-04-02T10:38:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2012/04/02/on-learning-making-and-checking-assumptions</id>
+    <content type="html"><![CDATA[<p>With increasing frequency, I&#8217;ve been afforded the opportunity to teach people
+who are completely new to programming and this inevitably leads to me espousing
+my preferred method for learning anything: Making an assumption and verifying or
+refuting it through experimentation.</p>
+
+<p>Yesterday I had the pleasure of teaching two fantastic burgeoning developers the
+concept of method composition in Ruby. For experienced developers, it is as
+natural as breathing, but too often our memories of our early programming
+experiences are clouded over with the same terror we see in the eyes of our
+students.</p>
+
+<p>At almost every stage there were simple questions, questions it would have taken
+me seconds to address had I given a direct answer. But learning to program (or
+do much else) needs to go deeper than just assembling facts. In order to do
+well, we have to have our own mental interpreters and compilers and process the
+code in our minds. The sooner we start developing this trait in new programmers,
+the better off they&#8217;ll be. So my general answer was</p>
+
+<blockquote><p>&#8220;Well, what do you <em>think</em> will happen?&#8221;</p></blockquote>
+
+<p>Queue audience groan. By asking this ad nauseum and forcing them to give me an
+answer before hitting enter. I&#8217;m contributing in a real way to building their
+mind&#8217;s Ruby interpreter.</p>
+
+<p>If this sounds eerily like the <a href="https://en.wikipedia.org/wiki/Scientific_method">scientific method</a>, that&#8217;s because it is! We
+just condensed for tiny, one or two line experiments in Ruby.</p>
+
+<h2>Not Just for N00bs</h2>
+
+<p>I&#8217;ve finally started reading <a href="http://mitpress.mit.edu/sicp/">SICP</a> and one of the very first exercises
+revealed one of my achilles&#8217; heels.</p>
+
+<p>I was asked to give the value of the evaluated expression below:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="p">(</span><span class="nb">- </span><span class="mi">9</span> <span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I can <em>never</em> remember what this shakes out to. Is it <code>9 - 1 = 8</code> or <code>1 - 9 =
+-8</code>? I didn&#8217;t know off the top of my head. But before I fired up Racket to see
+what the answer was, I forced myself to make a guess. Would it be 8, or -8? My
+guess was 8.</p>
+
+<p>Only after forming that hypothesis did I throw that expression into an
+interpreter.</p>
+
+<p>As it turns out, it does evaluate to <code>8</code>. <strong><em>Assumption Verified! A winner
+is me!</em></strong> Would it have mattered if I&#8217;d been wrong? Not really, I would have
+learned the same lesson.</p>
+
+<p>The rise of <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a> is actually the rise of the application
+(in a very minor and partial way) the scientific method in Software Engineering.
+We&#8217;re making assumptions about the goals (end-to-end tests) and design (unit
+tests) of our software and codifying them in form of our tests. These get
+challenged and verified or refuted whenever we run our tests. As our software
+changes, so do our hypotheses around it.</p>
+
+<p>So regardless of whether you&#8217;re writing code for the first time, or a veteran
+software developer. Take the advice of John and John of They Might Be Giants,
+<em>you need a test</em>.</p>
+
+<iframe
+    width="640" height="480"
+    src="http://www.youtube.com/embed/9kf51FpBuXQ?rel=0"
+    frameborder="0" allowfullscreen>
+</iframe>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Santa Clara Swarm Coding]]></title>

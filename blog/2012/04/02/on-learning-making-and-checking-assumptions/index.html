@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Mad Ramblings of a Lunatic Hacker</title>
+  <title>On Learning: Making and Checking Assumptions - Mad Ramblings of a Lunatic Hacker</title>
   <meta name="author" content="Steven! Ragnarök">
 
   
-  <meta name="description" content="Everybody I know please follow these instructions. Set aside 10 minutes.
-Get good speakers or good headphones.
-Set aside ten minutes to play both &hellip;">
+  <meta name="description" content="With increasing frequency, I&#8217;ve been afforded the opportunity to teach people
+who are completely new to programming and this inevitably leads &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ Set aside ten minutes to play both &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.nuclearsandwich.com/blog/page/15">
+  <link rel="canonical" href="http://blog.nuclearsandwich.com/blog/2012/04/02/on-learning-making-and-checking-assumptions">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,15 +65,12 @@ Set aside ten minutes to play both &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/04/18/an-awesome-earsome-between-poe-and-debussy/">An Awesome Earsome Between Poe and Debussy</a></h1>
+      <h1 class="entry-title">On Learning: Making and Checking Assumptions</h1>
     
     
       <p class="meta">
@@ -90,47 +86,133 @@ Set aside ten minutes to play both &hellip;">
   
 
 
-<time datetime="2011-04-18T04:20:00-07:00" pubdate data-updated="true">Apr 18<span>th</span>, 2011</time>
+<time datetime="2012-04-02T10:38:00-07:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Everybody I know please follow these instructions.</p>
+<div class="entry-content"><p>With increasing frequency, I&#8217;ve been afforded the opportunity to teach people
+who are completely new to programming and this inevitably leads to me espousing
+my preferred method for learning anything: Making an assumption and verifying or
+refuting it through experimentation.</p>
 
-<ul>
-<li>Set aside 10 minutes.</li>
-<li>Get good speakers or good headphones.</li>
-<li>Set aside ten minutes to play both these videos at once.</li>
-<li>Open both these videos at the same time in tabs. They are both sound only.
-http://www.youtube.com/watch?v=sXU3RfB7308 with
-http://www.youtube.com/watch?v=IkmwzG7cB_U</li>
-</ul>
+<p>Yesterday I had the pleasure of teaching two fantastic burgeoning developers the
+concept of method composition in Ruby. For experienced developers, it is as
+natural as breathing, but too often our memories of our early programming
+experiences are clouded over with the same terror we see in the eyes of our
+students.</p>
+
+<p>At almost every stage there were simple questions, questions it would have taken
+me seconds to address had I given a direct answer. But learning to program (or
+do much else) needs to go deeper than just assembling facts. In order to do
+well, we have to have our own mental interpreters and compilers and process the
+code in our minds. The sooner we start developing this trait in new programmers,
+the better off they&#8217;ll be. So my general answer was</p>
+
+<blockquote><p>&#8220;Well, what do you <em>think</em> will happen?&#8221;</p></blockquote>
+
+<p>Queue audience groan. By asking this ad nauseum and forcing them to give me an
+answer before hitting enter. I&#8217;m contributing in a real way to building their
+mind&#8217;s Ruby interpreter.</p>
+
+<p>If this sounds eerily like the <a href="https://en.wikipedia.org/wiki/Scientific_method">scientific method</a>, that&#8217;s because it is! We
+just condensed for tiny, one or two line experiments in Ruby.</p>
+
+<h2>Not Just for N00bs</h2>
+
+<p>I&#8217;ve finally started reading <a href="http://mitpress.mit.edu/sicp/">SICP</a> and one of the very first exercises
+revealed one of my achilles&#8217; heels.</p>
+
+<p>I was asked to give the value of the evaluated expression below:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="p">(</span><span class="nb">- </span><span class="mi">9</span> <span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>You are listening to James Earl Jones (voice of Darth Vader) reading Edgar Allen
-Poe&#8217;s &#8216;The Raven&#8217; with Claude Debussy&#8217;s &#8216;Nuages&#8217; playing in the background.
-You may need to turn Vader down so the music can come out.</p>
+<p>I can <em>never</em> remember what this shakes out to. Is it <code>9 - 1 = 8</code> or <code>1 - 9 =
+-8</code>? I didn&#8217;t know off the top of my head. But before I fired up Racket to see
+what the answer was, I forced myself to make a guess. Would it be 8, or -8? My
+guess was 8.</p>
 
-<p><em>This is fucking cool.</em></p>
+<p>Only after forming that hypothesis did I throw that expression into an
+interpreter.</p>
+
+<p>As it turns out, it does evaluate to <code>8</code>. <strong><em>Assumption Verified! A winner
+is me!</em></strong> Would it have mattered if I&#8217;d been wrong? Not really, I would have
+learned the same lesson.</p>
+
+<p>The rise of <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a> is actually the rise of the application
+(in a very minor and partial way) the scientific method in Software Engineering.
+We&#8217;re making assumptions about the goals (end-to-end tests) and design (unit
+tests) of our software and codifying them in form of our tests. These get
+challenged and verified or refuted whenever we run our tests. As our software
+changes, so do our hypotheses around it.</p>
+
+<p>So regardless of whether you&#8217;re writing code for the first time, or a veteran
+software developer. Take the advice of John and John of They Might Be Giants,
+<em>you need a test</em>.</p>
+
+<iframe
+    width="640" height="480"
+    src="http://www.youtube.com/embed/9kf51FpBuXQ?rel=0"
+    frameborder="0" allowfullscreen>
+</iframe>
+
+
+
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Steven! Ragnarök</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2012-04-02T10:38:00-07:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/16/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/blog/page/14/">Newer &rarr;</a>
-    
-  </div>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.nuclearsandwich.com/blog/2012/04/02/on-learning-making-and-checking-assumptions/" data-via="nuclearsandwich" data-counturl="http://blog.nuclearsandwich.com/blog/2012/04/02/on-learning-making-and-checking-assumptions/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="small"></div>
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/03/20/santa-clara-swarm-coding/" title="Previous Post: Santa Clara Swarm Coding">&laquo; Santa Clara Swarm Coding</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -171,7 +253,7 @@ You may need to turn Vader down so the music can come out.</p>
 <section>
   <h1>Github Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/nuclearsandwich">@nuclearsandwich</a> on Github
@@ -201,7 +283,7 @@ You may need to turn Vader down so the music can come out.</p>
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -217,7 +299,7 @@ You may need to turn Vader down so the music can come out.</p>
 
 <section>
   <h1>My Pinboard</h1>
-  <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+  <ul id="pinboard_linkroll">Fetching linkroll...</ul>
   <p><a href="http://pinboard.in/u:nuclearsandwich">My Pinboard Bookmarks &raquo;</a></p>
 </section>
 <script type="text/javascript">
@@ -236,6 +318,7 @@ You may need to turn Vader down so the music can come out.</p>
 
   
 </aside>
+
 
     </div>
   </div>
