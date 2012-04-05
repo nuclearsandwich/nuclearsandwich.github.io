@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails, | Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/blog/categories/rails-/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-04-04T21:16:15-07:00</updated>
+  <updated>2012-04-04T21:33:16-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -29,7 +29,7 @@ db:migrate</code>?</strong></p>
 tool than Rails and we can use it to automate all sorts of cool tasks. In fact
 I've been using Rake to do all kinds of bonkers stuff in my projects since I
 first started learning Ruby. Teaching at <a href="http://railsbridge.org">RailsBridge</a> this weekend, I had a
-surprisingly high number of students ask "What is <code>rake</code>". I was really happy
+surprisingly high number of students ask "What is rake?". I was really happy
 when I got this question so much because it means that they're actually thinking
 about what they're typing, which is hugely important. Each time it was asked, my
 smile quickly faded. What should I tell them. "Rake is Ruby's Make, It's like
