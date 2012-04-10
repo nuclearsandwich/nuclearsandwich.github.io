@@ -4,7 +4,7 @@
   <title><![CDATA[Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-04-10T02:56:09-07:00</updated>
+  <updated>2012-04-10T09:22:28-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -18,11 +18,11 @@
     <link href="http://blog.nuclearsandwich.com/blog/2012/04/10/two-reviews-the-developers-code-and-code-simplicity/"/>
     <updated>2012-04-10T01:59:00-07:00</updated>
     <id>http://blog.nuclearsandwich.com/blog/2012/04/10/two-reviews-the-developers-code-and-code-simplicity</id>
-    <content type="html"><![CDATA[<p><strong><em>Disclaimer</em></strong>: *I am affiliated with neither O&#8217;Reilly nor Pragmatic Press and
+    <content type="html"><![CDATA[<p><strong><em>Disclaimer</em></strong>: I am affiliated with neither O&#8217;Reilly nor Pragmatic Press and
 have received no special discounts or compensation beyond the regular sales they
 make available to the general public.</p>
 
-<p>That is all*</p>
+<p><em>That is all</em></p>
 
 <p>Recently I&#8217;ve read two really excellent books. <a href="http://pragprog.com/book/kcdc/the-developer-s-code">The Developer&#8217;s Code</a> by Ka
 Wai Cheung, and <a href="http://www.codesimplicity.com/">Code Simplicity</a> by Max Kanat-Alexander. I should start off
@@ -80,9 +80,6 @@ lifeguarding, teach teaching lifeguarding, and now teach programming and
 software development to whomever I can.</p>
 
 <p><a href="https://en.wikipedia.org/wiki/Generic_property"><strong>(3)</strong></a> Using the mathematical definition of &#8220;nearly always holds true.&#8221;</p>
-
-<!-- <div class="hreview"><div class="item"><p><a href="http://oreilly.com/product/0636920022251.do">Originally submitted at O&#8217;Reilly</a></p><div><img src="http://images.powerreviews.com/images_products/03/68/15323677_100.jpg" class="photo" align="left" style="margin: 0 0.5em 0 0"><p style="margin-top:0">The Science of Software Development</p></div><a href="http://shop.oreilly.com/product/0636920022251.do" style="display: none;" class="url fn"><span class="fn">Code Simplicity</span></a></div><br clear="left"><p><strong class="summary">My only nitpick is with the tagline</strong></p><div>By <strong>nuclearsandwich</strong> from <strong>Silicon Valley, CA</strong> on <strong><abbr title="2012410T1200-0800" class="dtreviewed" style="border: none; text-decoration: none;">4/10/2012</abbr></strong></div><p><div style="margin: 0.5em 0; height: 15px; width: 83px; background-image: url(http://images.powerreviews.com/images/stars_small.gif); background-position: 0px -180px;" class="prStars prStarsSmall">&nbsp;</div></p><div style="display: none"><span class="rating">5</span>out of 5</div><p><strong>Pros: </strong>Easy to understand, Helpful examples, Concise</p><p><strong>Best Uses: </strong>Student, Novice, Intermediate</p><p><strong>Describe Yourself: </strong>Developer, Educator</p><p style="margin-top:1em" class="description">Read it once straight through and got a lot out of it. This is a book that should be on the shelf of every software agency.<br xmlns:pr="xalan://com.pufferfish.core.beans.xmlbuilders.xsl.Functions"><br>While I accept that the author is attempting to bring *more* science into software development, which is desperately needed. The book itself is less about the application of the scientific method in developing your own software and more about observations and consequences of software development. I enjoyed the book&#8217;s brevity immensely.</p><p style="margin-top:0.5em">(<a href="http://www.powerreviews.com/legal/terms_of_use.html" rel="license">legalese</a>)</p></div> &#8211;>
-
 ]]></content>
   </entry>
   
