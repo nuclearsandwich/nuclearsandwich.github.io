@@ -9,8 +9,8 @@
   <meta name="author" content="Steven! Ragnarök">
 
   
-  <meta name="description" content="Clojure/west was last weekend. Needless to say it was a blast! I learned a
-ton and as ever, am totally charged up and excited to hack on a bunch of &hellip;">
+  <meta name="description" content="With increasing frequency, I&#8217;ve been afforded the opportunity to teach people
+who are completely new to programming and this inevitably leads &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,7 +73,7 @@ ton and as ever, am totally charged up and excited to hack on a bunch of &hellip
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/03/20/santa-clara-swarm-coding/">Santa Clara Swarm Coding</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/04/02/on-learning-making-and-checking-assumptions/">On Learning: Making and Checking Assumptions</a></h1>
     
     
       <p class="meta">
@@ -89,42 +89,83 @@ ton and as ever, am totally charged up and excited to hack on a bunch of &hellip
   
 
 
-<time datetime="2012-03-20T21:53:00-07:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
+<time datetime="2012-04-02T10:38:00-07:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><a href="http://clojurewest.org">Clojure/west</a> was last weekend. Needless to say it was a blast! I learned a
-ton and as ever, am totally charged up and excited to hack on a bunch of crazy
-ideas. One of the highlights of the weekend was participating in the Swarm
-Coding event led by <a href="https://github.com/technomancy">@technomancy</a>. If you were in the rogue Vim group I was
-hosting, I did eventually get the source up on GitHub <a href="https://github.com/nuclearsandwich/vimswarm">here</a>.</p>
+  <div class="entry-content"><p>With increasing frequency, I&#8217;ve been afforded the opportunity to teach people
+who are completely new to programming and this inevitably leads to me espousing
+my preferred method for learning anything: Making an assumption and verifying or
+refuting it through experimentation.</p>
 
-<p>For others, is anyone interested in attending a South Bay Area Swarm Coding
-night once every couple of weeks or so? Since I&#8217;m the one putting it forward, I
-suggest we go somewhere in Santa Clara (I have a number of ideas as to where)
-but I&#8217;m also open to other areas so long as they don&#8217;t crawl too far North. It&#8217;s
-not that I don&#8217;t love San Francisco but it&#8217;s hard to get up there with school.</p>
+<p>Yesterday I had the pleasure of teaching two fantastic burgeoning developers the
+concept of method composition in Ruby. For experienced developers, it is as
+natural as breathing, but too often our memories of our early programming
+experiences are clouded over with the same terror we see in the eyes of our
+students.</p>
 
-<p>If anyone is interested, I&#8217;m attempting to schedule the first one for some night
-the week of April 1st through 7th. If you&#8217;re not sure what Swarm Coding is,
-check out Phil&#8217;s <a href="https://github.com/technomancy/clojurewest2012-slides/blob/master/Hagelberg-SwarmCoding.pdf?raw=true">slides (pdf)</a> from Clojure/west. In short, everyone logs into a
-shared tmux session running either Vim or Emacs and all collaborate on a
-project.</p>
+<p>At almost every stage there were simple questions, questions it would have taken
+me seconds to address had I given a direct answer. But learning to program (or
+do much else) needs to go deeper than just assembling facts. In order to do
+well, we have to have our own mental interpreters and compilers and process the
+code in our minds. The sooner we start developing this trait in new programmers,
+the better off they&#8217;ll be. So my general answer was</p>
 
-<p>Don&#8217;t be disuaded if you&#8217;ve never programmed in Clojure before, it&#8217;s actually a
-really fun way to learn no matter what your initial skill level is. If there&#8217;s a
-quorum of newcomers, we can also do a session on tooling before diving into the
-code.</p>
+<blockquote><p>&#8220;Well, what do you <em>think</em> will happen?&#8221;</p></blockquote>
 
-<p>Does this sound like the best idea? I haven&#8217;t bothered to set up a mailing list
-or anything so if you&#8217;re interested hit me up on <a href="https://identi.ca/nuclearsandwich">Identi.ca</a>, <a href="https://twitter.com/nuclearsandwich">Twitter</a>, or
-good old <a href="mailto://steven@nuclearsandwich.com">email</a> and let me know which day of the week works best for you.
-Then I&#8217;ll cast the information back out to everyone.</p>
+<p>Queue audience groan. By asking this ad nauseum and forcing them to give me an
+answer before hitting enter, I&#8217;m contributing in a real way to building their
+mind&#8217;s Ruby interpreter.</p>
 
-<p>Come on out and have fun making Clojure stuff!</p>
+<p>If this sounds eerily like the <a href="https://en.wikipedia.org/wiki/Scientific_method">scientific method</a>, that&#8217;s because it is! We
+just condensed it for tiny, one or two line experiments in Ruby!</p>
+
+<h2>Not Just for N00bs</h2>
+
+<p>I&#8217;ve finally started reading <a href="http://mitpress.mit.edu/sicp/">SICP</a> and one of the very first exercises
+revealed one of my achilles&#8217; heels.</p>
+
+<p>I was asked to give the value of the evaluated expression below:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="p">(</span><span class="nb">- </span><span class="mi">9</span> <span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I can <em>never</em> remember what this shakes out to. Is it <code>9 - 1 = 8</code> or <code>1 - 9 =
+-8</code>? I didn&#8217;t know off the top of my head. But before I fired up Racket to see
+what the answer was, I forced myself to make a guess. Would it be 8, or -8? My
+guess was 8.</p>
+
+<p>Only after forming that hypothesis did I throw that expression into an
+interpreter.</p>
+
+<p>As it turns out, it does evaluate to <code>8</code>. <strong><em>Assumption Verified! A winner
+is me!</em></strong> Would it have mattered if I&#8217;d been wrong? Not really, I would have
+learned the same lesson.</p>
+
+<p>The rise of <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a> is actually the rise of the application
+(in a very minor and partial way) of the scientific method in Software Engineering.
+We&#8217;re making assumptions about the goals (end-to-end tests) and design (unit
+tests) of our software and codifying them in form of our tests. These get
+challenged and verified or refuted whenever we run our tests. As our software
+changes, so do our hypotheses around it.</p>
+
+<p>So regardless of whether you&#8217;re writing code for the first time, or a veteran
+software developer, take the advice of John and John of They Might Be Giants,
+<em>you need a test</em>.</p>
+
+<iframe
+    width="640" height="480"
+    src="http://www.youtube.com/embed/9kf51FpBuXQ?rel=0"
+    frameborder="0" allowfullscreen>
+</iframe>
+
+
+
 </div>
   
   
@@ -149,6 +190,10 @@ Then I&#8217;ll cast the information back out to everyone.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/04/10/two-reviews-the-developers-code-and-code-simplicity/">Two Reviews: The Developer&#8217;s Code and Code Simplicity</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/04/04/bound-by-our-past/">Bound by our Past</a>
       </li>
     
@@ -170,10 +215,6 @@ Then I&#8217;ll cast the information back out to everyone.</p>
     
       <li class="post">
         <a href="/blog/2011/11/28/who-i-am-and-where-i-am-going/">Who I Am and Where I Am Going</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/">There Are 10 Types of Tests. You Need Both of Them</a>
       </li>
     
   </ul>
