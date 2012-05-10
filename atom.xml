@@ -4,7 +4,7 @@
   <title><![CDATA[Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-04-12T08:07:06-07:00</updated>
+  <updated>2012-05-10T10:40:20-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -12,6 +12,89 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Stop Counting Your Points]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2012/05/09/stop-counting-your-points/"/>
+    <updated>2012-05-09T14:51:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2012/05/09/stop-counting-your-points</id>
+    <content type="html"><![CDATA[<p>I walked into class yesterday afternoon where my professor teaches, back-to-back, a
+section of upper division Data Structures and Algorithms followed by my section
+of Formal Languages and Automata. On Monday, both classes had an exam. (Not my
+best I&#8217;m afraid, I spent the weekend at
+<a href="http://farmhouse.la/conf">FarmhouseConf</a> rather than studying. Worth it.) I
+arrived to class today and overheard a familiar story as the last class was
+leaving. A student was contesting his score on a particular problem. The
+crux of his reasoning was that while he <em>was</em> wrong, he &#8220;felt&#8221; he &#8220;earned more
+points&#8221; than what was recorded. I&#8217;m normally not a fan of the air-quotes for
+emphasis or sarcasm, but in this case they were also the exact words used by the
+student in question.</p>
+
+<p>There&#8217;s something odd about people who pay attention to the points rather than
+what they learned. I will be the first to jump in and bitch about how much I pay
+for tuition but also freely admit that I pay far less than an out-of-state or
+private school student. School is fucking expensive. So why? Why why why why
+<em>why?</em> would you haggle over how many points you &#8220;earned&#8221;, when you can and
+should be figuring out what you didn&#8217;t learn which cost you those points. On
+tests where I do poorly, I often spend about as much time trying to figure out
+what I did wrong as I did taking the test in the first place. I&#8217;m also a really
+shitty student. I elect not to take notes and I am presently writing the first
+draft of this post in class while something I already know is being reviewed.</p>
+
+<p>Situations like this one baffle me, but also emphasizes that there&#8217;s no metric I
+can use other than day-to-day individual progress to represent the achievements
+of my students lest they (or I) become fixated on the metric. I keep incredibly
+detailed notes about the individual skills and weak points of anyone who I
+regularly teach or mentor, but I neither have nor will try to grade or rate
+them. Why fixate on numerals when you could fixate on learning new stuff?</p>
+
+<p>The vocabulary choices of this student remind me of something my seventh grade
+history teacher talked about on the first day of school. Which is the subtle and
+subconscious vocabulary choices of students when discussing grades. &#8220;I got an A.
+I got an A. He <em>gave</em> me an F.&#8221; It&#8217;s only human to want to take credit for our
+achievements while marginalizing our failures. I have certainly been guilty of
+this in the past. I have <strike>been given</strike> achieved three failing
+grades in my life, two in high school and one in college.</p>
+
+<ul>
+<li><p><em>I earned</em> an F in second semester Geometry because I failed to find the
+subject interesting and couldn&#8217;t be arsed to do the homework or get up before
+7AM to get to class on time.</p></li>
+<li><p><em>I earned</em> an F in second semester American History because I elected to take
+no notes in spite of the fact that our notebooks were going to be collected
+and graded.</p></li>
+<li><p>Incidentally, the one college course I failed was an online Jazz History
+course during a winter session. I failed because I completely forgot I
+registered. I never signed in or even thought about it until it showed up on
+my transcript.</p></li>
+</ul>
+
+
+<p>I don&#8217;t look too far down on this guy though. When <em>I</em> was taking the very same
+Data Structures class, albeit with a different professor, we were required to
+submit our assignments online to a system which auto-grades our programming
+assignments by running our own JUnit tests, and analyzing them for coverage. As
+well as JUnit tests written by our professor on our code. One thing the system
+did that I absolutely hated was run Checkstyle with the official SJSU Java Style
+guidelines encoded in XML. Well, this style guide was written before Java had
+Generics and had never been updated. So Checkstyle threw a fit when I had
+<code>Node&lt;E&gt;</code> instead of <code>Node &lt; E &gt;</code>. In order to get it to shut up (and claim the
+final five points on the assignment) I had to ruin my code with this offensively
+spaced style.</p>
+
+<p>I mentioned this to the professor and he suggested that it was always an option
+to sacrifice those points in the name of doing things right and grades be
+damned. Since then, I&#8217;ve submitted plenty of assignments that don&#8217;t precisely
+meet specification. Mostly I get docked because I don&#8217;t include Eclipse project
+files with my source code which means the professors have to find the command
+line and run Ant (I also provide Makefiles). In any case, it was eye opening to
+hear a professor give me permission to get a less-than-optimal score simply
+because something else is more important.</p>
+
+<p>So stop counting your points and start making sure you learn. Besides, learning
+is more fun.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Two Reviews: The Developer's Code and Code Simplicity]]></title>
@@ -2046,80 +2129,6 @@ None of their future employers give two shits about whether or not they know
 what method to call on JDialog to get the output you want. That can be looked
 up. They&#8217;re looking for confident implementers who can pick up with a new
 language or framework in an afternoon and get started right away.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Why I Try to Be Satisfied With Partial Credit and You Should Too]]></title>
-    <link href="http://blog.nuclearsandwich.com/blog/2010/11/07/why-i-try-to-be-satisfied-with-partial-credit-and-you-should-too/"/>
-    <updated>2010-11-07T11:42:00-08:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2010/11/07/why-i-try-to-be-satisfied-with-partial-credit-and-you-should-too</id>
-    <content type="html"><![CDATA[<p>Everybody knows about partial credit, partial credit is what happens when you
-half-ass that essay, or forget to start that assignment until the morning before
-its due. Sometimes, partial credit comes at you completely out of the blue, when
-you thought you had the assignment in the bag. If you&#8217;re professor is really out
-to get you, then they will only give &#8220;full credit&#8221; for &#8220;outstanding work&#8221;,
-whatever that means.</p>
-
-<p>I got partial credit in early elementary school because I picked things up
-rather quickly and once I&#8217;d gotten the hang of things, I stopped working at them
-and went back to Mario or Sonic. I got partial credit in late elementary and
-middle school because I didn&#8217;t understand the value of what I was learning at
-the time. I got partial credit in high school because there were far too many
-things more fun than doing all the assignments or studying for the tests and
-quizzes. I get partial credit in college because I work for a living, and like
-it, and try to maintain the shambles that is my personal life. I&#8217;ve never been
-the sort to focus on school, but that doesn&#8217;t mean I don&#8217;t agonize every time I
-get an assignment back with less than perfect. Autograded assignments such as
-those for calculus and physics, or most horribly, an online submission for a
-computer program, which gives you instant and mercilessly objective feedback.
-Well, it&#8217;s like a drug, like failing to get the high score when the initials
-you&#8217;re trying to beat are those of the jock kid who used the allowance from his
-rich parents to woo away your girlfriend. I just keep putting quarters in until
-I&#8217;m completely tapped. I recently sent an email to one of my professors because
-the amount of out-of-class work for their class for one week exceeded the time I
-spent sleeping and doing work for all my other classes combined for that week,
-which anyone must be forced to admit, is a little absurd. The reply I got was
-simply this:</p>
-
-<blockquote><p>just do the best you can, and call it a day. Everyone is subjected to the
-same thing&#8230;  You don&#8217;t need to get every single point.</p></blockquote>
-
-<p>You don&#8217;t need to get every single point. In my estimation, there are two*
-primary reasons professors assign as much as they do. Either they firmly believe
-that their class is the only one you should be taking that semester and that you
-aren&#8217;t doing anything else or they&#8217;ve completely forgotten the insanity of
-undergraduate studies. So you can see that getting such a candid admission that
-collecting all the points is not necessary to knowing the material. And indeed,
-I had a week previously received the highest grade in the class on the exam.
-(45/50, not all the pointseven then.)</p>
-
-<p>It takes two hands to count the number of times I conciously took partial credit
-in the last month. Sometimes it was to study harder for another class or
-complete an assignment that was weighted more heavily, sometimes it was to wrap
-up a project for work, and other times it was just because the coffee was hot,
-the conversation good and I didn&#8217;t want to pull out my books and give up the
-conversation. Some nights I just wanted to put in a full night&#8217;s rest. But I do
-it, I try to use it sparingly, but I&#8217;m also not going to commit ritual suicide
-when that ugly <strong>B</strong> shows up on my transcript at the end of the semester. A
-complete stranger might see that and see a student who &#8220;didn&#8217;t apply himself
-fully&#8221; or some other nonsense. But my girlfriend will see it as the week I spent
-visiting her, my employer will see it as the projects I stayed up all night
-finishing to be ready the next morning, and my old friend will see it as the
-rainy afternoon at the coffee house we spent catching up and ignoring the world.
-I&#8217;ll see it as a representation of the rewards for my effort in balancing the
-many aspects of my life and I&#8217;ll have the knowledge of what I learned to judge
-for myself what portion of the education offered I took for myself. I generally
-find that I got what I wanted and often much much more. So, the next time you&#8217;re
-faced with a choice between catching up with an old friend, or getting a full
-night&#8217;s sleep for the first time in a month, and getting a passing grade or full
-credit on an assignment, just remember: &#8220;You don&#8217;t need to get every single
-point.&#8221;</p>
-
-<p>*There is a third less common reason that is quite popular with math teachers
-and that is that C is defined as average and is therefore where they want most
-of their students to fall with a standard bell curve around it and grading
-convention be damned&#8230; sadists.</p>
 ]]></content>
   </entry>
   
