@@ -4,7 +4,7 @@
   <title><![CDATA[Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-05-10T10:40:20-07:00</updated>
+  <updated>2012-05-15T13:03:35-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Jeff Atwood Misses the Point]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2012/05/15/jeff-atwood-misses-the-point/"/>
+    <updated>2012-05-15T02:51:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2012/05/15/jeff-atwood-misses-the-point</id>
+    <content type="html"><![CDATA[<p>Jeff Atwood wrote an article this morning called <a href="http://www.codinghorror.com/blog/2012/05/please-dont-learn-to-code.html">Please Don&#8217;t Learn to Code</a>.
+He addresses some serious problems with the way we present programming to the
+external world, which is probably comes from a desire to dress up what we do as
+cooler than plumbing. But he goes a step too far telling people <em>not</em> to learn
+something. Programming ability is not a ticket to a magical land of unicorns,
+fairies and premier upper-middle class salaries. Programming is diverting,
+challenging, and interesting. It&#8217;s a great thing to make a career out of, but
+also a fantastic hobby. There are many reasons to learn to program no matter who
+you are. I&#8217;ve been preparing that article for ages and will hopefully finish it
+some time after I&#8217;ve calmed down. There is a difference between a software
+developer (engineer, if you prefer) and someone who knows how to program. I can&#8217;t
+speak for &#8220;the movement&#8221; although, I&#8217;m pleased as punch that there is one but I
+can say that aside from being honest about how much I make writing software and
+how I learned what enables me to earn that I have never told someone the reason
+to learn programming was to rake in the cash.</p>
+
+<h4>The Mayor Learns to Program</h4>
+
+<p>His opening remarks jab at the Mayor of New York&#8217;s supposed new year&#8217;s
+resolution to learn to code suggesting we&#8217;d end up with</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>10 PRINT "I AM MAYOR"
+</span><span class='line'>20 GOTO 10</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If Mayor Bloomberg gets that far, it would actually be awesome. I&#8217;m not
+suggesting he spend his mayoral days learning Javascript but everyone has
+nights, weekends, and hobbies. I&#8217;m sure the mayor of New York can afford to have
+quite a few.</p>
+
+<p>Mr. Atwood, I don&#8217;t want everyone to become a crack Java developer. I wouldn&#8217;t
+wish that on my worst nemesis. What I want is for anyone with even a passing
+interest in how computer software works to have access to tools and materials
+they need to learn more about it as they please. And we don&#8217;t have that yet.
+<a href="http://codeacademy.com">CodeAcademy</a> is doing an excellent job getting us closer and should be
+applauded for doing so.</p>
+
+<h4>Programming as a Life Skill</h4>
+
+<blockquote><p>It is obvious to me how being a skilled reader, a skilled writer, and at least
+high school level math are fundamental to performing the job of a politician.
+Or at any job, for that matter. But understanding variables and functions,
+pointers and recursion?</p></blockquote>
+
+<p>Here you&#8217;re comparing big things (reading, writing, and mathematics) to little
+things (variables, pointers, and functions). The individual concepts are of
+little importance the same way homophones and perfect grammar are of little
+importance. But how deeply can you trust a politician&#8217;s reasoning about software
+and technology if they lack even a basic understanding about how that computer
+works. There&#8217;s a startling <em>lack</em> of digital literacy among people outside of
+software engineering and there are people trying to break down those barriers
+and get the interesting and <em>relevant</em> information out there in understandable
+ways.</p>
+
+<p>Programming is absolutely not on the same level as reading or arithmetic
+however, does your argument for not teaching it in schools then extend to arts
+and music? Surely they are not as basic a skill as reading and arithmetic yet we
+still perceive some value in teaching them to children.</p>
+
+<p>You said yourself that a software developer&#8217;s job is to solve problems. Well
+what is a JavaScript interpreter but an abstract problem solving sandbox? Is
+there a specific reason you <em>don&#8217;t</em> want problem solving to be a general skill?
+Are you frightened of our field losing status as the only problem solvers?</p>
+
+<p>The critical thinking skills that I started developing when I started learning
+to code are what sustain me both physically and mentally. I would love to be
+teaching these skills in elementary school for that reason alone. Programming is
+engaging, and while it won&#8217;t engage everyone, we should at least be providing
+the same opportunities we used to afford music, art, and wood shop. How many
+people who took wood shop in high school went on to become carpenters? Probably
+not many. But how many gained some level of appreciation for the craft? I&#8217;m sure
+that number is far higher. I didn&#8217;t have wood shop at my high school, but I was
+fortunate in that my father, uncle, and grandfather all work with wood in
+various capacities and that allowed me to see how enjoyable and creative the
+process is.</p>
+
+<h4>In Which We are Likened to Plumbers</h4>
+
+<blockquote><p>I can also recognize plumbing problems when I see them without any
+particular training in the area.</p></blockquote>
+
+<p>Yes, it doesn&#8217;t take a plumber to notice a clogged toilet. Just like it doesn&#8217;t
+take a web developer to recognize that <code>404 Not Found</code> or <code>500 Internal Server
+Error</code> means something went wrong but can you do anything about that clog
+without a plunger? And where did you learn to use it? Unless you were born with
+the knowledge of the existence and use of plungers, someone showed you how to
+use it. That&#8217;s all I&#8217;m advocating here. Teach everyone to use the plungers of
+coding. It&#8217;s interesting to remark however, that there is very little someone
+with a programming plunger can fix.  It takes so much more to get any real work
+done. So why bother? A little bit of understanding never killed anyone and
+you&#8217;ll have at least some basic understanding of what your programmer is doing
+for you if you know how tough it is to</p>
+
+<h4>Wrapping Up</h4>
+
+<p>I&#8217;m about to arrive in my last operating systems class of the year, so I need to
+go and I want to publish this while I&#8217;m still caffeinated and disappointed
+enough to go head-on against one of the authors and developers whom I deeply
+respect. Much of your argument is extremely valid and the &#8220;everyone should
+learn programming&#8221; {initiative,movement,meme} should accept this criticism,
+which I do, and synthesize it so that we can better reach our goal.</p>
+
+<p>However, you&#8217;ve thrown the baby out with the bathwater in your haste to put a
+stop to misinformation and are losing a really powerful way to engage inquiring
+minds of all ages with a deeply interesting and modern art, computer
+programming.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Stop Counting Your Points]]></title>
@@ -2069,66 +2185,6 @@ off about an hour a night without as much as a yawn.</p>
 waking up.</p>
 
 <p>bev</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Computer Science Education in Silicon Valley]]></title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/01/22/computer-science-education-in-silicon-valley/"/>
-    <updated>2011-01-22T09:11:00-08:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/01/22/computer-science-education-in-silicon-valley</id>
-    <content type="html"><![CDATA[<p>a.k.a: <em>Dear SJSU pls stop making me memorize the Java API, my degree is in
-Comp. Sci. not JDK 1.6 kthxbaiSTFU</em></p>
-
-<p>One would think that being in the heart of Silicon Valley, the very birthplace
-of the personal computer, would be a colossal advantage to a student of computer
-science and mathematics who is pursuing software development as a career. Sadly,
-this is not the case. The curriculum and course materials taught by the two
-local community colleges I&#8217;ve attended in the past and the university at which I
-am enrolled is frightfully out of date. But not nearly as paleolithic as the
-evaluation methods.</p>
-
-<p>There are essentially two kinds of computer science courses (10 different kinds
-for those in the know), implementation classes and theory classes. The bulk of
-my criticism here lies in theimplementation classes. When I started taking
-programming classes in college, I began with Intro to Programming in Java and
-Programming I in C++. My father, a games developer from days of yore took the
-courses with me for laughs. In class, there was a computer at every seat, we
-took our notes directly in the text editor, ran code that was being written on
-the board live and often times had to correct errors in the professor&#8217;s code
-while he was writing it out. However, all our exams were handwritten and thus
-there was no way to check our code against the compiler. In intro to programming
-this isn&#8217;t really a big deal, but later down the road in Object Oriented Design
-and Patterns, we&#8217;re being asked to write snippets of complex GUI programs
-utilizing <em>__dozens))</em> of standard library classes and methods. In one course,
-the solution for this was a single laptop with the standard Java API
-documentation on it that the students could wait in line for <em>during</em> the exam.
-In another, it is allowing each student to have a packet of <em>n</em> 8.5 x 11 pages
-on the <em>n</em>th test of the semester.In this modern world where APIs are subject to
-change and up-to-date documentation on every thing (except Ruby&#8217;s Net::HTTP,
-Oh Snap!) is readily available online, wasting brain-space memorizing API calls
-is downright fscking stupid and I refuse to do it. This is another incarnation
-of the classic fable &#8220;Give a man a fish, he will pass a test. Teach him to RTFM,
-he will actually be a software developer.&#8221;</p>
-
-<p>I have so far had only one class where the exam was to write a program, at a
-computer and submit it in an inbox by the end of the class period. This is
-absolutely the correct way to do things. The professor told us at the beginning
-of the exam that perusing the docs (.Net) online was A-OK but that going
-anywhere else would result in an F on the exam. He didn&#8217;t even really walk
-around and check. He had the wisdom to realize that cheaters will cheat and that
-the internet can only help so much if you don&#8217;t know what you&#8217;re doing. Those
-exams were not only more straightforward, fun, and challenging, but also the
-most educational I have had within the realm of software development thus far
-in the five years I&#8217;ve been a college student.</p>
-
-<p>So please, if you&#8217;re given the opportunity to teach a batch of computer
-scientists, ask yourself if your class is about concepts or coding and if the
-latter, write your test to be implemented on the computer in 90 minutes time.
-None of their future employers give two shits about whether or not they know
-what method to call on JDialog to get the output you want. That can be looked
-up. They&#8217;re looking for confident implementers who can pick up with a new
-language or framework in an afternoon and get started right away.</p>
 ]]></content>
   </entry>
   
