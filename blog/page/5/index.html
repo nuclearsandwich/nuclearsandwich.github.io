@@ -9,8 +9,8 @@
   <meta name="author" content="Steven! Ragnarök">
 
   
-  <meta name="description" content="With increasing frequency, I&#8217;ve been afforded the opportunity to teach people
-who are completely new to programming and this inevitably leads &hellip;">
+  <meta name="description" content="I was about to ask a question on Identi.ca and Twitter, when I realized I would
+probably be flamed into oblivion if I didn&#8217;t explain myself in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,7 +76,7 @@ who are completely new to programming and this inevitably leads &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/04/02/on-learning-making-and-checking-assumptions/">On Learning: Making and Checking Assumptions</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/04/04/bound-by-our-past/">Bound by Our Past</a></h1>
     
     
       <p class="meta">
@@ -92,83 +92,49 @@ who are completely new to programming and this inevitably leads &hellip;">
   
 
 
-<time datetime="2012-04-02T10:38:00-07:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2012</time>
+<time datetime="2012-04-04T20:43:00-07:00" pubdate data-updated="true">Apr 4<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>With increasing frequency, I&#8217;ve been afforded the opportunity to teach people
-who are completely new to programming and this inevitably leads to me espousing
-my preferred method for learning anything: Making an assumption and verifying or
-refuting it through experimentation.</p>
+  <div class="entry-content"><p>I was about to ask a question on Identi.ca and Twitter, when I realized I would
+probably be flamed into oblivion if I didn&#8217;t explain myself in more than 140
+characters.</p>
 
-<p>Yesterday I had the pleasure of teaching two fantastic burgeoning developers the
-concept of method composition in Ruby. For experienced developers, it is as
-natural as breathing, but too often our memories of our early programming
-experiences are clouded over with the same terror we see in the eyes of our
-students.</p>
+<p>My question: <strong>Why are we still typing <code>rake db:migrate</code> instead of <code>rails
+db:migrate</code>?</strong></p>
 
-<p>At almost every stage there were simple questions, questions it would have taken
-me seconds to address had I given a direct answer. But learning to program (or
-do much else) needs to go deeper than just assembling facts. In order to do
-well, we have to have our own mental interpreters and compilers and process the
-code in our minds. The sooner we start developing this trait in new programmers,
-the better off they&#8217;ll be. So my general answer was</p>
+<p>Before you scoff and walk away. Hear me out. I <em>get</em> that Rake is a more general
+tool than Rails and we can use it to automate all sorts of cool tasks. In fact
+I&#8217;ve been using Rake to do all kinds of bonkers stuff in my projects since I
+first started learning Ruby. Teaching at <a href="http://railsbridge.org">RailsBridge</a> this weekend, I had a
+surprisingly high number of students ask &#8220;What is rake?&#8221;. I was really happy
+when I got this question so much because it means that they&#8217;re actually thinking
+about what they&#8217;re typing, which is hugely important. Each time it was asked, my
+smile quickly faded. What should I tell them. &#8220;Rake is Ruby&#8217;s Make, It&#8217;s like
+make but in Ruby.&#8221; would work for anyone who has been using or programming UNIX
+for any significant amount of time, but for many Railsbridge students (and many
+people learning Rails), Ruby is what will expose them to all of that, so we
+can&#8217;t use it as the base of our teaching metaphor(1).</p>
 
-<blockquote><p>&#8220;Well, what do you <em>think</em> will happen?&#8221;</p></blockquote>
+<p>I settled for &#8220;Rake is a tool for automating common tasks in a project. The name
+comes from a program called make, but since Rake is written in Ruby, it&#8217;s Rake.&#8221;</p>
 
-<p>Queue audience groan. By asking this ad nauseum and forcing them to give me an
-answer before hitting enter, I&#8217;m contributing in a real way to building their
-mind&#8217;s Ruby interpreter.</p>
+<p>While my students seemed satisfied with that answer, I sure wasn&#8217;t. The whole
+purpose of Railsbridge is to demystify programming and software development.
+We&#8217;re not trying to build an army of new software developers (but I&#8217;d love to),
+just trying to grant people some basic coding literacy and comfort. Trying to do
+this in an environment where some commands start with <code>rake</code> (assets:precompile
+is another culprit) and others with <code>rails</code> and the only way to know which is to
+be in the club already or have someone tell you is suboptimal.</p>
 
-<p>If this sounds eerily like the <a href="https://en.wikipedia.org/wiki/Scientific_method">scientific method</a>, that&#8217;s because it is! We
-just condensed it for tiny, one or two line experiments in Ruby!</p>
+<p>So, developers, why are Rails&#8217;s built in Rake tasks still Rake tasks and should
+we start the discussion of baking them into the Rails command for Rails 4.0?
+Without a better answer than &#8220;it&#8217;s always been that way&#8221;, I think we should.</p>
 
-<h2>Not Just for N00bs</h2>
-
-<p>I&#8217;ve finally started reading <a href="http://mitpress.mit.edu/sicp/">SICP</a> and one of the very first exercises
-revealed one of my achilles&#8217; heels.</p>
-
-<p>I was asked to give the value of the evaluated expression below:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="p">(</span><span class="nb">- </span><span class="mi">9</span> <span class="mi">1</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I can <em>never</em> remember what this shakes out to. Is it <code>9 - 1 = 8</code> or <code>1 - 9 =
--8</code>? I didn&#8217;t know off the top of my head. But before I fired up Racket to see
-what the answer was, I forced myself to make a guess. Would it be 8, or -8? My
-guess was 8.</p>
-
-<p>Only after forming that hypothesis did I throw that expression into an
-interpreter.</p>
-
-<p>As it turns out, it does evaluate to <code>8</code>. <strong><em>Assumption Verified! A winner
-is me!</em></strong> Would it have mattered if I&#8217;d been wrong? Not really, I would have
-learned the same lesson.</p>
-
-<p>The rise of <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a> is actually the rise of the application
-(in a very minor and partial way) of the scientific method in Software Engineering.
-We&#8217;re making assumptions about the goals (end-to-end tests) and design (unit
-tests) of our software and codifying them in form of our tests. These get
-challenged and verified or refuted whenever we run our tests. As our software
-changes, so do our hypotheses around it.</p>
-
-<p>So regardless of whether you&#8217;re writing code for the first time, or a veteran
-software developer, take the advice of John and John of They Might Be Giants,
-<em>you need a test</em>.</p>
-
-<iframe
-    width="640" height="480"
-    src="http://www.youtube.com/embed/9kf51FpBuXQ?rel=0"
-    frameborder="0" allowfullscreen>
-</iframe>
-
-
-
+<p>(1) More information and musings on them forthcoming.</p>
 </div>
   
   
@@ -193,6 +159,10 @@ software developer, take the advice of John and John of They Might Be Giants,
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/05/16/how-i-used-a-debugging-feature-of-pry-to-build-cage/">How I Used a &#8220;Debugging Feature&#8221; of Pry to Build Cage</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/05/15/jeff-atwood-misses-the-point/">Jeff Atwood Misses the Point</a>
       </li>
     
@@ -214,10 +184,6 @@ software developer, take the advice of John and John of They Might Be Giants,
     
       <li class="post">
         <a href="/blog/2012/03/20/santa-clara-swarm-coding/">Santa Clara Swarm Coding</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/14/good-cheap-eats-for-clojure-slash-west/">Good Eats and Drinks for Clojure/west</a>
       </li>
     
   </ul>
