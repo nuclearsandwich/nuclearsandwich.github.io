@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: ruby | Mad Ramblings of a Lunatic Hacker]]></title>
+  <title><![CDATA[Category: Ruby | Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-05-16T23:09:05-07:00</updated>
+  <updated>2012-06-17T14:08:25-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -14,198 +14,186 @@
 
   
   <entry>
-    <title type="html"><![CDATA[How I Used a "Debugging Feature" of Pry to Build Cage]]></title>
-    <link href="http://blog.nuclearsandwich.com/blog/2012/05/16/how-i-used-a-debugging-feature-of-pry-to-build-cage/"/>
-    <updated>2012-05-16T21:57:00-07:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2012/05/16/how-i-used-a-debugging-feature-of-pry-to-build-cage</id>
-    <content type="html"><![CDATA[<p><a href="http://pry.github.com">Pry</a> is an alternative interactive Ruby environment
-similar to IRB. In addition to looking a little nicer through nearly live
-colorization, Pry offers some pretty powerful features for exploring, modifying,
-and debugging Ruby applications in a live system.</p>
+    <title type="html"><![CDATA[There Are 10 Types of Tests. You Need Both of Them]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them/"/>
+    <updated>2011-10-28T02:22:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/10/28/there-are-10-types-of-tests-you-need-both-of-them</id>
+    <content type="html"><![CDATA[<p>Over the course of the last year, and especially in the last two to three months
+I have been internalizing and witnessing for myself the extreme benefits of
+accompanying your code with a test suite which matches your code in quality.
+By this I mean that it is difficult (and damn frustrating) to write good tests
+for poor code. At my current skill level as a programmer there's code in my
+primary code base that is so bad (yep, I wrote that code too) that I am unable
+to write good tests for it. Up until four or five weeks ago, coinciding with my
+second readings of <a href="http://pragprog.com/book/achbd/the-rspec-book">The RSpec Book</a>, and <a href="http://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a>, sitting in
+as a guest panelist on <a href="http://rubyrogues.com/book-club-exceptional-ruby/">Ruby Rogues</a>, and watching a bunch of
+<a href="https://www.destroyallsoftware.com/screencasts">Destroy All Software</a>, I realized that in order to gain the benefits of TDD
+being touted by some of the most respected members of the Ruby community, I
+needed better tests. Specifically better isolated tests.</p>
 
-<p>Pry's namesake ability to "pry" open an object is not limited to debugging use.
-It's actually a really straightforward way to build any kind of domain specific
-REPL. I think I just coined that term but it fits well and you'll soon see why.</p>
+<h2>Isolated Tests</h2>
 
-<h2>The Backstory</h2>
+<p>I recently had to completely justify my desire to add and grow isolated tests
+for production code. The argument against doing so was simply that if the <em>whole
+point</em> of isolated tests is to know when something breaks in the future, an
+integrated test suite will pick up those failures just as well. Therefore
+isolated tests are a waste of time and engineering effort.</p>
 
-<p>When I working at <a href="http://nowbox.com">NOWBOX</a> I spent a lot of time hitting our
-API during ad-hoc testing. I was doing enough of this that just using curl
-wasn't cutting it.</p>
+<p>This argument <em>is</em> correct, provided the only thing you use your isolated tests
+for is protection from regressions. However, doing so leaves out what is to my
+mind the <strong>greatest</strong> and most profound advantage of isolated testing, which is
+immediate, focused feedback. I definitely think I'm inventing terms here so
+please indulge me while I clarify them.</p>
 
-<p>Don't get me wrong, curl is awesome and super useful. But it lacks a few
-niceties. Chief among them curl, like HTTP, is stateless without the use of
-cookie files and given that we were using a token-based authentication system,
-simulating device-API interaction using exclusively curl was neither fun nor
-easy.</p>
+<ul>
+<li>Immediate: <em>The result (success or failure) can be observed right away.</em></li>
+<li>Focused: <em>The cause of any failure is known to be within the system under
+test.</em></li>
+</ul>
 
-<p>During this time, we were also using
-<a href="https://github.com/brynary/rack-test">Rack::Test</a>, which I really like. It's a
-solid and purposeful DSL and great at what it does. What it isn't good at is
-being interactive. I'd get colourful explosions(stacktraces) whenever I tried to
-pry into and look at a test using <code>Rack::Test</code>.</p>
 
-<p>We already had the awesome <a href="https://github.com/technoweenie/faraday">Faraday</a>
-included in our project, so I hacked together a quick rake task that would set
-up a <code>Faraday::Connection</code> and pry into it. What did this get me? I now had my
-interactive <code>Rack::Test</code>.</p>
+<p>Anyone who has worked in software for a substantial amount of time knows that
+we are each our own worst enemy and the temptation to add unnecessary complexity
+is a constant bother. How many of us have added arguments to methods only to
+use the default value every time. I call these bullshit arguments, because they
+piss me off when I have to put up with them. The joy in a test with truly
+immediate feedback is the laser focus that they give you when working on a
+system. You're literally doing one thing at a time and checking that you get the
+expected result even when it isn't success. When you get the failure you expect,
+you simply move on, and when you get an unexpected failure it causes you to
+identify the disparity between your mental model of the system and the computer
+model and correct it. Since these tests are isolated and generally run in less
+than a second, there is essentially no penalty for running the tests with
+monstrous frequency. When you do have to stop, it is to make a correction,
+even if it is just a mental correction. The time you save fixing it early is
+more than enough to justify the low cost of running the test.</p>
 
-<h3>Cage Version -1</h3>
+<p>One of the downsides of this type of testing is that you are treating anything
+which isn't the system under test as an external service and therefore
+stubbing the interactions with it. This works great for fast, clean-room tests
+but it means that the burden of ensuring that the assumptions you make in one
+test are validated in the respective tests for your other systems is entirely on
+the programmer and since programmers are human, this will eventually lead to
+mistakes.</p>
 
-<p>``` ruby Rakefile
-task :client_console do
-  require "faraday"
-  require "pry"
-  uri = case ENV["target"]</p>
+<p>My personal favorite aspect of isolated tests is how informative they can be
+about your system. It's pretty common knowledge that if your tests are a pain in
+the ass to write, it's a good indication that your code is too-tightly coupled
+and refactoring to follow the <a href="http://avdi.org/devblog/2011/07/05/demeter-its-not-just-a-good-idea-its-the-law/">Law of Demeter</a> and <a href="http://blog.rubybestpractices.com/posts/gregory/055-issue-23-solid-design.html">SOLID</a> design
+principles is a good idea.</p>
 
-<pre><code>    when "production"
-      "http://api.superawesomepage.com/1/"
-    when "staging"
-      "http://api.staging.superawesomepage.com/1/"
-    else
-      "http://localhost:3000/1/"
-    end
-</code></pre>
+<h2>Integrated Tests</h2>
 
-<p>  Faraday::Connection.new(uri).pry
-end
-```</p>
+<p>One of the scariest things that happened to me in recent memory was discovering
+that people were surprised when after arguing in favor of getting higher quality
+unit tests I was still unsatisfied because our integrated tests also needed
+attention and improvement. I found this a little disturbing (okay, I found this
+really disturbing) because I can't imagine how long it would take to manually
+verify that I didn't overlook anything in the major refactoring or feature
+addition I just performed. I certainly don't budget the time to manually test
+every resource and parameter combination by hand. I might do so initially
+because a major disadvantage to integrated tests is in the difficulty of doing
+exploratory testing at this level. As a result, when writing integrated tests, I
+tend to rely on manual experimentation to determine how my system behaves in
+undefined situations, make a decision on the appropriateness of that behavior
+and then solidify that set of interactions into a group of tests. One of the
+nice things about integrated tests is that once written, they tend not to change
+unless your expected end-user behavior changes. This is afforded by the
+"bigger picture" nature of integrated tests where you are less concerned with
+the exact behavior of any one unit and instead are validating the result of
+system-wide operation and interaction. Thus, integrated tests are largely immune
+to internal refactoring.</p>
 
-<h2>Building the Gem</h2>
+<p>As one can imagine, the strengths of isolated tests are the weaknesses of
+integrated tests. When something is wrong, particularly in a complex interaction
+that touches many parts of the system, it can be unclear exactly where the
+problem in the codebase is when an integrated test fails. If you get an actual
+exception, you'll have a stacktrace to guide you, but those tend to be unhelpful
+errors like an unexpected nil and rarely is it obvious at what level the nil was
+assigned and how long it had been propagated upward until the failure. So it
+can be said that integrated tests are not focused since there is no indication
+of precisely where in the system the failure has occurred. Additionally,
+integrated tests mandate that you test your full software stack. Any persistence
+layers, external services, background tasks, and other specific tools you're
+using should be tested during this phase. As you can imagine testing all of
+these things takes time and computing power. It is not feasible to expect even
+a subset of an integrated test suite to run in the same magnitude of time as
+isolated tests, what this means is the tests are no longer immediate. Thus,
+they are not suitable for running at every pass of your TDD cycle. Only when you
+believe the feature to be complete.</p>
 
-<p>Pry made this really easy. So easy that later on, when I wanted to rewrite the
-above code and turn it into a reusable gem I kept the same strategy.</p>
+<h2>Conclusions</h2>
 
-<p>I build my DSL class, <code>Cage::Console</code>, which also handles all the initialization
-such as config file loading and default values for variables. It also overloads
-some of Pry's settings to get a more interesting prompt string and suppressing
-they default <code>~/.pryrc</code> config file loading.</p>
+<p>So if isolated tests don't identify incongruities between subsystems and
+integrated tests are too slow to run during an immediate feedback TDD cycle,
+which do you use? As you may have surmised from the title, the answer is...
+both.</p>
 
-<p>``` ruby lib/cage/console.rb
-class Cage::Console
-  def initialize config_file = nil</p>
+<p><a href="http://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a> suggests that "It's sometimes said that unit tests ensure
+you 'build the thing right', while acceptance tests ensure you 'build the
+right thing'." I also like Avdi Grim's simile of mocks being like hydrogen
+peroxide in that they both fizz up around problems.</p>
 
-<pre><code>configure_pry
-read_config_file File.expand_path config_file if config_file
-default_to_rubygems
-reinitialize_connection
-</code></pre>
+<p>With our twin goals of systematic coverage and focus during development in mind,
+let's recap how each set of tests is used.</p>
 
-<p>  end</p>
+<p>When you know what you you're building but not how, reach for the integrated
+tests. Define the desired outcome at the high level and then run that test again
+when you think you've got it down. Start thinking about the different aspects of
+that problem and decomposing them. Then devise a system of smaller tests
+mirroring the smaller objects and functions you'll use to accomplish that goal.
+Isolated tests are there once you're ready to do exactly that. There to aid
+you in that mission and guide you toward good design decisions. "I'll do what
+the tests tell me" is not an uncommon phrase from me.</p>
 
-<p>  ## The rest of the show
-  ## ...
-  ## The party starter
-  def self.start! *args</p>
+<p><em>Isolated regression tests are a side effect of good TDD, they're more important
+during the process than after.</em></p>
 
-<pre><code>new(*args).pry
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>The rest of the class is the domain specific stuff that deals with delegating to
-the Faraday connection object and building the response object. I built my own
-wrapper around Faraday's response so I could improve how they are displayed as
-return values.</p>
-
-<p>``` ruby lib/cage/response.rb
-class Cage::Response
-  ## Delegating code
-  ## ...
-  ## Prettification code
-  def inspect</p>
-
-<pre><code>&lt;&lt;-PRETTY
-</code></pre>
-
-<p>Status: #{status}</p>
-
-<p>Headers:</p>
-
-<h1>{headers.map { |k, v| "  #{k}: #{v}" }.join "\n"}</h1>
-
-<p>Body:
-  #{body}</p>
-
-<h1>&lt;Cage::Response:(#{url})></h1>
-
-<pre><code>  PRETTY
-end
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>It's certainly verbose but the primary function is to show you the complete
-result of an HTTP request, which it does.</p>
-
-<h2>Concluding</h2>
-
-<p>That's  basically all there is to it. This feature of Pry that's mainly
-advertised as a way to get hands-on with your objects for debugging is also a
-great way to build a domain specific or domain focused interactive environment.
-Depending on how much you want to customize Pry's interface you don't even need
-a thorough understanding of Pry's internals. If you're more interested in the
-features <em>of</em> Cage than the mechanics of its construction you can install it
-from RubyGems using <code>gem install cage</code> or check out its <a href="/cage">project page</a>.
-The complete source for Cage is on
-<a href="https://github.com/nuclearsandwich/cage">GitHub</a>. I hope you use Pry and Cage
-to build awesome stuff!</p>
+<p><em>Integrated tests are the ones you bring home and show your mother. The ones you
+can be proud of at the end of the day.</em></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[A Sane Configuration Setup for Rack Applications on Heroku]]></title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku/"/>
-    <updated>2011-06-25T09:05:00-07:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku</id>
-    <content type="html"><![CDATA[<p><strong><em>Update:</em></strong> The Github repo I linked at the end of this article was private
-and I forgot to make it public. It is now, sorry. ~Steven!</p>
+    <title type="html"><![CDATA[A Look at Ruby Case Expressions]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/09/08/a-look-at-ruby-case-expressions/"/>
+    <updated>2011-09-08T08:33:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/09/08/a-look-at-ruby-case-expressions</id>
+    <content type="html"><![CDATA[<p>Ruby, like many languages has a case-when construct for more refined conditional
+execution than if-then-else can provide. Technically all case constructs could
+be written as if-then-else-if-then...else but you wouldn't enjoy it.</p>
 
-<p>Recently, Nowmov has started using <a href="http://heroku.com">Heroku</a> for application
-deployment. In the past I've always been hesitant toward "hosted
-solutions" but a combination of focusing my time and the flexibility and
-power of Heroku's Celadon Cedar stack has brought me into contact with
-one such solution.</p>
+<h2>Ruby's case-when is an expression</h2>
 
-<p>One of the first peculiarities/gotchas/side-effects of many of these
-hosted solutions is that they don't provide shell or ftp access. Nor can
-you write to the file system from your application. This caused us some
-interesting problems during the migration.</p>
+<p>However, there are a number of things that make Ruby's case-when special. The
+first comes from Ruby's functional roots. It's powerful but deceptively simple.
+Ruby's case-when construct is an <em>expression</em>. Which means, among other things,
+it returns a value.</p>
 
-<ol>
-<li><p>Rails convention dictates that <code>config/settings.yml</code>,
-<code>config/database.yml</code> and friends not be stored in source control and
-that we should store template files instead so developers are aware of
-setup specific configuration details. However, our inability to push
-files not in source control to Heroku leaves us unable to use the
-standard convention for configuration details. The way Heroku bypasses
-this leads to the next hurdle.</p></li>
-<li><p>The whole point of Heroku is that you don't deal with IT, just your
-code. This means that you don't really care where your PostgreSQL
-database is or what port you use to connect to your Redis instance. But
-you still need to connect to those things! So what does Heroku do? They
-give you environment variables. <code>heroku run 'echo $DATABASE_URL'</code>
-returns a big long uri corresponding to your app's database. With this
-specific config variable, Heroku is kind enough to render a
-<code>database.yml</code> from it using erb. But it only works ActiveRecord
-compatible database.ymls, which is not all of them, believe it or not.
-(I'm looking at you Sequel) Inspect your Heroku config variables by
-running <code>heroku config</code> from an app directory. The amount of scary
-looking crap in there might surprise you!</p></li>
-</ol>
+<p>In a traditional imperative style a case statement might look like:</p>
 
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:some_default_value</span>
+</span><span class='line'><span class="k">case</span> <span class="n">our_condition</span>
+</span><span class='line'><span class="k">when</span> <span class="ss">:first</span>
+</span><span class='line'>  <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:one_thing</span>
+</span><span class='line'><span class="k">when</span> <span class="ss">:then</span>
+</span><span class='line'>  <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:another</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>You can even add your own config variables such as
-<code>MR_FANCY_PANTS=the_worlds_best_pants</code> with
-<code>heroku config:add MR_FANCY_PANTS=sad_deep_inside ARTIST="Jonathan
-Coulton"</code> this command will expose both your variables to your code
-using Ruby's <code>ENV</code> hash.</p>
-
-<p>In your code you'd get to it like this:</p>
+<p>The that isn't ideal for a number of reasons. <code>conditional_variable</code> is set
+visibly three times which as any freshman can tell you is frowned upon.
+Academics have stuffier reasons for it but the most important is that it
+decreases readability because we aren't sure what the value will be after
+execution. Setting it so many times is also a code duplication, albeit a small
+one. We can take advantage of Ruby's case-when <em>expression</em> with this code:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -219,22 +207,43 @@ using Ruby's <code>ENV</code> hash.</p>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">conditional_variable</span> <span class="o">=</span> <span class="k">case</span> <span class="n">our_condition</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;!ruby&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">controller_action</span>
-</span><span class='line'>  <span class="k">if</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;Jonathan Coulton&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;@still_alive = true</span>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;                   when :first</span>
+</span><span class='line'><span class="sr">                     :one_thing</span>
+</span><span class='line'><span class="sr">                   when :then</span>
+</span><span class='line'><span class="sr">                     :another</span>
+</span><span class='line'><span class="sr">                   else</span>
+</span><span class='line'><span class="sr">                     :some_default_value</span>
+</span><span class='line'><span class="sr">                   end</span>
 </span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
-</span><span class='line'><span class="sr">end</span>
+</span><span class='line'><span class="sr">&lt;p&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>But then this also has to work locally! So you need to do somethig like
-this:</p>
+<p>Doesn't that look nicer? <code>conditional_variable</code> is only set once and the
+intent is clear, we want the value to depend on <code>our_condition</code>.</p>
+
+<h2>case-when uses triple equals for comparison</h2>
+
+<p>This got me good this morning and spawned this article. If you're not familiar
+with <code>===</code> in Ruby then the best explanation comes from <em>_why's Poignant Guide
+to Ruby</em> which really is worth reading. I've referred back to it multiple times
+to help myself and those around me fully understand basic Ruby concepts like
+<code>nil</code>, truthiness and falsiness, and, <strong>fanfare please</strong>, double equals versus
+triple equals.</p>
+
+<blockquote><p>The double equals gives the appearance of a short link of ropes, right
+along the sides of a red carpet where only <code>true</code> can be admitted.
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">approaching_guy</span> <span class="o">==</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;That necklace is classic&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+...
+[This case-when statement]</p></blockquote>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -244,55 +253,47 @@ this:</p>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;!ruby&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">controller_action</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span> <span class="o">||</span> <span class="no">SETTINGS</span><span class="o">[</span><span class="ss">:artist</span><span class="o">]</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Jonathan Coulton&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;@still_alive = true</span>
-</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
-</span><span class='line'><span class="sr">end</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span> <span class="n">year</span>
+</span><span class='line'><span class="k">when</span> <span class="mi">1894</span>
+</span><span class='line'>  <span class="s2">&quot;Born.&quot;</span>
+</span><span class='line'><span class="k">when</span> <span class="p">(</span><span class="mi">1895</span><span class="o">.</span><span class="n">.</span><span class="mi">1913</span><span class="p">)</span>
+</span><span class='line'>  <span class="s2">&quot;Childhood in Lousville, Winston Co., Mississippi.&quot;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="s2">&quot;No information about this year.&quot;</span>
+</span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Alternatively, you could set up all these environment variables using a
-rake or thor task before launching your app but who wants to deal with
-that? My favorite solution to a problem is a coding solution.</p>
+<blockquote><p>is identical to
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="mi">1894</span> <span class="o">===</span> <span class="n">year</span>
+</span><span class='line'>  <span class="s2">&quot;Born.&quot;</span>
+</span><span class='line'><span class="k">elsif</span> <span class="p">(</span><span class="mi">1895</span><span class="o">.</span><span class="n">.</span><span class="mi">1913</span><span class="p">)</span> <span class="o">===</span> <span class="n">year</span>
+</span><span class='line'>  <span class="s2">&quot;Childhood in Lousville, Winston Co., Mississippi.&quot;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="s2">&quot;No information about this year.&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+The <strong>triple equals</strong> is a length of velvet rope, checking values much like
+the <strong>double equals</strong>. It's just: the triple equals is a longer rope and it
+sags a bit in the middle. It's not as strict, it's a bit more flexible.
+Take the Ranges above. <code>(1895..1913)</code> isn't at all equal to <code>1905</code>.</p>
 
-<p>And you have to do that <em>everywhere</em> you want to use a situation
-specific configuration. I don't know about you but that seems hacky,
-error prone, and repetitive to me. Smelly code, in other words. In
-working on my recent projects I've been studying a large number of small
-Ruby applications. Mostly Sinatra but some in Rails and Padrino as well.
-In all those apps, I never found a ubiquitously deployed solution for
-the configuration situation in a Heroku-style environment so I left it
-to simmer a few days and dealt with <code>ENV[:KEY] || SETTINGS['key']</code> all
-over my app. Then, over too much cold brew coffee I came up with a
-workable solution. While this is the very first time I've seen this
-solution in a web application. It actually comes from messing around in
-<code>irb</code> earlier in the week trying to alter prompt strings for vanity's sake.</p>
+<p>No, the Range <code>(1895..1913)</code> is only truly equal to any other Range
+<code>(1895..1913)</code>. In the case of a Range, the triple equals cuts you a break
+and lets the Integer <code>1905</code> in, because even though it's not equal to the
+Range, it's included in the set of Integers represented by the Range. Which
+is good enough in some cases, such as the timeline I put together earlier.</p></blockquote>
 
-<p>Everyone open <code>irb</code> right now! Just go to a terminal and do it! Got it? Okay</p>
+<h2>My Mistake</h2>
 
-<p><code>&gt; IRB.conf</code></p>
-
-<p>You'll see how this inspired my solution later on. Or perhaps I'm not as
-brilliant as I think I am and it's obvious to you already (<em>likely</em>).</p>
-
-<p>So let's say we're working on a lightweight Sinatra application and we
-know that it'll start simple and grow in complexity later on. Since
-we're smart we're going to namespace the whole thing under a module.
-Namely <code>Saneconf</code> Our skeleton looks like this:</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Main Application File - app.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>This is what I did which caused me to write this as penance.
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -313,186 +314,206 @@ Namely <code>Saneconf</code> Our skeleton looks like this:</p>
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">local_tweet_object</span> <span class="n">input</span>
+</span><span class='line'>  <span class="n">tweet_hash</span> <span class="o">=</span> <span class="k">case</span> <span class="n">input</span><span class="o">.</span><span class="n">class</span> <span class="c1"># the screw-up</span>
+</span><span class='line'>  <span class="k">when</span> <span class="nb">String</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;!ruby&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;MultiJson.decode input</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span> <span class="c1"># Only needed for Ruby 1.8</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;bundler&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'><span class="sr">&lt;p&gt;  when Hash&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;After this line, I shouldn&#39;t even have to &lt;em&gt;think&lt;/em</span><span class="o">&gt;</span> <span class="n">about</span> <span class="n">dependencies</span><span class="o">.</span><span class="n">&lt;</span><span class="sr">/h1&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;Bundler.require&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="no">This</span> <span class="n">is</span> <span class="n">the</span> <span class="n">initilization</span> <span class="n">file</span> <span class="k">for</span> <span class="n">the</span> <span class="no">Saneconf</span> <span class="no">API</span><span class="o">.</span> <span class="no">All</span> <span class="n">set</span> <span class="n">up</span><span class="p">,</span> <span class="n">library</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;loading and application level settings are done here.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">module</span> <span class="nn">Saneconf</span>
-</span><span class='line'>  <span class="c1"># If there&#39;s a better/safer way to do this generically do let me know.</span>
-</span><span class='line'>  <span class="c1"># I haven&#39;t encountered a setup where this didn&#39;t work.</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">Saneconf</span><span class="o">.</span><span class="nf">root</span><span class="p">;</span> <span class="no">Dir</span><span class="o">.</span><span class="n">pwd</span><span class="p">;</span> <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;  # This one is important so we set it early and use a constant.</span>
-</span><span class='line'><span class="sr">  # Set Rack environment if not specified.</span>
-</span><span class='line'><span class="sr">  RACK_ENV = ENV[&#39;RACK_ENV&#39;] || &quot;development&quot;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="c1"># Create an accessor to a module attribute which defaults to a</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">Saneconf</span><span class="o">.</span><span class="nf">conf</span><span class="p">;</span> <span class="vi">@conf_hash</span> <span class="o">||=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">;</span> <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;  # Handles initialization and preprocessing of application settings be they</span>
-</span><span class='line'><span class="sr">  # from Heroku&#39;s Environment or a local &lt;code&gt;settings.yml&lt;/</span><span class="n">code</span><span class="o">&gt;.</span>
-</span><span class='line'>  <span class="n">require_relative</span> <span class="s1">&#39;config/setup.rb&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;  class App &amp;lt; Sinatra::Base&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="s2">&quot;&amp;lt;h1&amp;gt;So nice to be sane again, eh? </span><span class="si">#{</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span><span class="si">}</span><span class="s2">?&amp;lt;/h1&amp;gt;&quot;</span>
-</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">input</span>
 </span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">else</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;fail ArgumentError.new(</span>
+</span><span class='line'><span class="sr">  &quot;Cannot process </span><span class="si">#{</span><span class="n">input</span><span class="o">.</span><span class="n">class</span><span class="si">}</span><span class="sr"> only String or Hash&quot;)</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
+</span><span class='line'><span class="sr">  LocalTweet.new tweet_hash</span>
+</span><span class='line'><span class="sr">end</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>That looks cool and all, but what the hell is <code>config/setup.rb</code>? Answer: It's
-where the magic happens, let's go take a look:</p>
+<p>This code was raising the following error.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>The Magic Happens Here - config/setup.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><code>ArgumentError: I don't want Hash give me only String or Hash</code>
+... <em>huh?</em></p>
+
+<p>At first glance it looked fine, but then we remember that case-when uses <code>===</code>.
+Again, we think "this shouldn't be an issue, if it's good enough for <code>==</code> it
+should be fine for <code>===</code>." But <code>===</code> behaves specially for certain types in Ruby
+such as Classes, Arrays, and as we saw before, Ranges.</p>
+
+<p>For simple scalar values <code>===</code> acts like you expect.
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>12 === 12 #=> true
+</span><span class='line'>12 === 13 #=> false
+</span><span class='line'>:rats === :rats #=> true
+</span><span class='line'>"pens" === "pens" #=> true
+</span><span class='line'>"space" === "fact" #=> false</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And we know how <code>===</code> treats ranges
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(8..64) === 32 #=> true</span></code></pre></td></tr></table></div></figure></notextile></div>
+But note that
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(8..64) === (8..64) #=> false</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Suddenly!
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Integer === 12 #=> true!</span></code></pre></td></tr></table></div></figure></notextile></div>
+waitaminute.. what?</p>
+
+<p>So Ruby can tell that <code>12</code> is a type of Integer and thus <code>===</code> can be described
+partially as an includes and typeof operator. But there are some further
+gotchas.
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;!ruby&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span> <span class="s2">&quot;config/settings.yml&quot;</span>
-</span><span class='line'>  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">merge!</span><span class="p">(</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;YAML.load_file(&quot;config/se</span><span class="n">ttings</span><span class="o">.</span><span class="n">yml</span><span class="s2">&quot;)[Saneconf::RACK_ENV])</span>
-</span><span class='line'><span class="s2">Saneconf.conf[&#39;RESQUE_SCHEDULE&#39;] =</span>
-</span><span class='line'><span class="s2">  YAML.load_file(&quot;</span><span class="n">config</span><span class="o">/</span><span class="n">resque_schedule</span><span class="o">.</span><span class="n">yml</span><span class="s2">&quot;)</span>
-</span><span class='line'><span class="s2">&lt;/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s2">&lt;p&gt;else</span>
-</span><span class='line'><span class="s2">  Saneconf.conf.merge!(ENV)</span>
-</span><span class='line'><span class="s2">end&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s2">&lt;p&gt;db = URI Saneconf.conf[&#39;DATABASE_URL&#39;]</span>
-</span><span class='line'><span class="s2">redis = URI Saneconf.conf[&#39;REDISTOGO_URL&#39;]&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s2">&lt;h1&gt;Parse Postgres connection settings.&lt;/h1&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s2">&lt;p&gt;Saneconf.conf[&#39;DATABASE&#39;] = {</span>
-</span><span class='line'><span class="s2">  :adapter =&gt; &quot;</span><span class="c1">#{db.scheme}ql&quot;, # Add a &#39;ql&#39; cause ActiveRecord is stupid.</span>
-</span><span class='line'>  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
-</span><span class='line'>  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
-</span><span class='line'>  <span class="ss">:database</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">path</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span>
-</span><span class='line'>  <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
-</span><span class='line'>  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">password</span>
-</span><span class='line'><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;Parse Redis connection settings.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;REDIS&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
-</span><span class='line'>  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
-</span><span class='line'>  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
-</span><span class='line'>  <span class="ss">:db</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">path</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span>
-</span><span class='line'><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;Parse Resque Schedule YAML.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">].</span><span class="n">class</span> <span class="o">==</span> <span class="nb">String</span>
-</span><span class='line'>  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">.</span><span class="n">load</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span>
-</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;Saneconf.conf.freeze</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[ 1, 2, 3 ] === 1#=> true
+</span><span class='line'>[ 1, 2, 3 ] === [ 1, 2, 3 ]                         #=> true
+</span><span class='line'>[ 1, 2, 3 ] === [ 1, 2 ]                            #=> false
+</span><span class='line'>{ :foo => :bar } === { :foo => :bar }               #=> true
+</span><span class='line'>{ :foo => :bar } === :foo                           #=> false
+</span><span class='line'>{ :foo => :bar, :baz => :qux } === { :foo => :bar } #=> false</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>All this does is check for the existence of a <code>settings.yml</code> and load  it's
-values into our (currently) empty configuration hash using an  in-place
-<code>#merge!</code>. The reason we do this is because we very  purposefully didn't supply
-a mutator <code>Saneconf.conf=</code> for our config  hash. We don't <em>want</em> it to be
-overwritten later on. For the moment  though we can change existing keys and add
-new ones. Next we handle all  non-scalar configuration by parsing some of the
-scalar ones into hashes.  Arrays or any other Ruby object could be placed in the
-<code>conf</code> hash. It  just happens that Hashes are commonly used by libraries like
-ActiveRecord and the Ruby Redis interface for initialization. The reason  I
-expand those here and not in place at point-of-use is mostly personal
-preference. All I ever want to see in the app is <code>conf['VARIABLE']</code> and  I
-shouldn't have to think about it and whatever I'm trying to accomplish  at that
-point in our app. Lastly, we call <code>#freeze</code> on the conf hash.  This is a method
-every Ruby object has which makes it immutable,  throwing an exception if an
-attempt is made to change it. This way, any  of your fellow developers will know
-that whatever they're doing belongs  in your application initialization code and
-not in the middle of your  important code.   Hopefully this proves helpful, the
-example code is available on
-<a href="https://github.com/nuclearsandwich/saneconf">GitHub</a>.</p>
+<p><code>===</code>'s behavior isn't completely intuitive even within Ruby's standard Classes.
+Which brings us (finally) back around to my original error.
+<code>Hash === Hash #=&gt; false</code></p>
 
-<p>Good hunting, Steven!</p>
+<p>The fix is simple, just change
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>case input.class</span></code></pre></td></tr></table></div></figure></notextile></div>
+to
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>case input</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>I posted on identi.ca a friendly notice about this easy mistake and was asked to
+provide clarification. So here, just over 24 hours late, it is. The full source
+code is provided <a href="https://gist.github.com/1112335">here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why You Shouldn't Use Factories in Unit-level Tests or Specs]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs/"/>
+    <updated>2011-08-31T05:11:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/08/31/why-you-shouldnt-use-factories-in-unit-level-tests-or-specs</id>
+    <content type="html"><![CDATA[<p>They're tightly fucking coupled! That's Why</p>
+
+<p><strong>UPDATE:</strong> Or as Steve Klabnik puts it more precisely and politely:</p>
+
+<blockquote><p>factories are integration tests by definition, because they do not exercise a
+single unit.</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why Ruby Needs Heroes]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes/"/>
+    <updated>2011-08-19T12:12:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2011/08/19/why-ruby-needs-heroes</id>
+    <content type="html"><![CDATA[<p><em>A reflection on the Ruby community's tendency to celebrate individual
+developers and what good comes of it.</em></p>
+
+<p>The Ruby community isn't unique in its tendency for celebrating rockstar
+developers but after examining the communities history it would seem that we
+burn them out bright and fast.</p>
+
+<p>When I first became involved in the community I had heard of almost no one. My
+first hero is my friend Erik Ostrom to whom I owe a great deal for my first and
+second introductions to Ruby. Without you Erik I would be missing out on the
+most fun, passionate, and rewarding hacking I have ever done. I have you to
+thank for my introductions to rhe MVC pattern, idiomatic programming, and the
+process of developing software. I also owe you a big thanks for pointing me to
+_why's (Poignant) Guide to Ruby.</p>
+
+<p>Which leads nicely into my second hero <em>why the lucky stiff. The Guide when I
+first read it was the most refreshing and maddeningly beautiful piece of
+technical literature I had ever encountered and remains so to this day. Never
+before had I seen a language presented side by side with English hold its
+expressiveness the way Ruby did. It took me three tries to finish the Guide but
+I have read over its pages many times reminding myself to "use what Ruby gives
+[me]" and it is still my goto for explaining nil, truthiness, and falsiness in
+Ruby. If I were to teach programming in an art department, The Guide would be my
+textbook. But </em>why gave me more than the guide. Through Camping I was able to
+study "magic" and be exposed to the raw untamed power of metaprogramming in
+Ruby. Even though I had missed the whole hullabaloo surrounding _why's exit
+from the community by a matter of weeks his work has had a lasting and profound
+effect on me and I thank him.</p>
+
+<p>Like many developers my first full application in Ruby and real test of what I
+learned was using Ruby on Rails. Rails 2.3.5 to be precise. This marks me as a
+new kid on the block I know, but let's face it, I am. I have been living with
+Ruby for little more than two years. But that's the evolution of community
+without new blood it dries out. Anyway through this early stage I had a
+collection of mentors. The most prolific of which wasn't even aware of it at the
+time.</p>
+
+<p>Ryan Bates, your Railscasts helped guide me not only on specific challenges I
+was facing building my first production app but also provided my first exposure
+to lots of quality Ruby code and process. One thing the Ruby community gets on a
+fundamental level is that process matters and you were my first big introduction
+to that. You also introduced me to rvm and by extension my next hero.</p>
+
+<p>Wayne Seguin, rvm is a colossal undertaking. Managing development environments
+has always been a pain and you shaved one of the biggest, hairiest yaks ever to
+stand in the middle of the room.
+MixedMetaphorException: "Yaks aren't elephants."</p>
+
+<p>You are also a fabulous example of a project maintainer I don't have a specific
+IRC story of my own but that only speaks to the quality of your work. You're
+also a wonderful example of a polyglot Rubyist and really show what can happen
+when Rubyists take their knowledge and experience and apply it to funny little
+languages like bash.</p>
+
+<p>Last April I had the pleasure of meeting Steve Klabnik at the very first
+CodeConf. One of the coolest things about you Steve is that you're pretty much
+my age. It was so inspiring to see you, such an obviously accepted member of the
+Ruby community, so close to my own age. You indirectly informed me that the amount
+of effort required to really get involved and make a difference wasn't in the
+depressingly distant future and this has motivated me substantially in my
+efforts to give back even as I receive.</p>
+
+<p>Thanks man, you rock</p>
+
+<p>Lately I have been reading a lot of stuff from Avdi Grimm. You're style is so
+refined and decisive. Few people think about the meaning and reason behind their
+code and design decisions as you clearly do. Lately I have been turning to your
+writings when I find myself wondering about the best way to do something.</p>
+
+<p>So my journey through Ruby has brought me across the paths of these heroes and
+so many more. But what motivates me to think of these fine folks this way even
+when they may not want the attention. How many feel overly pressured by or
+undeserving of their status. When thinking on this, I am reminded of Firefly.
+(If you haven't seen it, seriously do yourself a favor and watch it.)</p>
+
+<!--![Jaynestown](/images/blog/jaynestown.jpg) -->
+
+
+<p>Specifically the Hero of Canton episode in which Jayne, the least noble of the
+protagonists, is remembered as a folk hero on a backwater mining colony for
+accidentally dropping crates of money over the mining camps. At the end Jayne
+can't understand what they see in him when dropping the money at all was simply
+a dishonest mistake as the episode wraps up he's told that the statue in his
+honor isn't for him, it is for the miners. We build heroes out of you because we
+see qualities in you we hope to someday find in ourselves. So please, whether
+you're a Jayne Cobb or Malcom Reynolds, if someone thinks of you as their hero,
+just be proud that you've done something extraordinary and they hope to follow
+suit.</p>
+
+<p>Happy _whyday,
+Steven!</p>
 ]]></content>
   </entry>
   
