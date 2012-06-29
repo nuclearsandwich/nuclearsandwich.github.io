@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Heroku | Mad Ramblings of a Lunatic Hacker]]></title>
+  <title><![CDATA[Category: heroku | Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/blog/categories/heroku/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-06-17T14:08:25-07:00</updated>
+  <updated>2012-06-29T13:49:20-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -18,7 +18,78 @@
     <link href="http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku/"/>
     <updated>2011-06-25T09:05:00-07:00</updated>
     <id>http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku</id>
-    <content type="html"><![CDATA[<p><strong><em>Update:</em></strong> The Github repo I linked at the end of this article was private
+    <content type="html"><![CDATA[<h2>Update 29, June 2012</h2>
+
+<p>It's been a whole year and a bit since I first published this and it's still
+pretty much how I handle rack applications on Heroku. We did run into one
+problem which I regretfully forgot to report back at the time.  Numbers. In
+Yaml, numbers are actually numbers. In the environment, everything is a string.
+We didn't realize this until a couple months later when we introduced a limit
+constant.</p>
+
+<p><code>
+MAX_VIDEOS_IN_TRENDING=100
+</code></p>
+
+<p>In our local yml file everything is peaches and gravy. Well as you can imagine
+we deploy to staging and suddenly everything is borrken.</p>
+
+<h3>The Error:</h3>
+
+<p><code>
+ArgumentError: comparison of Fixnum with String failed
+</code></p>
+
+<h3>The Fix:</h3>
+
+<p>```ruby</p>
+
+<h1>config/setup.rb</h1>
+
+<h1>...</h1>
+
+<h1>If converting each setting to an integer, then a string leaves it equivalent</h1>
+
+<h1>to its original conversion to a string then it is an integer.</h1>
+
+<p>Saneconf.conf.each_key do |setting|
+  if Saneconf.conf[setting].to_i.to_s == Saneconf.conf[setting].to_s</p>
+
+<pre><code>Saneconf.conf[settings] = Saneconf.conf[setting].to_i
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>Saneconf.conf.freeze
+```</p>
+
+<p>Rather horrid isn't it? I don't know of a better way, aside from hard-coding the
+names of your settings which are meant to be numeric. If you have floating point
+values you can make a similar pass for floats. This was originally suggested by
+<a href="https://twitter.com/dapunster">@dapunster</a>.</p>
+
+<h3>New Alternatives</h3>
+
+<p>Since writing this, I've seen two alternatives to my setup which both take the
+opposite approach and make it easier to set environment variables in test and
+development. The first and one I'd most like to try is the
+<a href="https://github.com/zimbatm/direnv">direnv</a> project. It adds a function to your
+bashrc/zshrc that checks for a <code>.envrc</code> file and runs it.</p>
+
+<p>The second approach which applies when you're using <a href="http://rvm.io">rvm</a> is to
+abuse (yes, it is an abuse) your <code>.rvmrc</code>, which is just a sourced shell script,
+to add any project specific environment variables. I really hate this approach
+but it does work.</p>
+
+<p>I've updated the <a href="https://github.com/nuclearsandwich/saneconf">Git repo</a> with the example code for this setup dropping
+ActiveRecord and Resque scheduler in favor of some arbitrary numbered config
+values. If you have any feedback or suggestions, please drop me a pull request
+or email.</p>
+
+<p><em>Original article below</em></p>
+
+<p><strong><em>Update:</em></strong> The Github repo I linked at the end of this article was private
 and I forgot to make it public. It is now, sorry. ~Steven!</p>
 
 <p>Recently, Nowmov has started using <a href="http://heroku.com">Heroku</a> for application
@@ -346,7 +417,7 @@ attempt is made to change it. This way, any  of your fellow developers will know
 that whatever they're doing belongs  in your application initialization code and
 not in the middle of your  important code.   Hopefully this proves helpful, the
 example code is available on
-<a href="https://github.com/nuclearsandwich/saneconf">GitHub</a>.</p>
+<a href="https://github.com/nuclearsandwich/saneconf">GitHub</a></p>
 
 <p>Good hunting, Steven!</p>
 ]]></content>

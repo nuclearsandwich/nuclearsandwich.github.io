@@ -4,7 +4,7 @@
   <title><![CDATA[Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-06-17T14:08:25-07:00</updated>
+  <updated>2012-06-29T13:49:20-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -1596,7 +1596,81 @@ is true of CoffeeScript in my observation.</li>
     <link href="http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku/"/>
     <updated>2011-06-25T09:05:00-07:00</updated>
     <id>http://blog.nuclearsandwich.com/blog/2011/06/25/a-sane-configuration-setup-for-rack-applications-on-heroku</id>
-    <content type="html"><![CDATA[<p><strong><em>Update:</em></strong> The Github repo I linked at the end of this article was private
+    <content type="html"><![CDATA[<h2>Update 29, June 2012</h2>
+
+<p>It&#8217;s been a whole year and a bit since I first published this and it&#8217;s still
+pretty much how I handle rack applications on Heroku. We did run into one
+problem which I regretfully forgot to report back at the time.  Numbers. In
+Yaml, numbers are actually numbers. In the environment, everything is a string.
+We didn&#8217;t realize this until a couple months later when we introduced a limit
+constant.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MAX_VIDEOS_IN_TRENDING=100</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In our local yml file everything is peaches and gravy. Well as you can imagine
+we deploy to staging and suddenly everything is borrken.</p>
+
+<h3>The Error:</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ArgumentError: comparison of Fixnum with String failed</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>The Fix:</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># config/setup.rb</span>
+</span><span class='line'><span class="c1"># ...</span>
+</span><span class='line'><span class="c1"># If converting each setting to an integer, then a string leaves it equivalent</span>
+</span><span class='line'><span class="c1"># to its original conversion to a string then it is an integer.</span>
+</span><span class='line'><span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">each_key</span> <span class="k">do</span> <span class="o">|</span><span class="n">setting</span><span class="o">|</span>
+</span><span class='line'>  <span class="k">if</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="n">setting</span><span class="o">].</span><span class="n">to_i</span><span class="o">.</span><span class="n">to_s</span> <span class="o">==</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="n">setting</span><span class="o">].</span><span class="n">to_s</span>
+</span><span class='line'>    <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="n">settings</span><span class="o">]</span> <span class="o">=</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="n">setting</span><span class="o">].</span><span class="n">to_i</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">freeze</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Rather horrid isn&#8217;t it? I don&#8217;t know of a better way, aside from hard-coding the
+names of your settings which are meant to be numeric. If you have floating point
+values you can make a similar pass for floats. This was originally suggested by
+<a href="https://twitter.com/dapunster">@dapunster</a>.</p>
+
+<h3>New Alternatives</h3>
+
+<p>Since writing this, I&#8217;ve seen two alternatives to my setup which both take the
+opposite approach and make it easier to set environment variables in test and
+development. The first and one I&#8217;d most like to try is the
+<a href="https://github.com/zimbatm/direnv">direnv</a> project. It adds a function to your
+bashrc/zshrc that checks for a <code>.envrc</code> file and runs it.</p>
+
+<p>The second approach which applies when you&#8217;re using <a href="http://rvm.io">rvm</a> is to
+abuse (yes, it is an abuse) your <code>.rvmrc</code>, which is just a sourced shell script,
+to add any project specific environment variables. I really hate this approach
+but it does work.</p>
+
+<p>I&#8217;ve updated the <a href="https://github.com/nuclearsandwich/saneconf">Git repo</a> with the example code for this setup dropping
+ActiveRecord and Resque scheduler in favor of some arbitrary numbered config
+values. If you have any feedback or suggestions, please drop me a pull request
+or email.</p>
+
+<p><em>Original article below</em></p>
+
+<p><strong><em>Update:</em></strong> The Github repo I linked at the end of this article was private
 and I forgot to make it public. It is now, sorry. ~Steven!</p>
 
 <p>Recently, Nowmov has started using <a href="http://heroku.com">Heroku</a> for application
@@ -1864,7 +1938,7 @@ attempt is made to change it. This way, any  of your fellow developers will know
 that whatever they&#8217;re doing belongs  in your application initialization code and
 not in the middle of your  important code.   Hopefully this proves helpful, the
 example code is available on
-<a href="https://github.com/nuclearsandwich/saneconf">GitHub</a>.</p>
+<a href="https://github.com/nuclearsandwich/saneconf">GitHub</a></p>
 
 <p>Good hunting, Steven!</p>
 ]]></content>
