@@ -4,7 +4,7 @@
   <title><![CDATA[Mad Ramblings of a Lunatic Hacker]]></title>
   <link href="http://blog.nuclearsandwich.com/atom.xml" rel="self"/>
   <link href="http://blog.nuclearsandwich.com/"/>
-  <updated>2012-06-29T13:49:20-07:00</updated>
+  <updated>2012-07-31T11:22:34-07:00</updated>
   <id>http://blog.nuclearsandwich.com/</id>
   <author>
     <name><![CDATA[Steven! Ragnarök]]></name>
@@ -12,6 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GoGaRuCo 2012: Teaching Language Semantics]]></title>
+    <link href="http://blog.nuclearsandwich.com/blog/2012/07/31/gogaruco-2012-teaching-language-semantics/"/>
+    <updated>2012-07-31T10:12:00-07:00</updated>
+    <id>http://blog.nuclearsandwich.com/blog/2012/07/31/gogaruco-2012-teaching-language-semantics</id>
+    <content type="html"><![CDATA[<p>Readers, friends, lovers,</p>
+
+<p>I&#8217;m both incredibly pleased and bloody terrified to announce my conference
+speaking debut will be at this year&#8217;s <a href="http://gogaruco.com">Golden Gate Ruby Conference</a>.</p>
+
+<p>I will be presenting my thoughts on trying to teach object-oriented programming,
+specifically the Ruby language, using a semantics-first approach.</p>
+
+<p>As the conference draws closer I may be writing more on the subject here but the
+magic will all happen at GoGaRuCo. So there&#8217;s truly no reason not to
+<a href="http://gogaruco.com/registration.html">register</a> right now.</p>
+
+<p>See you there,</p>
+
+<p>Steven!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How I Used a "Debugging Feature" of Pry to Build Cage]]></title>
@@ -2212,31 +2235,6 @@ cycling home. All in all, today was quite eventful. Though I still didn&#8217;t 
 much done as I {needed,intended,wanted}. Oh well, there&#8217;s always tomorrow.</p>
 
 <p><img src="http://blog.nuclearsandwich.com/images/blog/corenominal_day.jpg" alt="Corenominal Day" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[An Awesome Earsome Between Poe and Debussy]]></title>
-    <link href="http://blog.nuclearsandwich.com/blog/2011/04/18/an-awesome-earsome-between-poe-and-debussy/"/>
-    <updated>2011-04-18T04:20:00-07:00</updated>
-    <id>http://blog.nuclearsandwich.com/blog/2011/04/18/an-awesome-earsome-between-poe-and-debussy</id>
-    <content type="html"><![CDATA[<p>Everybody I know please follow these instructions.</p>
-
-<ul>
-<li>Set aside 10 minutes.</li>
-<li>Get good speakers or good headphones.</li>
-<li>Set aside ten minutes to play both these videos at once.</li>
-<li>Open both these videos at the same time in tabs. They are both sound only.
-http://www.youtube.com/watch?v=sXU3RfB7308 with
-http://www.youtube.com/watch?v=IkmwzG7cB_U</li>
-</ul>
-
-
-<p>You are listening to James Earl Jones (voice of Darth Vader) reading Edgar Allen
-Poe&#8217;s &#8216;The Raven&#8217; with Claude Debussy&#8217;s &#8216;Nuages&#8217; playing in the background.
-You may need to turn Vader down so the music can come out.</p>
-
-<p><em>This is fucking cool.</em></p>
 ]]></content>
   </entry>
   
