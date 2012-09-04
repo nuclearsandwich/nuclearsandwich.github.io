@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/stylesheets/normalize.css"/>
+    <link rel="stylesheet" href="/fonts/sansumi/font.css"/>
+    <link rel="stylesheet" href="/fonts/bitter/font.css"/>
+    <link rel="stylesheet" href="/fonts/anonymous/font.css"/>
+    <link rel="stylesheet" href="/fonts/inconsolata/font.css"/>
+    <link rel="stylesheet" href="/stylesheets/main.css"/>
+    <link rel="stylesheet" href="/stylesheets/pygments.css"/>
+    <title>Nuclearsandwich!</title>
+  </head>
+  <body>
+    <header class="page">
+      <h1>The Mad Ramblings of a Lunatic Hacker</h1>
+      <h2>An Exercise in Wit or Vanity</h2>
+    </header>
+    <nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="https://github.com/nuclearsandwich">GitHub</a></li>
+    <li><a href="/cage">Cage</a></li>
+  </ul>
+</nav>
+
+    <div class="content">
+      <article>
+  <header>
+    <h1>A Look at Ruby Case Expressions</h1>
+    <h2>published:  8 Sep 2011 08:09:00AM</h2>
+  </header>
+  <p>Ruby, like many languages has a case-when construct for more refined conditional
+execution than if-then-else can provide. Technically all case constructs could
+be written as if-then-else-if-then...else but you wouldn&#39;t enjoy it.</p>
+
+<h2>Ruby&#39;s case-when is an expression</h2>
+
+<p>However, there are a number of things that make Ruby&#39;s case-when special. The
+first comes from Ruby&#39;s functional roots. It&#39;s powerful but deceptively simple.
+Ruby&#39;s case-when construct is an <em>expression</em>. Which means, among other things,
+it returns a value.</p>
+
+<p>In a traditional imperative style a case statement might look like:</p>
+
+<p>{% codeblock lang:ruby %}
+conditional_variable = :some_default_value
+case our_condition
+when :first
+  conditional_variable = :one_thing
+when :then
+  conditional_variable = :another
+end
+{% endcodeblock %}</p>
+
+<p>The that isn&#39;t ideal for a number of reasons. <code>conditional_variable</code> is set
+visibly three times which as any freshman can tell you is frowned upon.
+Academics have stuffier reasons for it but the most important is that it
+decreases readability because we aren&#39;t sure what the value will be after
+execution. Setting it so many times is also a code duplication, albeit a small
+one. We can take advantage of Ruby&#39;s case-when <em>expression</em> with this code:</p>
+
+<p>{% codeblock lang:ruby %}
+conditional_variable = case our_condition
+                       when :first
+                         :one_thing
+                       when :then
+                         :another
+                       else
+                         :some_default_value
+                       end
+{% endcodeblock %}</p>
+
+<p>Doesn&#39;t that look nicer? <code>conditional_variable</code> is only set once and the
+intent is clear, we want the value to depend on <code>our_condition</code>.</p>
+
+<h2>case-when uses triple equals for comparison</h2>
+
+<p>This got me good this morning and spawned this article. If you&#39;re not familiar
+with <code>===</code> in Ruby then the best explanation comes from <em>_why&#39;s Poignant Guide
+to Ruby</em> which really is worth reading. I&#39;ve referred back to it multiple times
+to help myself and those around me fully understand basic Ruby concepts like
+<code>nil</code>, truthiness and falsiness, and, <strong>fanfare please</strong>, double equals versus
+triple equals.</p>
+
+<blockquote>
+<p>The double equals gives the appearance of a short link of ropes, right
+along the sides of a red carpet where only <code>true</code> can be admitted.
+{% codeblock lang:ruby %}
+if approaching_guy == true
+  puts &quot;That necklace is classic&quot;
+end
+{% endcodeblock %}
+...
+[This case-when statement]</p>
+</blockquote>
+
+<p>{% codeblock lang:ruby %}
+case year
+when 1894
+  &quot;Born.&quot;
+when (1895..1913)
+  &quot;Childhood in Lousville, Winston Co., Mississippi.&quot;
+else
+  &quot;No information about this year.&quot;
+end
+{% endcodeblock %}
+&gt; is identical to
+{% codeblock lang:ruby %}
+if 1894 === year
+  &quot;Born.&quot;
+elsif (1895..1913) === year
+  &quot;Childhood in Lousville, Winston Co., Mississippi.&quot;
+else
+  &quot;No information about this year.&quot;
+end
+{% endcodeblock %}
+&gt; The <strong>triple equals</strong> is a length of velvet rope, checking values much like
+&gt; the <strong>double equals</strong>. It&#39;s just: the triple equals is a longer rope and it
+&gt; sags a bit in the middle. It&#39;s not as strict, it&#39;s a bit more flexible.
+&gt; Take the Ranges above. <code>(1895..1913)</code> isn&#39;t at all equal to <code>1905</code>.</p>
+
+<blockquote>
+<p>No, the Range <code>(1895..1913)</code> is only truly equal to any other Range
+<code>(1895..1913)</code>. In the case of a Range, the triple equals cuts you a break
+and lets the Integer <code>1905</code> in, because even though it&#39;s not equal to the
+Range, it&#39;s included in the set of Integers represented by the Range. Which
+is good enough in some cases, such as the timeline I put together earlier.</p>
+</blockquote>
+
+<h2>My Mistake</h2>
+
+<p>This is what I did which caused me to write this as penance.
+{% codeblock lang:ruby %}
+def local_tweet_object input
+  tweet_hash = case input.class # the screw-up
+  when String
+    MultiJson.decode input
+  when Hash
+    input
+  else
+    fail ArgumentError.new(
+      &quot;Cannot process #{input.class} only String or Hash&quot;)
+  end
+  LocalTweet.new tweet_hash
+end
+{% endcodeblock %}</p>
+
+<p>This code was raising the following error.</p>
+
+<p><code>ArgumentError: I don&#39;t want Hash give me only String or Hash</code>
+... <em>huh?</em></p>
+
+<p>At first glance it looked fine, but then we remember that case-when uses <code>===</code>.
+Again, we think &quot;this shouldn&#39;t be an issue, if it&#39;s good enough for <code>==</code> it
+should be fine for <code>===</code>.&quot; But <code>===</code> behaves specially for certain types in Ruby
+such as Classes, Arrays, and as we saw before, Ranges.</p>
+
+<p>For simple scalar values <code>===</code> acts like you expect.
+{% codeblock %}
+12 === 12 #=&gt; true
+12 === 13 #=&gt; false
+:rats === :rats #=&gt; true
+&quot;pens&quot; === &quot;pens&quot; #=&gt; true
+&quot;space&quot; === &quot;fact&quot; #=&gt; false
+{% endcodeblock %}</p>
+
+<p>And we know how <code>===</code> treats ranges
+{% codeblock %}
+(8..64) === 32 #=&gt; true
+{% endcodeblock %}
+But note that
+{% codeblock %}
+(8..64) === (8..64) #=&gt; false
+{% endcodeblock %}</p>
+
+<p>Suddenly!
+{% codeblock %}
+Integer === 12 #=&gt; true!
+{% endcodeblock %}
+waitaminute.. what?</p>
+
+<p>So Ruby can tell that <code>12</code> is a type of Integer and thus <code>===</code> can be described
+partially as an includes and typeof operator. But there are some further
+gotchas.
+{% codeblock %}
+[ 1, 2, 3 ] === 1#=&gt; true
+[ 1, 2, 3 ] === [ 1, 2, 3 ]                         #=&gt; true
+[ 1, 2, 3 ] === [ 1, 2 ]                            #=&gt; false
+{ :foo =&gt; :bar } === { :foo =&gt; :bar }               #=&gt; true
+{ :foo =&gt; :bar } === :foo                           #=&gt; false
+{ :foo =&gt; :bar, :baz =&gt; :qux } === { :foo =&gt; :bar } #=&gt; false
+{% endcodeblock %}</p>
+
+<p><code>===</code>&#39;s behavior isn&#39;t completely intuitive even within Ruby&#39;s standard Classes.
+Which brings us (finally) back around to my original error.
+<code>Hash === Hash #=&gt; false</code></p>
+
+<p>The fix is simple, just change
+{% codeblock %}
+case input.class
+{% endcodeblock %}
+to
+{% codeblock %}
+case input
+{% endcodeblock %}</p>
+
+<p>I posted on identi.ca a friendly notice about this easy mistake and was asked to
+provide clarification. So here, just over 24 hours late, it is. The full source
+code is provided <a href="https://gist.github.com/1112335">here</a></p>
+
+</article>
+
+    </div>
+
+    <footer>
+      <p class="copyright">
+        Copyright 2012 Steven! Ragnarök.
+        All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>

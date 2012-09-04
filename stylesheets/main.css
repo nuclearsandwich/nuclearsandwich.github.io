@@ -1,0 +1,93 @@
+body {
+	background: url('/images/px_by_Gre3g.png') repeat black;
+	font-family: 'Bitter Regular', serif;
+}
+
+header.page, nav, footer {
+	width: 80%;
+	margin: 0 auto;
+}
+
+header.page {
+	background-color: #47092E;
+	color: #c1c1c1;
+	font-family: 'Sansumi Bold', sans-serif;
+	font-size: 120%;
+	padding: 2.5em 1em;
+}
+
+header h2 {
+	color: #6a6a6a;
+	font-size: 110%;
+}
+
+nav {
+	text-align: center;
+}
+
+nav ul {
+	margin: 0;
+	list-style: none;
+}
+
+nav a {
+	color: black;
+	text-decoration: none;
+}
+
+nav ul li {
+	margin: 0 10px;
+	padding: 0 3em;
+	float: left;
+	background-color: white;
+	border-bottom: 1px solid #c1c1c1;
+	border-right: 1px solid #c1c1c1;
+}
+
+
+div.content {
+	margin: auto;
+	background-color: #dedede;
+	color: #2e2e2e;
+	padding: 4em;
+	width: 75%;
+}
+
+p a {
+	color: #2e2e2e;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+p a:hover {
+	text-decoration: underline;
+}
+
+p a:visited {
+	color: #6a6a6a;
+}
+
+p.copyright {
+	color: #c1c1c1;
+}
+
+pre {
+	background-color: #181818;
+	padding: 30px;
+	border: 3px #6a6a6a solid;
+	border-radius: 30px;
+	font-family: 'Anonymous Regular', monospace;
+}
+
+div.article-link h1 {
+	font-size: 120%;
+}
+
+div.article-link h2 {
+	font-size: 100%;
+}
+
+div.article-link {
+	margin-top: 30px;
+	border-bottom: solid 2px #c1c1c1;
+	border-right: solid 2px #c1c1c1;
