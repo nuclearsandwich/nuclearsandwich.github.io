@@ -21,6 +21,20 @@ header h2 {
 	font-size: 110%;
 }
 
+a {
+	color: #2e2e2e;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	color: #6a6a6a;
+}
+
 nav {
 	text-align: center;
 }
@@ -51,20 +65,6 @@ div.content {
 	color: #2e2e2e;
 	padding: 4em;
 	width: 75%;
-}
-
-p a {
-	color: #2e2e2e;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-p a:hover {
-	text-decoration: underline;
-}
-
-p a:visited {
-	color: #6a6a6a;
 }
 
 p.copyright {
