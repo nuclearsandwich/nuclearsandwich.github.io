@@ -71,6 +71,11 @@ p.copyright {
 	color: #c1c1c1;
 }
 
+p.copyright a {
+	color: #c1c1c1;
+}
+
+
 pre {
 	background-color: #181818;
 	padding: 30px;
