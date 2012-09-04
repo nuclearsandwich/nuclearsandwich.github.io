@@ -136,31 +136,25 @@ Coulton&quot;</code> this command will expose both your variables to your code
 using Ruby&#39;s <code>ENV</code> hash.</p>
 
 <p>In your code you&#39;d get to it like this:</p>
-
-<p>{% codeblock lang:ruby %}</p>
-
-<h1>!ruby</h1>
-
-<p>def controller_action
-  if ENV[&#39;ARTIST&#39;] == &quot;Jonathan Coulton&quot;
-    @still_alive = true
-  end
-end
-{% endcodeblock %}</p>
+<div class="highlight"><pre><span class="c1">#!ruby</span>
+<span class="k">def</span> <span class="nf">controller_action</span>
+  <span class="k">if</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;Jonathan Coulton&quot;</span>
+    <span class="vi">@still_alive</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
 
 <p>But then this also has to work locally! So you need to do somethig like
 this:</p>
-
-<p>{% codeblock lang:ruby %}</p>
-
-<h1>!ruby</h1>
-
-<p>def controller_action
-  if (ENV[&#39;ARTIST&#39;] || SETTINGS[:artist]) == &quot;Jonathan Coulton&quot;
-    @still_alive = true
-  end
-end
-{% endcodeblock %}</p>
+<div class="highlight"><pre><span class="c1">#!ruby</span>
+<span class="k">def</span> <span class="nf">controller_action</span>
+  <span class="k">if</span> <span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span> <span class="o">||</span> <span class="no">SETTINGS</span><span class="o">[</span><span class="ss">:artist</span><span class="o">]</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Jonathan Coulton&quot;</span>
+    <span class="vi">@still_alive</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
 
 <p>Alternatively, you could set up all these environment variables using a
 rake or thor task before launching your app but who wants to deal with
@@ -190,93 +184,79 @@ brilliant as I think I am and it&#39;s obvious to you already (<em>likely</em>).
 know that it&#39;ll start simple and grow in complexity later on. Since
 we&#39;re smart we&#39;re going to namespace the whole thing under a module.
 Namely <code>Saneconf</code> Our skeleton looks like this:</p>
+<div class="highlight"><pre><span class="c1">#!ruby</span>
+<span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span> <span class="c1"># Only needed for Ruby 1.8</span>
+<span class="nb">require</span> <span class="s1">&#39;bundler&#39;</span>
+<span class="c1"># After this line, I shouldn&#39;t even have to *think* about dependencies.</span>
+<span class="no">Bundler</span><span class="o">.</span><span class="n">require</span>
 
-<p>{% codeblock Main Application File - app.rb %}</p>
+<span class="c1"># This is the initilization file for the Saneconf API. All set up, library</span>
+<span class="c1"># loading and application level settings are done here.</span>
+<span class="k">module</span> <span class="nn">Saneconf</span>
+  <span class="c1"># If there&#39;s a better/safer way to do this generically do let me know.</span>
+  <span class="c1"># I haven&#39;t encountered a setup where this didn&#39;t work.</span>
+  <span class="k">def</span> <span class="nc">Saneconf</span><span class="o">.</span><span class="nf">root</span><span class="p">;</span> <span class="no">Dir</span><span class="o">.</span><span class="n">pwd</span><span class="p">;</span> <span class="k">end</span>
 
-<h1>!ruby</h1>
+  <span class="c1"># This one is important so we set it early and use a constant.</span>
+  <span class="c1"># Set Rack environment if not specified.</span>
+  <span class="no">RACK_ENV</span> <span class="o">=</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;RACK_ENV&#39;</span><span class="o">]</span> <span class="o">||</span> <span class="s2">&quot;development&quot;</span>
 
-<p>require &#39;rubygems&#39; # Only needed for Ruby 1.8
-require &#39;bundler&#39;</p>
+  <span class="c1"># Create an accessor to a module attribute which defaults to a</span>
+  <span class="k">def</span> <span class="nc">Saneconf</span><span class="o">.</span><span class="nf">conf</span><span class="p">;</span> <span class="vi">@conf_hash</span> <span class="o">||=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">;</span> <span class="k">end</span>
 
-<h1>After this line, I shouldn&#39;t even have to <em>think</em> about dependencies.</h1>
+  <span class="c1"># Handles initialization and preprocessing of application settings be they</span>
+  <span class="c1"># from Heroku&#39;s Environment or a local `settings.yml`.</span>
+  <span class="n">require_relative</span> <span class="s1">&#39;config/setup.rb&#39;</span>
 
-<p>Bundler.require</p>
-
-<h1>This is the initilization file for the Saneconf API. All set up, library</h1>
-
-<h1>loading and application level settings are done here.</h1>
-
-<p>module Saneconf
-  # If there&#39;s a better/safer way to do this generically do let me know.
-  # I haven&#39;t encountered a setup where this didn&#39;t work.
-  def Saneconf.root; Dir.pwd; end</p>
-
-<p># This one is important so we set it early and use a constant.
-  # Set Rack environment if not specified.
-  RACK_ENV = ENV[&#39;RACK_ENV&#39;] || &quot;development&quot;</p>
-
-<p># Create an accessor to a module attribute which defaults to a
-  def Saneconf.conf; @conf_hash ||= Hash.new; end</p>
-
-<p># Handles initialization and preprocessing of application settings be they
-  # from Heroku&#39;s Environment or a local <code>settings.yml</code>.
-  require_relative &#39;config/setup.rb&#39;</p>
-
-<p>class App &lt; Sinatra::Base
-    get &#39;/&#39; do
-      &quot;<h1>So nice to be sane again, eh? #{conf[&#39;ARTIST&#39;]}?</h1>&quot;
-    end
-  end
-end
-{% endcodeblock %}</p>
+  <span class="k">class</span> <span class="nc">App</span> <span class="o">&lt;</span> <span class="no">Sinatra</span><span class="o">::</span><span class="no">Base</span>
+    <span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+      <span class="s2">&quot;&lt;h1&gt;So nice to be sane again, eh? </span><span class="si">#{</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;ARTIST&#39;</span><span class="o">]</span><span class="si">}</span><span class="s2">?&lt;/h1&gt;&quot;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
 
 <p>That looks cool and all, but what the hell is <code>config/setup.rb</code>? Answer: It&#39;s
 where the magic happens, let&#39;s go take a look:</p>
+<div class="highlight"><pre><span class="c1">#!ruby</span>
+<span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span> <span class="s2">&quot;config/settings.yml&quot;</span>
+  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">merge!</span><span class="p">(</span>
+    <span class="no">YAML</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s2">&quot;config/settings.yml&quot;</span><span class="p">)</span><span class="o">[</span><span class="no">Saneconf</span><span class="o">::</span><span class="no">RACK_ENV</span><span class="o">]</span><span class="p">)</span>
+    <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span> <span class="o">=</span>
+      <span class="no">YAML</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s2">&quot;config/resque_schedule.yml&quot;</span><span class="p">)</span>
+<span class="k">else</span>
+  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">merge!</span><span class="p">(</span><span class="no">ENV</span><span class="p">)</span>
+<span class="k">end</span>
 
-<p>{% codeblock The Magic Happens Here - config/setup.rb %}</p>
+<span class="n">db</span> <span class="o">=</span> <span class="no">URI</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;DATABASE_URL&#39;</span><span class="o">]</span>
+<span class="n">redis</span> <span class="o">=</span> <span class="no">URI</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;REDISTOGO_URL&#39;</span><span class="o">]</span>
+<span class="c1"># Parse Postgres connection settings.</span>
+<span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;DATABASE&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">:adapter</span> <span class="o">=&gt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">db</span><span class="o">.</span><span class="n">scheme</span><span class="si">}</span><span class="s2">ql&quot;</span><span class="p">,</span> <span class="c1"># Add a &#39;ql&#39; cause ActiveRecord is stupid.</span>
+  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+  <span class="ss">:database</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">path</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span>
+  <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">db</span><span class="o">.</span><span class="n">password</span>
+<span class="p">}</span>
 
-<h1>!ruby</h1>
+<span class="c1"># Parse Redis connection settings.</span>
+<span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;REDIS&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+  <span class="ss">:db</span> <span class="o">=&gt;</span> <span class="n">redis</span><span class="o">.</span><span class="n">path</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span>
+<span class="p">}</span>
 
-<p>if File.exists? &quot;config/settings.yml&quot;
-  Saneconf.conf.merge!(
-    YAML.load_file(&quot;config/settings.yml&quot;)[Saneconf::RACK_ENV])
-    Saneconf.conf[&#39;RESQUE_SCHEDULE&#39;] =
-      YAML.load_file(&quot;config/resque_schedule.yml&quot;)
-else
-  Saneconf.conf.merge!(ENV)
-end</p>
+<span class="c1"># Parse Resque Schedule YAML.</span>
+<span class="k">if</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">].</span><span class="n">class</span> <span class="o">==</span> <span class="nb">String</span>
+  <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">.</span><span class="n">load</span> <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="s1">&#39;RESQUE_SCHEDULE&#39;</span><span class="o">]</span>
+<span class="k">end</span>
 
-<p>db = URI Saneconf.conf[&#39;DATABASE_URL&#39;]
-redis = URI Saneconf.conf[&#39;REDISTOGO_URL&#39;]</p>
-
-<h1>Parse Postgres connection settings.</h1>
-
-<p>Saneconf.conf[&#39;DATABASE&#39;] = {
-  :adapter =&gt; &quot;#{db.scheme}ql&quot;, # Add a &#39;ql&#39; cause ActiveRecord is stupid.
-  :host =&gt; db.host,
-  :port =&gt; db.port,
-  :database =&gt; db.path[1..-1],
-  :username =&gt; db.user,
-  :password =&gt; db.password
-}</p>
-
-<h1>Parse Redis connection settings.</h1>
-
-<p>Saneconf.conf[&#39;REDIS&#39;] = {
-  :host =&gt; redis.host,
-  :port =&gt; redis.port,
-  :password =&gt; redis.password,
-  :db =&gt; redis.path[1..-1]
-}</p>
-
-<h1>Parse Resque Schedule YAML.</h1>
-
-<p>if Saneconf.conf[&#39;RESQUE_SCHEDULE&#39;].class == String
-  Saneconf.conf[&#39;RESQUE_SCHEDULE&#39;] = YAML.load Saneconf.conf[&#39;RESQUE_SCHEDULE&#39;]
-end</p>
-
-<p>Saneconf.conf.freeze
-{% endcodeblock %}</p>
+<span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">freeze</span>
+</pre>
+</div>
 
 <p>All this does is check for the existence of a <code>settings.yml</code> and load  it&#39;s
 values into our (currently) empty configuration hash using an  in-place

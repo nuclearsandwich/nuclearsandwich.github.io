@@ -45,16 +45,15 @@ Ruby&#39;s case-when construct is an <em>expression</em>. Which means, among oth
 it returns a value.</p>
 
 <p>In a traditional imperative style a case statement might look like:</p>
-
-<p>{% codeblock lang:ruby %}
-conditional_variable = :some_default_value
-case our_condition
-when :first
-  conditional_variable = :one_thing
-when :then
-  conditional_variable = :another
-end
-{% endcodeblock %}</p>
+<div class="highlight"><pre><span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:some_default_value</span>
+<span class="k">case</span> <span class="n">our_condition</span>
+<span class="k">when</span> <span class="ss">:first</span>
+  <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:one_thing</span>
+<span class="k">when</span> <span class="ss">:then</span>
+  <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:another</span>
+<span class="k">end</span>
+</pre>
+</div>
 
 <p>The that isn&#39;t ideal for a number of reasons. <code>conditional_variable</code> is set
 visibly three times which as any freshman can tell you is frowned upon.
@@ -62,17 +61,16 @@ Academics have stuffier reasons for it but the most important is that it
 decreases readability because we aren&#39;t sure what the value will be after
 execution. Setting it so many times is also a code duplication, albeit a small
 one. We can take advantage of Ruby&#39;s case-when <em>expression</em> with this code:</p>
-
-<p>{% codeblock lang:ruby %}
-conditional_variable = case our_condition
-                       when :first
-                         :one_thing
-                       when :then
-                         :another
-                       else
-                         :some_default_value
-                       end
-{% endcodeblock %}</p>
+<div class="highlight"><pre><span class="n">conditional_variable</span> <span class="o">=</span> <span class="k">case</span> <span class="n">our_condition</span>
+                       <span class="k">when</span> <span class="ss">:first</span>
+                         <span class="ss">:one_thing</span>
+                       <span class="k">when</span> <span class="ss">:then</span>
+                         <span class="ss">:another</span>
+                       <span class="k">else</span>
+                         <span class="ss">:some_default_value</span>
+                       <span class="k">end</span>
+</pre>
+</div>
 
 <p>Doesn&#39;t that look nicer? <code>conditional_variable</code> is only set once and the
 intent is clear, we want the value to depend on <code>our_condition</code>.</p>
@@ -88,42 +86,48 @@ triple equals.</p>
 
 <blockquote>
 <p>The double equals gives the appearance of a short link of ropes, right
-along the sides of a red carpet where only <code>true</code> can be admitted.
-{% codeblock lang:ruby %}
-if approaching_guy == true
-  puts &quot;That necklace is classic&quot;
-end
-{% endcodeblock %}
-...
-[This case-when statement]</p>
+along the sides of a red carpet where only <code>true</code> can be admitted.</p>
 </blockquote>
-
-<p>{% codeblock lang:ruby %}
-case year
-when 1894
-  &quot;Born.&quot;
-when (1895..1913)
-  &quot;Childhood in Lousville, Winston Co., Mississippi.&quot;
-else
-  &quot;No information about this year.&quot;
-end
-{% endcodeblock %}
-&gt; is identical to
-{% codeblock lang:ruby %}
-if 1894 === year
-  &quot;Born.&quot;
-elsif (1895..1913) === year
-  &quot;Childhood in Lousville, Winston Co., Mississippi.&quot;
-else
-  &quot;No information about this year.&quot;
-end
-{% endcodeblock %}
-&gt; The <strong>triple equals</strong> is a length of velvet rope, checking values much like
-&gt; the <strong>double equals</strong>. It&#39;s just: the triple equals is a longer rope and it
-&gt; sags a bit in the middle. It&#39;s not as strict, it&#39;s a bit more flexible.
-&gt; Take the Ranges above. <code>(1895..1913)</code> isn&#39;t at all equal to <code>1905</code>.</p>
+<div class="highlight"><pre><span class="k">if</span> <span class="n">approaching_guy</span> <span class="o">==</span> <span class="kp">true</span>
+  <span class="nb">puts</span> <span class="s2">&quot;That necklace is classic&quot;</span>
+<span class="k">end</span>
+</pre>
+</div>
 
 <blockquote>
+<p>...
+[This case-when statement]</p>
+</blockquote>
+<div class="highlight"><pre><span class="k">case</span> <span class="n">year</span>
+<span class="k">when</span> <span class="mi">1894</span>
+  <span class="s2">&quot;Born.&quot;</span>
+<span class="k">when</span> <span class="p">(</span><span class="mi">1895</span><span class="o">.</span><span class="n">.</span><span class="mi">1913</span><span class="p">)</span>
+  <span class="s2">&quot;Childhood in Lousville, Winston Co., Mississippi.&quot;</span>
+<span class="k">else</span>
+  <span class="s2">&quot;No information about this year.&quot;</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+<blockquote>
+<p>is identical to</p>
+</blockquote>
+<div class="highlight"><pre><span class="k">if</span> <span class="mi">1894</span> <span class="o">===</span> <span class="n">year</span>
+  <span class="s2">&quot;Born.&quot;</span>
+<span class="k">elsif</span> <span class="p">(</span><span class="mi">1895</span><span class="o">.</span><span class="n">.</span><span class="mi">1913</span><span class="p">)</span> <span class="o">===</span> <span class="n">year</span>
+  <span class="s2">&quot;Childhood in Lousville, Winston Co., Mississippi.&quot;</span>
+<span class="k">else</span>
+  <span class="s2">&quot;No information about this year.&quot;</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+<blockquote>
+<p>The <strong>triple equals</strong> is a length of velvet rope, checking values much like
+the <strong>double equals</strong>. It&#39;s just: the triple equals is a longer rope and it
+sags a bit in the middle. It&#39;s not as strict, it&#39;s a bit more flexible.
+Take the Ranges above. <code>(1895..1913)</code> isn&#39;t at all equal to <code>1905</code>.</p>
+
 <p>No, the Range <code>(1895..1913)</code> is only truly equal to any other Range
 <code>(1895..1913)</code>. In the case of a Range, the triple equals cuts you a break
 and lets the Integer <code>1905</code> in, because even though it&#39;s not equal to the
@@ -133,21 +137,21 @@ is good enough in some cases, such as the timeline I put together earlier.</p>
 
 <h2>My Mistake</h2>
 
-<p>This is what I did which caused me to write this as penance.
-{% codeblock lang:ruby %}
-def local_tweet_object input
-  tweet_hash = case input.class # the screw-up
-  when String
-    MultiJson.decode input
-  when Hash
-    input
-  else
-    fail ArgumentError.new(
-      &quot;Cannot process #{input.class} only String or Hash&quot;)
-  end
-  LocalTweet.new tweet_hash
-end
-{% endcodeblock %}</p>
+<p>This is what I did which caused me to write this as penance.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">local_tweet_object</span> <span class="n">input</span>
+  <span class="n">tweet_hash</span> <span class="o">=</span> <span class="k">case</span> <span class="n">input</span><span class="o">.</span><span class="n">class</span> <span class="c1"># the screw-up</span>
+  <span class="k">when</span> <span class="nb">String</span>
+    <span class="no">MultiJson</span><span class="o">.</span><span class="n">decode</span> <span class="n">input</span>
+  <span class="k">when</span> <span class="no">Hash</span>
+    <span class="n">input</span>
+  <span class="k">else</span>
+    <span class="nb">fail</span> <span class="no">ArgumentError</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+      <span class="s2">&quot;Cannot process </span><span class="si">#{</span><span class="n">input</span><span class="o">.</span><span class="n">class</span><span class="si">}</span><span class="s2"> only String or Hash&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="no">LocalTweet</span><span class="o">.</span><span class="n">new</span> <span class="n">tweet_hash</span>
+<span class="k">end</span>
+</pre>
+</div>
 
 <p>This code was raising the following error.</p>
 
@@ -159,54 +163,57 @@ Again, we think &quot;this shouldn&#39;t be an issue, if it&#39;s good enough fo
 should be fine for <code>===</code>.&quot; But <code>===</code> behaves specially for certain types in Ruby
 such as Classes, Arrays, and as we saw before, Ranges.</p>
 
-<p>For simple scalar values <code>===</code> acts like you expect.
-{% codeblock %}
-12 === 12 #=&gt; true
-12 === 13 #=&gt; false
-:rats === :rats #=&gt; true
-&quot;pens&quot; === &quot;pens&quot; #=&gt; true
-&quot;space&quot; === &quot;fact&quot; #=&gt; false
-{% endcodeblock %}</p>
+<p>For simple scalar values <code>===</code> acts like you expect.</p>
+<div class="highlight"><pre><span class="mi">12</span> <span class="o">===</span> <span class="mi">12</span> <span class="c1">#=&gt; true</span>
+<span class="mi">12</span> <span class="o">===</span> <span class="mi">13</span> <span class="c1">#=&gt; false</span>
+<span class="ss">:rats</span> <span class="o">===</span> <span class="ss">:rats</span> <span class="c1">#=&gt; true</span>
+<span class="s2">&quot;pens&quot;</span> <span class="o">===</span> <span class="s2">&quot;pens&quot;</span> <span class="c1">#=&gt; true</span>
+<span class="s2">&quot;space&quot;</span> <span class="o">===</span> <span class="s2">&quot;fact&quot;</span> <span class="c1">#=&gt; false</span>
+</pre>
+</div>
 
-<p>And we know how <code>===</code> treats ranges
-{% codeblock %}
-(8..64) === 32 #=&gt; true
-{% endcodeblock %}
-But note that
-{% codeblock %}
-(8..64) === (8..64) #=&gt; false
-{% endcodeblock %}</p>
+<p>And we know how <code>===</code> treats ranges</p>
+<div class="highlight"><pre><span class="p">(</span><span class="mi">8</span><span class="o">.</span><span class="n">.</span><span class="mi">64</span><span class="p">)</span> <span class="o">===</span> <span class="mi">32</span> <span class="c1">#=&gt; true</span>
+</pre>
+</div>
 
-<p>Suddenly!
-{% codeblock %}
-Integer === 12 #=&gt; true!
-{% endcodeblock %}
-waitaminute.. what?</p>
+<p>But note that</p>
+<div class="highlight"><pre><span class="p">(</span><span class="mi">8</span><span class="o">.</span><span class="n">.</span><span class="mi">64</span><span class="p">)</span> <span class="o">===</span> <span class="p">(</span><span class="mi">8</span><span class="o">.</span><span class="n">.</span><span class="mi">64</span><span class="p">)</span> <span class="c1">#=&gt; false</span>
+</pre>
+</div>
+
+<p>Suddenly!</p>
+<div class="highlight"><pre><span class="nb">Integer</span> <span class="o">===</span> <span class="mi">12</span> <span class="c1">#=&gt; true!</span>
+</pre>
+</div>
+
+<p>waitaminute.. what?</p>
 
 <p>So Ruby can tell that <code>12</code> is a type of Integer and thus <code>===</code> can be described
 partially as an includes and typeof operator. But there are some further
-gotchas.
-{% codeblock %}
-[ 1, 2, 3 ] === 1#=&gt; true
-[ 1, 2, 3 ] === [ 1, 2, 3 ]                         #=&gt; true
-[ 1, 2, 3 ] === [ 1, 2 ]                            #=&gt; false
-{ :foo =&gt; :bar } === { :foo =&gt; :bar }               #=&gt; true
-{ :foo =&gt; :bar } === :foo                           #=&gt; false
-{ :foo =&gt; :bar, :baz =&gt; :qux } === { :foo =&gt; :bar } #=&gt; false
-{% endcodeblock %}</p>
+gotchas.</p>
+<div class="highlight"><pre><span class="o">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="o">]</span> <span class="o">===</span> <span class="mi">1</span><span class="c1">#=&gt; true</span>
+<span class="o">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="o">]</span> <span class="o">===</span> <span class="o">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="o">]</span>                         <span class="c1">#=&gt; true</span>
+<span class="o">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="o">]</span> <span class="o">===</span> <span class="o">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">]</span>                            <span class="c1">#=&gt; false</span>
+<span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span> <span class="p">}</span> <span class="o">===</span> <span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span> <span class="p">}</span>               <span class="c1">#=&gt; true</span>
+<span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span> <span class="p">}</span> <span class="o">===</span> <span class="ss">:foo</span>                           <span class="c1">#=&gt; false</span>
+<span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span> <span class="o">=&gt;</span> <span class="ss">:qux</span> <span class="p">}</span> <span class="o">===</span> <span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span> <span class="p">}</span> <span class="c1">#=&gt; false</span>
+</pre>
+</div>
 
 <p><code>===</code>&#39;s behavior isn&#39;t completely intuitive even within Ruby&#39;s standard Classes.
 Which brings us (finally) back around to my original error.
 <code>Hash === Hash #=&gt; false</code></p>
 
-<p>The fix is simple, just change
-{% codeblock %}
-case input.class
-{% endcodeblock %}
-to
-{% codeblock %}
-case input
-{% endcodeblock %}</p>
+<p>The fix is simple, just change</p>
+<div class="highlight"><pre><span class="k">case</span> <span class="n">input</span><span class="o">.</span><span class="n">class</span>
+</pre>
+</div>
+
+<p>to</p>
+<div class="highlight"><pre><span class="k">case</span> <span class="n">input</span>
+</pre>
+</div>
 
 <p>I posted on identi.ca a friendly notice about this easy mistake and was asked to
 provide clarification. So here, just over 24 hours late, it is. The full source
