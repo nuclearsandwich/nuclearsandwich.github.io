@@ -63,8 +63,8 @@ div.content {
 	margin: auto;
 	background-color: #dedede;
 	color: #2e2e2e;
-	padding: 4em;
-	width: 75%;
+	padding: 4em 12em;
+	width: 55%;
 }
 
 p.copyright {
@@ -82,6 +82,7 @@ pre {
 	border: 3px #6a6a6a solid;
 	border-radius: 30px;
 	font-family: 'Anonymous Regular', monospace;
+	font-size: 90%;
 }
 
 div.article-link h1 {
