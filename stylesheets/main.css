@@ -14,8 +14,8 @@ header.page, nav, footer {
 
 header.page {
 	background-image: -webkit-linear-gradient(#5e2242, #47092E);
-	/* background-image: -moz-linear-gradient(#47092E, #7e426e); */
-	/* background-image: linear-gradient(black, #47092E); */
+	background-image: -moz-linear-gradient(#5e2242, #47092E);
+	background-image: linear-gradient(#5e2242, #47092E);
 	color: #c1c1c1;
 	font-family: 'Sansumi Bold', sans-serif;
 	font-size: 120%;
