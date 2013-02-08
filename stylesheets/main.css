@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	background: url('/images/px_by_Gre3g.png') repeat black;
 	font-family: 'Bitter Regular', serif;
@@ -9,16 +13,23 @@ header.page, nav, footer {
 }
 
 header.page {
-	background-color: #47092E;
+	background-image: -webkit-linear-gradient(#5e2242, #47092E);
+	/* background-image: -moz-linear-gradient(#47092E, #7e426e); */
+	/* background-image: linear-gradient(black, #47092E); */
 	color: #c1c1c1;
 	font-family: 'Sansumi Bold', sans-serif;
 	font-size: 120%;
 	padding: 2.5em 1em;
 }
 
+header h1 {
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
 header h2 {
-	color: #6a6a6a;
+	color: #6e6e6e;
 	font-size: 110%;
+	text-shadow: 0 1px 1px rgba(255, 255, 239, 0.1);
 }
 
 a {
@@ -64,7 +75,7 @@ div.content {
 	background-color: #dedede;
 	color: #2e2e2e;
 	padding: 4em 12em;
-	width: 55%;
+	width: 80%;
 }
 
 p.copyright {
