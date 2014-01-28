@@ -93,6 +93,11 @@ div.content {
 	color: #2e2e2e;
 }
 
+footer {
+	border-top: 1px solid #a1a1a1;
+}
+
+
 p.copyright, p.copyright a {
 	color: #6a6a6a;
 }
