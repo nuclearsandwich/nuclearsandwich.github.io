@@ -3,7 +3,7 @@
 }
 
 body {
-	background: url('/images/px_by_Gre3g.png') repeat black;
+	background-color: #f5f5e4;
 	font-family: 'Fauna One Regular', serif;
 }
 
@@ -26,26 +26,25 @@ header.page, nav, footer {
 }
 
 header.page {
-	background-image: -webkit-linear-gradient(#5e2242, #47092E);
-	background-image: -moz-linear-gradient(#5e2242, #47092E);
-	background-image: linear-gradient(#5e2242, #47092E);
-	border-bottom: 3px solid #222;
-	border-right: 3px solid #222;
+	background-color: #874789;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	color: #c1c1c1;
-	font-family: 'Quicksand Regular', sans-serif;
 	font-size: 120%;
 	padding: 1em 1em;
 	margin-bottom: 1em;
 }
 
-header h1 {
+header.page h2 {
+	color: #aaa;
+}
+
+h1 {
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-header h2 {
-	color: #6e6e6e;
+h2 {
+	color: #6a6a6a;
 	font-size: 110%;
 	text-shadow: 0 1px 1px rgba(255, 255, 239, 0.1);
 }
@@ -65,51 +64,38 @@ a:visited {
 }
 
 nav {
-	text-align: center;
 	margin: 0 auto;
-	height: 2em;
+	font-size: 150%;
 }
 
 nav ul {
+	margin: 0;
+	padding: 0;
+	font-family: "Quicksand Regular";
 	list-style: none;
-	text-align: center;
+	text-align: left;
 }
 
 nav a {
-	color: black;
 	text-decoration: none;
-	display: block;
-	width: 6em;
 	line-height: 1.5em;
 }
 
-nav ul li {
-	background-color: #f5f5f5;
-	border-bottom: 1px solid #c1c1c1;
-	border-right: 1px solid #c1c1c1;
+nav li {
 	display: inline-block;
-	margin: 0 10px;
+	margin: 0 auto;
+	margin-right: 70px;
 }
 
 
 div.content {
 	margin: auto;
-	background-color: #dedede;
-	border-bottom: 3px solid #222;
-	border-right: 3px solid #222;
-	border-radius: 10px;
 	color: #2e2e2e;
-	padding: 4em 12em;
 }
 
-p.copyright {
-	color: #c1c1c1;
+p.copyright, p.copyright a {
+	color: #6a6a6a;
 }
-
-p.copyright a {
-	color: #c1c1c1;
-}
-
 
 pre {
 	background-color: #181818;
@@ -130,5 +116,5 @@ div.article-link h2 {
 
 div.article-link {
 	margin-top: 30px;
-	border-bottom: solid 2px #c1c1c1;
-	border-right: solid 2px #c1c1c1;
+	border-bottom: solid 2px #6a6a6a;
+	border-right: solid 2px #6a6a6a;
