@@ -4,7 +4,7 @@
 
 body {
 	background-color: #f5f5e4;
-	font-family: 'Fauna One Regular', serif;
+	font-family: 'Sanchez', serif;
 }
 
 .site-container {
@@ -26,7 +26,7 @@ header.page, nav, footer {
 }
 
 header.page {
-	background-color: #874789;
+	background-color: #99a966;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	color: #f5f5e4;
@@ -36,7 +36,7 @@ header.page {
 }
 
 header.page h2 {
-	color: #aaa;
+	color: #dcdbdb;
 }
 
 h1 {
@@ -69,22 +69,24 @@ nav {
 }
 
 nav ul {
+	width: 100%;
 	margin: 0;
 	padding: 0;
-	font-family: "Quicksand Regular";
+	font-family: "Lato", "Helvetica", sans-serif;
 	list-style: none;
-	text-align: left;
+	text-align: center;
 }
 
 nav a {
 	text-decoration: none;
+	font-weight: 400;
 	line-height: 1.5em;
 }
 
 nav li {
 	display: inline-block;
-	margin: 0 auto;
-	margin-right: 70px;
+	margin: auto;
+	width: 19%;
 }
 
 
@@ -107,7 +109,7 @@ pre {
 	padding: 30px;
 	border: 3px #6a6a6a solid;
 	border-radius: 30px;
-	font-family: 'Anonymous Regular', monospace;
+	font-family: 'Anonymous Pro', "Cousine", "Consolas", monospace;
 	font-size: 90%;
 }
 
@@ -123,3 +125,4 @@ div.article-link {
 	margin-top: 30px;
 	border-bottom: solid 2px #6a6a6a;
 	border-right: solid 2px #6a6a6a;
+}
