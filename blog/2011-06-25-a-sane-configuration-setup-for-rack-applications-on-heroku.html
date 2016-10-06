@@ -39,18 +39,14 @@ problem which I regretfully forgot to report back at the time.  Numbers. In
 Yaml, numbers are actually numbers. In the environment, everything is a string.
 We didn&#39;t realize this until a couple months later when we introduced a limit
 constant.</p>
-<div class="highlight"><pre><span class="n">MAX_VIDEOS_IN_TRENDING</span><span class="p">=</span>100
-</pre>
-</div>
-
+<div class="highlight"><pre><span class="vg">MAX_VIDEOS_IN_TRENDING</span><span class="o">=</span><span class="il">100</span>
+</pre></div>
 <p>In our local yml file everything is peaches and gravy. Well as you can imagine
 we deploy to staging and suddenly everything is borrken. </p>
 
 <h3>The Error:</h3>
 <div class="highlight"><pre><span class="n">ArgumentError</span><span class="o">:</span> <span class="n">comparison</span> <span class="n">of</span> <span class="n">Fixnum</span> <span class="k">with</span> <span class="n">String</span> <span class="n">failed</span>
-</pre>
-</div>
-
+</pre></div>
 <h3>The Fix:</h3>
 <div class="highlight"><pre><span class="c1"># config/setup.rb</span>
 <span class="c1"># ...</span>
@@ -63,9 +59,7 @@ we deploy to staging and suddenly everything is borrken. </p>
 <span class="k">end</span>
 
 <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">freeze</span>
-</pre>
-</div>
-
+</pre></div>
 <p>Rather horrid isn&#39;t it? I don&#39;t know of a better way, aside from hard-coding the
 names of your settings which are meant to be numeric. If you have floating point
 values you can make a similar pass for floats. This was originally suggested by
@@ -140,9 +134,7 @@ using Ruby&#39;s <code>ENV</code> hash.</p>
     <span class="vi">@still_alive</span> <span class="o">=</span> <span class="kp">true</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <p>But then this also has to work locally! So you need to do somethig like
 this:</p>
 <div class="highlight"><pre><span class="c1">#!ruby</span>
@@ -151,9 +143,7 @@ this:</p>
     <span class="vi">@still_alive</span> <span class="o">=</span> <span class="kp">true</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <p>Alternatively, you could set up all these environment variables using a
 rake or thor task before launching your app but who wants to deal with
 that? My favorite solution to a problem is a coding solution.</p>
@@ -212,9 +202,7 @@ Namely <code>Saneconf</code> Our skeleton looks like this:</p>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <p>That looks cool and all, but what the hell is <code>config/setup.rb</code>? Answer: It&#39;s
 where the magic happens, let&#39;s go take a look:</p>
 <div class="highlight"><pre><span class="c1">#!ruby</span>
@@ -253,9 +241,7 @@ where the magic happens, let&#39;s go take a look:</p>
 <span class="k">end</span>
 
 <span class="no">Saneconf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">freeze</span>
-</pre>
-</div>
-
+</pre></div>
 <p>All this does is check for the existence of a <code>settings.yml</code> and load  it&#39;s
 values into our (currently) empty configuration hash using an  in-place
 <code>#merge!</code>. The reason we do this is because we very  purposefully didn&#39;t supply

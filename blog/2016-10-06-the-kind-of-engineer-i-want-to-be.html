@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/stylesheets/normalize.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,400italic|Sanchez:400italic,400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/stylesheets/main.css"/>
+    <link rel="stylesheet" href="/stylesheets/twemoji-awesome.css"/>
+    <link rel="stylesheet" href="/stylesheets/pygments.css"/>
+    <title>The kind of engineer I want to be</title>
+  </head>
+  <body>
+    <div class="site-container">
+      <header class="page">
+        <h1>nuclearsandwich's</h1>
+        <h2>Mad scribblings and inexpert musing</h2>
+      </header>
+      <nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="https://github.com/nuclearsandwich">GitHub</a></li>
+    <li><a href="https://twitter.com/nuclearsandwich">Twitter</a></li>
+  </ul>
+</nav>
+
+      <div class="content">
+        <article>
+  <header>
+    <h1>The kind of engineer I want to be</h1>
+    <h2>published:  6 Oct 2016 10:10:00AM</h2>
+  </header>
+  <p>Some people make a lot of bother about the distinction between programmers, developers, and software engineers.
+I don&#39;t much care to because even if you could present me with three disjoint definitions for the three terms I&#39;m reasonably certain that none would be individually possible without the application of the other two.
+Software engineers develop applications by writing programs.
+Programmers solve problems applying software engineering principles.
+I can shuffle all three together around to build a host of statements that all boil down to a tautology.
+The kind of engineer I want to be is also the kind of programmer I want to be, but I picked the term engineer because it&#39;s the title of the position I&#39;ll be applying for at most organizations.</p>
+
+<h2>I&#39;ll be collaborative.</h2>
+
+<p>Collaboration has been a key aspect of computing for me since childhood days making Pong clones with my dad.
+I enjoy pair programming although it&#39;s been hard finding great tools for remote pairing and even harder coordinating across timezones and work schedules, so it&#39;s not the only trick in my bag.
+I think pairing is most effective when there&#39;s a concrete objective and a flexible but still explicit time box.
+Code review&#39;s best results come about when it is treated as an asynchronous pairing session rather than as an alternating propose/accept cycle.</p>
+
+<p>Collaboration doesn&#39;t stop with my fellow engineers.
+Building software collaboratively mandates empathy and respect for a project&#39;s writers, testers, administrative staff, and audience.</p>
+
+<p>There&#39;s no replacement for working with people who are good at what they do.</p>
+
+<h2>I&#39;ll be resilient</h2>
+
+<p>Bugs and mistakes are commonplace, but that doesn&#39;t subdue the frustration at stray commas and other errors as basic and more complex than that.
+In my experience building software relies on momentum, which feeds on a good attitude and preys on frustration.
+There&#39;s a going trend in software engineering to be disparaging of what we do and how we do it.
+Satirical posts about change fatigue and even change fatigue-fatigue are featured monthly in our discourse.
+I definitely frequent this place, and like to joke about chucking my laptop in the river or the fact that I periodically check the price of goats.
+But those moments should pass and I can&#39;t even recount the number of times that stepping away from the computer played a crucial role in solving the problem.
+One of the reasons I enjoy working remotely is that when a problem frustrates I can do the dishes, sweep the floor, pet the cat, or go out for coffee.
+When I&#39;m at an office I&#39;ll make coffee or tea, find a window and stare, or walk around the block.
+I come back in and a fresh look at the problem
+The first lesson I remember learning in programming was &quot;If you can&#39;t solve the problem, then change the problem&quot;.
+The nature of computing is that potential solutions reveal themselves to different statements of the problem at hand.
+I periodically find myself <a href="https://blog.codinghorror.com/rubber-duck-problem-solving/">&quot;rubber ducking&quot;</a> with the cat or just testing different expressions of the problem on paper or in an interactive scripting environment to tease out new thoughts.
+Stepping away from a problem is an acknowledgement of its challenge and not an acknowledgement of defeat.</p>
+
+<h2>I&#39;ll be fallible</h2>
+
+<p>I am definitely going to mess up.
+I&#39;ve introduced bugs, some silly, some nasty.
+I&#39;ve lost data temporarily, though thankfully not permanently.
+I don&#39;t enjoy screwups but without acknowledging them I can&#39;t grow from them, and if they&#39;re going to be inevitable I might as well explain how I deal with them:</p>
+
+<ol>
+<li><p>Identify and specify the error.
+Ideally this is done in an automated fashion with software monitoring and reporting but this can sometimes only guide you toward the exact error specification.</p></li>
+<li><p>Mitigate the error.
+In web applications this sometimes means temporarily deploying a quick fix or if there&#39;s no apparent solution, reverting to a previous version.
+I prefer to make my reverts explicit so I have a permanent record of them.
+If the quick fix or revert does not halt the error, it may be necessary to jump down to the next step in order to gather more information before continuing to create a fix.</p></li>
+<li><p>Determine why the error occurred and what causes it to manifest.
+Errors that occur unconditionally rarely escape into production.
+Find the subset of situations that manifest this error and determine what they have in common.
+Knowing this commonality can sometimes be necessary to finding out exactly how to mitigate the error.</p></li>
+<li><p>Resolve any long term effects of the error.
+This could involve restoring information from backups or queueing failed tasks to be performed again.
+If there was no long term effects, I still like to provide a quick update to the affected individuals.</p></li>
+<li><p>Retrospect on how this error made it to production or release or QA or whatnot.
+I&#39;m a big fan of the <a href="https://codeascraft.com/2012/05/22/blameless-postmortems/">blameless post-mortem</a>, particularly the timeline of events from the introduction of the cause, to first reports of the error, through mitigation, and resolution.
+This format highlights the process improvements or additional testing necessary to prevent regressions and similar errors from showing up in the future.</p></li>
+</ol>
+
+<h2>I&#39;ll be curious</h2>
+
+<p>I like knowing what&#39;s going on.
+If there&#39;s an aspect of a system I&#39;m unfamiliar with but want or need to change, I like to start by documenting what it does currently.
+This is a good checksum of both my understanding and the system behavior directly.
+I don&#39;t like the mindset of just rebooting machines until they work.
+If a problem occurs twice it&#39;s &quot;recurring&quot; and I want to establish why.
+I debug and trouble shoot by continuously forming hypotheses that can be quickly verified or refuted rather than assuming that my instinct about a problem is immediately correct.</p>
+
+<p>I also really enjoy picking up new things.
+It&#39;s impossible to pretend I have any idea what it&#39;s like to be a beginner again, but picking up new tools or languages gives me a small taste of that and I find it really healthy and humbling.</p>
+
+<p>Being an involved participant in all aspects of an organization is important to me.
+That isn&#39;t to say I&#39;ll take on everyone&#39;s job; rather, I&#39;ll seek to appreciate the skill with which they perform their duties.</p>
+
+<h2>I&#39;ll be a mentor and a learner</h2>
+
+<p>I don&#39;t like hoarding knowledge.
+If I know something that would be useful to other members of my team I share it openly.
+As a youth I tended toward know-it-allism and nowadays I try to only provide situation-specific solicited advice.
+I&#39;ve had a fair number of instructors who tried to hold back some knowledge, so I&#39;d always be beholden to them.
+That really disappoints me; I love it when people I&#39;m sharing knowledge excel without my assistance.</p>
+
+<p>You cannot really teach without being open to learning at the same time.
+I really enjoy reading technical books and blog posts, and am getting better at reading technical papers, which for some reason have always been difficult for me even when the subject matter is fascinating.</p>
+
+<p>I have an internal mental process for determining when to ask for help that weighs the benefit of struggling with a problem to cement its solution with the time sensitivity of completing the task and the availability of those around me.
+I don&#39;t dislike asking for help and I sink more time into personal projects than most work-related ones before soliciting for assistance.
+I&#39;m happy to receive a &quot;Read the fine manual&quot; response, especially from someone who has worked with the manual and knows my answer will be there.</p>
+
+<p><hr class="notitle-break"></p>
+
+<p>So that&#39;s me.
+This article doesn&#39;t really get into my technical proclivities like what languages and tools I like using.
+That is purposeful because even to me that&#39;s secondary to the approach and attitude.</p>
+
+<p>If I sound like the type of engineer you want on your team, <a href="mailto:steven+theengineer@nuclearsandwich.com">let me know</a>!</p>
+
+</article>
+
+      </div>
+
+      <footer>
+        <p class="copyright">
+          Copyright 2015 Steven! Ragnarök.
+          All rights reserved.
+
+          View the source to
+          <a href="https://github.com/nuclearsandwich/nuclearsandwich.com">
+            this site
+          </a>
+          on GitHub.
+
+          <a href="/credits.html">Credits</a>.
+        </p>
+      </footer>
+    </div>
+    <script type="text/javascript">var _gauges = _gauges || [];
+      (function() {
+       var t   = document.createElement('script');
+       t.type  = 'text/javascript';
+       t.async = true;
+       t.id    = 'gauges-tracker';
+       t.setAttribute('data-site-id', '4f7a870c613f5d740a000178');
+       t.src = '//secure.gaug.es/track.js';
+       var s = document.getElementsByTagName('script')[0];
+       s.parentNode.insertBefore(t, s);
+       })();
+</script>
+  </body>
+</html>

@@ -50,9 +50,7 @@ it returns a value.</p>
 <span class="k">when</span> <span class="ss">:then</span>
   <span class="n">conditional_variable</span> <span class="o">=</span> <span class="ss">:another</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <p>The that isn&#39;t ideal for a number of reasons. <code>conditional_variable</code> is set
 visibly three times which as any freshman can tell you is frowned upon.
 Academics have stuffier reasons for it but the most important is that it
@@ -67,9 +65,7 @@ one. We can take advantage of Ruby&#39;s case-when <em>expression</em> with this
                        <span class="k">else</span>
                          <span class="ss">:some_default_value</span>
                        <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <p>Doesn&#39;t that look nicer? <code>conditional_variable</code> is only set once and the
 intent is clear, we want the value to depend on <code>our_condition</code>.</p>
 
@@ -89,9 +85,7 @@ along the sides of a red carpet where only <code>true</code> can be admitted.</p
 <div class="highlight"><pre><span class="k">if</span> <span class="n">approaching_guy</span> <span class="o">==</span> <span class="kp">true</span>
   <span class="nb">puts</span> <span class="s2">&quot;That necklace is classic&quot;</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <blockquote>
 <p>...
 [This case-when statement]</p>
@@ -104,9 +98,7 @@ along the sides of a red carpet where only <code>true</code> can be admitted.</p
 <span class="k">else</span>
   <span class="s2">&quot;No information about this year.&quot;</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <blockquote>
 <p>is identical to</p>
 </blockquote>
@@ -117,9 +109,7 @@ along the sides of a red carpet where only <code>true</code> can be admitted.</p
 <span class="k">else</span>
   <span class="s2">&quot;No information about this year.&quot;</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <blockquote>
 <p>The <strong>triple equals</strong> is a length of velvet rope, checking values much like
 the <strong>double equals</strong>. It&#39;s just: the triple equals is a longer rope and it
@@ -148,9 +138,7 @@ is good enough in some cases, such as the timeline I put together earlier.</p>
   <span class="k">end</span>
   <span class="no">LocalTweet</span><span class="o">.</span><span class="n">new</span> <span class="n">tweet_hash</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <p>This code was raising the following error.</p>
 
 <p><code>ArgumentError: I don&#39;t want Hash give me only String or Hash</code>
@@ -167,24 +155,16 @@ such as Classes, Arrays, and as we saw before, Ranges.</p>
 <span class="ss">:rats</span> <span class="o">===</span> <span class="ss">:rats</span> <span class="c1">#=&gt; true</span>
 <span class="s2">&quot;pens&quot;</span> <span class="o">===</span> <span class="s2">&quot;pens&quot;</span> <span class="c1">#=&gt; true</span>
 <span class="s2">&quot;space&quot;</span> <span class="o">===</span> <span class="s2">&quot;fact&quot;</span> <span class="c1">#=&gt; false</span>
-</pre>
-</div>
-
+</pre></div>
 <p>And we know how <code>===</code> treats ranges</p>
 <div class="highlight"><pre><span class="p">(</span><span class="mi">8</span><span class="o">.</span><span class="n">.</span><span class="mi">64</span><span class="p">)</span> <span class="o">===</span> <span class="mi">32</span> <span class="c1">#=&gt; true</span>
-</pre>
-</div>
-
+</pre></div>
 <p>But note that</p>
 <div class="highlight"><pre><span class="p">(</span><span class="mi">8</span><span class="o">.</span><span class="n">.</span><span class="mi">64</span><span class="p">)</span> <span class="o">===</span> <span class="p">(</span><span class="mi">8</span><span class="o">.</span><span class="n">.</span><span class="mi">64</span><span class="p">)</span> <span class="c1">#=&gt; false</span>
-</pre>
-</div>
-
+</pre></div>
 <p>Suddenly!</p>
 <div class="highlight"><pre><span class="nb">Integer</span> <span class="o">===</span> <span class="mi">12</span> <span class="c1">#=&gt; true!</span>
-</pre>
-</div>
-
+</pre></div>
 <p>waitaminute.. what?</p>
 
 <p>So Ruby can tell that <code>12</code> is a type of Integer and thus <code>===</code> can be described
@@ -196,23 +176,17 @@ gotchas.</p>
 <span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span> <span class="p">}</span> <span class="o">===</span> <span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span> <span class="p">}</span>               <span class="c1">#=&gt; true</span>
 <span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span> <span class="p">}</span> <span class="o">===</span> <span class="ss">:foo</span>                           <span class="c1">#=&gt; false</span>
 <span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span> <span class="o">=&gt;</span> <span class="ss">:qux</span> <span class="p">}</span> <span class="o">===</span> <span class="p">{</span> <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="ss">:bar</span> <span class="p">}</span> <span class="c1">#=&gt; false</span>
-</pre>
-</div>
-
+</pre></div>
 <p><code>===</code>&#39;s behavior isn&#39;t completely intuitive even within Ruby&#39;s standard Classes.
 Which brings us (finally) back around to my original error.
 <code>Hash === Hash #=&gt; false</code></p>
 
 <p>The fix is simple, just change</p>
 <div class="highlight"><pre><span class="k">case</span> <span class="n">input</span><span class="o">.</span><span class="n">class</span>
-</pre>
-</div>
-
+</pre></div>
 <p>to</p>
 <div class="highlight"><pre><span class="k">case</span> <span class="n">input</span>
-</pre>
-</div>
-
+</pre></div>
 <p>I posted on identi.ca a friendly notice about this easy mistake and was asked to
 provide clarification. So here, just over 24 hours late, it is. The full source
 code is provided <a href="https://gist.github.com/1112335">here</a></p>

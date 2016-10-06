@@ -3,8 +3,9 @@
 }
 
 body {
-	background-color: #f5f5e4;
+	background-color: #e5f5e5;
 	font-family: 'Sanchez', serif;
+	font-size: 14pt;
 }
 
 .site-container {
@@ -26,17 +27,17 @@ header.page, nav, footer {
 }
 
 header.page {
-	background-color: #99a966;
+	background-color: #a6ffa6;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
-	color: #f5f5e4;
+	color: #2d2d2d;
 	font-size: 120%;
-	padding: 1em 1em;
+	padding: 0.25em 1em;
 	margin-bottom: 1em;
 }
 
 header.page h2 {
-	color: #dcdbdb;
+	color: #747369;
 }
 
 h1 {
@@ -44,13 +45,13 @@ h1 {
 }
 
 h2 {
-	color: #6a6a6a;
+	color: #45474a;
 	font-size: 110%;
 	text-shadow: 0 1px 1px rgba(255, 255, 239, 0.1);
 }
 
 a {
-	color: #2e2e2e;
+	color: #005179;
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -60,7 +61,7 @@ a:hover {
 }
 
 a:visited {
-	color: #6a6a6a;
+	color: #ff037e;
 }
 
 nav {
@@ -92,22 +93,22 @@ nav li {
 
 div.content {
 	margin: auto;
-	color: #2e2e2e;
+	color: #2d2d2d;
 }
 
 footer {
-	border-top: 1px solid #a1a1a1;
+	border-top: 1px solid #45474a;
 }
 
 
 p.copyright, p.copyright a {
-	color: #6a6a6a;
+	color: #45474a;
 }
 
 pre {
 	background-color: #181818;
 	padding: 30px;
-	border: 3px #6a6a6a solid;
+	border: 3px #747369 solid;
 	border-radius: 30px;
 	font-family: 'Anonymous Pro', "Cousine", "Consolas", monospace;
 	font-size: 90%;
@@ -123,6 +124,11 @@ div.article-link h2 {
 
 div.article-link {
 	margin-top: 30px;
-	border-bottom: solid 2px #6a6a6a;
-	border-right: solid 2px #6a6a6a;
+	border-bottom: solid 2px #2d2d2d;
+	border-right: solid 2px #2d2d2d;
+}
+
+hr.notitle-break {
+	margin-left: 0;
+	width: 45%;
 }

@@ -78,9 +78,7 @@ interactive <code>Rack::Test</code>.</p>
         <span class="k">end</span>
   <span class="no">Faraday</span><span class="o">::</span><span class="no">Connection</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span><span class="o">.</span><span class="n">pry</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <h2>Building the Gem</h2>
 
 <p>Pry made this really easy. So easy that later on, when I wanted to rewrite the
@@ -106,9 +104,7 @@ they default <code>~/.pryrc</code> config file loading.</p>
     <span class="kp">new</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">pry</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <p>The rest of the class is the domain specific stuff that deals with delegating to
 the Faraday connection object and building the response object. I built my own
 wrapper around Faraday&#39;s response so I could improve how they are displayed as
@@ -133,9 +129,7 @@ return values.</p>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre>
-</div>
-
+</pre></div>
 <p>It&#39;s certainly verbose but the primary function is to show you the complete
 result of an HTTP request, which it does.</p>
 
