@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/stylesheets/normalize.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,400italic|Sanchez:400italic,400|Anonymous+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/stylesheets/main.css"/>
+    <link rel="stylesheet" href="/stylesheets/twemoji-awesome.css"/>
+    <link rel="stylesheet" href="/stylesheets/pygments.css"/>
+    <title>Teaching my dad (who taught me how to program) how to program</title>
+  </head>
+  <body>
+    <div class="site-container">
+      <header class="page">
+        <h1>nuclearsandwich's</h1>
+        <h2>Mad scribblings and inexpert musing</h2>
+      </header>
+      <nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="https://github.com/nuclearsandwich">GitHub</a></li>
+    <li><a href="https://twitter.com/nuclearsandwich">Twitter</a></li>
+  </ul>
+</nav>
+
+      <div class="content">
+        <article>
+  <header>
+    <h1>Teaching my dad (who taught me how to program) how to program</h1>
+    <h2>published: 12 Oct 2016 07:10:00PM</h2>
+  </header>
+  <p>I&#39;ve had some extra time to spend with my family lately, and one of the things I&#39;ve done with that is finally indulge my dad in collaborating on a software project.
+He taught me how to program ages ago, I remember working on a PONG clone in Visual Basic in fifth grade or so but I know there were smaller projects before that.
+He left the industry while I was still young and hasn&#39;t been a full-time software developer since sometime around 25ish years ago.</p>
+
+<p>We&#39;ve talked a few times about &quot;the bug&quot;, that desire to get back into programming stuff, but there&#39;s a lot that&#39;s happened in computer-land since he was last writing software.
+He has a particularly tough time with the operational and administrative aspects of contemporary computing, which is why I didn&#39;t want to just send him a link to http://www.qbasic.net/ and tell him to have fun.
+These talks often lead to brainstorming potential projects and finally one of the projects seemed to hit the right mix of fun and achievable with our combination of expertise.</p>
+
+<h2>The project</h2>
+
+<p>He was getting a new exercise machine, a fancy elliptical trainer, that could send workout data and receive commands over a serial connection.
+The machine he was getting didn&#39;t have any native data storage or analysis tracking as adding that one was going to be super expensive, so instead we talked about ways to collect that ourselves and present it on some other screen in the household.</p>
+
+<p>Choosing the technology for this project required a lot of thought.
+While I had a good chunk of time set aside for one week, there was going to be continual work on this for a while and it needed to use tools he could leverage search engines and online documentation for when I was unavailable.
+It isn&#39;t fair to either of us for him to be unable to work without me.</p>
+
+<p>I also wanted it to be something that I was very comfortable with so that when he does get stymied I can jump in fairly easily.
+The first decision made was selecting SQLite as the actual storage mechanism since it&#39;s the right size tool for this job.</p>
+
+<p>Sending him the documentation for SQLite got me the response below, which I felt worth a chuckle.</p>
+
+<blockquote>
+<p>&quot;I like the first line description of sqlite (self-contained, serverless, zero-config)&quot;</p>
+</blockquote>
+
+<p>The second decision was to use a Raspberry Pi running Linux as the actual data collection and storage device.
+Because of the way this machine works the data collection device needs to be always-on and keeping a serial connection between a full-size desktop workstation and the exercise machine open or dedicating an x86 server to the task of collecting data were not going to satisfy.</p>
+
+<p>With all the data in a SQLite table on a Raspberry Pi, I figured it would be better to use web-based based presentation and interaction.
+This avoids the problem of needing to transfer the table to another machine for interaction (backups aside) and of trying to use a non-web-based native GUI toolkit, something I haven&#39;t worked with very much at all recently.
+Opting for a web GUI has the added benefit of being able to access the interface from any number of devices around the house, rather than dedicating one device to the application or building the application for the myriad target devices of the household.</p>
+
+<p>Okay so we&#39;re building an application on a Linux system with a web interface, we have a data storage mechanism picked out and now we get to &quot;pick a language&quot;.
+There&#39;s few contemporary languages that lack the facility to create web views the knack here will be to select one that either we can learn together, or that I know I can teach well.
+Since this is my dad&#39;s first substantial foray into programming for some time, I want to make sure it&#39;s a <em>fun</em> experience.
+He already knows that programming is as rewarding as it is challenging; Hell, he&#39;s the one who showed that to me.
+But we&#39;re both busy with our own business and I wanted to make sure that like a good game, there&#39;s always momentum and new challenges.
+Knowing that he wanted something akin to BASIC my first inclination was Ruby.
+I know its libraries for web applications considerably well and <a href="http://sinatrarb.com">Sinatra&#39;s</a> online documentation is comprehensive to an unparalleled degree among modern tools.
+A primary concern was Ruby&#39;s performance on a Raspberry Pi model B but after some quick testing I was able to confirm that it would work well enough for our purposes.</p>
+
+<h2>The development environment</h2>
+
+<p>When I was transitioning from a degree in music to one in computer science and mathematics, I dared my dad to take the introductory programming classes with me.
+The nagware version of TextPad was the editor we used in those classes and it remains his primary programming editor.
+Any familiarity is a victory when learning something new so the last thing I wanted to do was shake him up with a new editor just because something like Notepad++ or VS Code would be &quot;better&quot;.
+I do want to phase it in at some point, but I want to wait until TextPad is one of the things holding him back.</p>
+
+<p>Since we&#39;re developing on his Windows desktop, we needed a mechanism to transfer source files from Windows to the Pi.
+Given my experience, Git via SSH is a natural choice, but again, we&#39;re trying to limit the <em>new</em> and focus on having fun making stuff so we instead use WinSCP, which he already has installed to handle sftp and scp needs for his business.
+I did surreptitiously initialize a Git repository on the Pi and commit as we went so that when the time came to start using Git as the transport method, that would be set up and we&#39;d have some history.</p>
+
+<p>On the Pi itself, we installed <code>tmux</code> so that we could both SSH in and share typing responsibility.
+This also keeps the data collection and web services running even when not connected to the machine via SSH without having to discuss process supervision.</p>
+
+<p>We started the week before the exercise machine was due to arrive, so to test the program we connected it via null-modem cable to an RS232 serial port on the desktop and used <a href="http://realterm.sourceforge.net/index.html">realterm</a> to send pre-written test data as if the desktop was the machine.</p>
+
+<h2>Getting rolling...</h2>
+
+<p>The first night was entirely dedicated to reading and writing to the serial port from Ruby using the <a href="https://github.com/hybridgroup/rubyserial">rubyserial</a> library, an FFI-based library.
+We did not spend any time discussing objects, Ruby idioms, or anything that wasn&#39;t necessary to move forward.
+The entire program ran in a <code>loop do .. end</code> block with case expressions and nested while loops for flow control.
+It was nearly two in the morning when we were able to correctly read and decode a string of bytes from the (simulated) machine.</p>
+
+<h2>The next sessions</h2>
+
+<p>The next few times we got together would start with questions based on he&#39;d done in the intervening time.
+These ranged from &quot;what Ruby construct makes this work?&quot; to &quot;what the hell is up with this thing I found on StackOverflow?&quot;
+He figured out how to create methods (though we&#39;re still calling them &quot;subroutines&quot; not methods or functions) on the main object.
+By the end of the weekend, we we&#39;re able to have full conversations with the simulated machine but weren&#39;t actually storing the data in the database yet.</p>
+
+<p>Rather than manually create the table schema or pull in an ORM, I opted to throw together a very simple sqlite-focused migrator and database access module.
+The intention was to introduce the ideas of versioned schema, Ruby blocks constructs, and method bucket modules but this proved to be a lot all at once so the explanations were very hand-wavy.
+Still, our database schema is defined in versioned software so that&#39;s a win.
+We whipped up a quick class to encapsulate a single workout session and store it in the database but again, did not get deep into the discussion of classes.</p>
+
+<p><hr class="notitle-break"></p>
+
+<p>After that first week, my visit home ended and the exercise machine arrived.
+By the time I flew home we were reading basic information about workouts from the database but in a pretty ugly way.</p>
+
+<p>We still hadn&#39;t gotten into an in-depth discussion of Ruby idioms nor encapsulated any of our early work into library classes to be used later.</p>
+
+<p>This post is getting long and there&#39;s more to talk about with the remote pairing, so here&#39;s as good a place as any to put the <em>TO BE CONTINUED</em>.
+The important thing is that both of us are still having fun and building software that you get to interact with is ultimately fulfilling.</p>
+
+</article>
+
+      </div>
+
+      <footer>
+        <p class="copyright">
+          Copyright 2016 Steven! Ragnarök.
+          All rights reserved.
+
+          View the source to
+          <a href="https://github.com/nuclearsandwich/nuclearsandwich.com">
+            this site
+          </a>
+          on GitHub.
+
+          <a href="/credits.html">Credits</a>.
+        </p>
+      </footer>
+    </div>
+    <script type="text/javascript">var _gauges = _gauges || [];
+      (function() {
+       var t   = document.createElement('script');
+       t.type  = 'text/javascript';
+       t.async = true;
+       t.id    = 'gauges-tracker';
+       t.setAttribute('data-site-id', '4f7a870c613f5d740a000178');
+       t.src = '//secure.gaug.es/track.js';
+       var s = document.getElementsByTagName('script')[0];
+       s.parentNode.insertBefore(t, s);
+       })();
+</script>
+  </body>
+</html>

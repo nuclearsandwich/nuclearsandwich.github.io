@@ -132,3 +132,14 @@ hr.notitle-break {
 	margin-left: 0;
 	width: 45%;
 }
+
+blockquote {
+	border-left: 0.25em solid #747369;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 5px;
+	padding-left: 1em;
+	color: #747369;
+	font-size: 175%;
+	font-style: italic;
+	line-height: 1.5em;
+}
